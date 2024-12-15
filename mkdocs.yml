@@ -1,0 +1,48 @@
+site_name: Quantum & Cryptography Docs
+site_description: A collection of my learnings and projects on Quantum Computing and Cryptography.
+site_author: Your Name
+theme: 
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: pink
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: light blue
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.share
+  #logo: assets/logo.png  # Optional: Add a custom logo
+  favicon: assets/favicon.ico  # Optional: Add a favicon
+
+# Navigation structure
+nav:
+  - Home: index.md
+  - Quantum Computing:
+      - Basics: quantum/basics.md
+      - Algorithms: quantum/algorithms.md
+      - Applications: quantum/applications.md
+  - Cryptography:
+      - Fundamentals: cryptography/fundamentals.md
+      - Symmetric Cryptography: cryptography/symmetric.md
+      - Asymmetric Cryptography: cryptography/asymmetric.md
+      - Quantum Cryptography: cryptography/quantum.md
+  - Projects:
+      - Quantum Simulations: projects/quantum-simulations.md
+      - Cryptography Implementations: projects/crypto-implementations.md
+  - About Me: about.md
+
+# Plugins
+plugins:
+  - macros
+
+extra_javascript:
+  - https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML
+
+markdown_extensions:
+  - pymdownx.arithmatex
