@@ -23,6 +23,8 @@ theme:
 # Navigation structure
 nav:
   - Home: index.md
+  - Modular Algorithms:
+      - Modular Arithmetic: modular/modular_arithmetic.md
   - Quantum Computing:
       - Basics: quantum/basics.md
       - Algorithms: quantum/algorithms.md
