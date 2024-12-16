@@ -72,3 +72,16 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/pcchouCR97/mkdocs-material-tutorial
+    - icon: fontawesome/brands/twitter
+      link: https://x.com/
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/po-chih-chou-0638941ab/
+
+
+copyright: |
+  &copy; 2024 <a href="https://github.com/pcchouCR97"  target="_blank" rel="noopener">Po-Chih Chou</a>

@@ -1,20 +1,27 @@
-# Welcome to MkDocs
+# Welcome to Quantum-Cryptography
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+This is a collection of my learnings and projects on Quantum Computing and Cryptography. This page includes not only just the fundamental of *Quantum Computing* and *Cryptography*, but also give a prerequisite knowledge like Linear Algebra. More we are also discussing the Quantum-Cryptography such as post Quantum Cryptography (PQC).
 
-## Commands
+Last but not least, some `code` examples and projects are also inlcudes for the real life demonstratation.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+# Quick Guide:
+1. [Cryptography](cryptography/fundamentals.md)
+2. [Math Prerequisite](modular/modular_arithmetic.md)
+3. [Quantum](quantum/basics.md)
+4. [Projects](projects/quantum-simulations.md)
 
-## Project layout
+# Mkdocs Troubleshooting:
+if error code shows: 
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+``` py title="ERROR.py"
+ERROR   -  Config value 'theme': Unrecognised theme name: 'material'. The available installed themes are: mkdocs, readthedocs
+```
+Please makesure run the following installation in the terminal
 
-# Welcome to Quantum Cryptography Docs
-
+``` py title="python -m pip install mkdocs.py"
+python -m pip install mkdocs
+```
+and
+``` py title="python -m pip install mkdocs-material.py"
+python -m pip install mkdocs-material
+```
