@@ -26,6 +26,8 @@ nav:
   - Modular Algorithms:
       - Modular Arithmetic: modular/modular_arithmetic.md
   - Quantum Computing:
+      # - Quantum Mechanics
+      # - Pauli matrices
       - Basics: quantum/basics.md
       - Algorithms: quantum/algorithms.md
       - Applications: quantum/applications.md
@@ -48,3 +50,25 @@ extra_javascript:
 
 markdown_extensions:
   - pymdownx.arithmatex
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  
+  # Font Formatting: https://squidfunk.github.io/mkdocs-material/reference/formatting/
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+
+  # List: https://squidfunk.github.io/mkdocs-material/reference/lists/
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  # Callout: https://squidfunk.github.io/mkdocs-material/reference/admonitions/
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
