@@ -149,4 +149,12 @@ This is a Bell state representing maximum entanglement.
     $$ \lvert \psi_{post} \rangle = \lvert 00 \rangle $$
     - If the first Qubit is $\lvert 1 \rangle$, the second qubit collapses to $\lvert 1 \rangle$. The post-measurement state is 
     $$ \lvert \psi_{post} \rangle = \lvert 11 \rangle $$
-    Here, the second qubit's state depends entirely on the outcome of the first qubit, demonstrating conditional behavior.
+    Here, the second qubit's state depends entirely on the outcome of the first qubit, demonstrating conditional behavior. 
+
+The Bell state has the property that upon measuring the first qubit, one obtains two possible results: 0 with probability $\frac{1}{2}$, leaving the post-measruement state $ \lvert \psi' \rangle = \lvert 00 \rangle $, and 1 with probability $\frac{1}{2}$, leaving $ \lvert \psi' \rangle = \lvert 11 \rangle $. {==As a result, a measurement of the second qubit always gives the same result as the measurement of the first qubit==}. That's, the measurement outcomes are *correlated*. EPR’s insights were taken up and greatly improved by John Bell, who proved an amazing result: the measurement correlations in the Bell state *are stronger than could ever exist between classical systems*. (Section 2.6)
+
+we may consider a system of n qubits. The computational basis states of this system are of the form $\lvert x_{1}x_{2}...x_{n}\rangle$, and so a quantum state of such a system is specified by $2^{2}$ amplitudes.
+
+# 1.3 Quantum Computation
+Changes occurring to a quantum state can be described using the language of quantum
+computation.
