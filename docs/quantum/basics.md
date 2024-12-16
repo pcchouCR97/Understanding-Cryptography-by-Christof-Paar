@@ -47,7 +47,7 @@ When you measure only the first qubit, the system collapses based on the probabi
     $$ P(0) =  |\alpha_{00}|^2 + |\alpha_{01}|^2 $$
 
 2. Probability of measuring $\lvert 1 \rangle$:
-    $$ P(1) = |\alpha_{00}|^2 + |\alpha_{01}|^2 $$
+    $$ P(1) = |\alpha_{10}|^2 + |\alpha_{11}|^2 $$
 
 The state of the system adter the measurement depends on the outcome:
 
@@ -90,3 +90,63 @@ Here:
 - The **first qubit** is represented by the first digit of each basis stae (0 or 1).
 - The **second qubit** is represented by the second digit of each basis stae (0 or 1).
 
+Q3 Why only $\lvert 00 \rangle$ and $\lvert 01 \rangle$
+
+**When measuring only the first qubit, we are effectively collapsing the system onto the subspace where the first qubit has a definite value (0 or 1).**
+
+1. Measurement Projects the State:
+    When we measure the first qubit, the system is divided into two groups:
+    - States where the first qubit is $\lvert 0 \rangle$: $\lvert 00 \rangle$ and $\lvert 01 \rangle$
+    - States where the first qubit is $\lvert 1 \rangle$: $\lvert 10 \rangle$ and $\lvert 11 \rangle$
+    
+    Measuring the first qubit and obtaining $\lvert 0 \rangle$ projects the state into the subspace:
+
+    $$ \ Subspace \ for \ \lvert 0 \rangle : \{\lvert 00 \rangle, \lvert 01 \rangle\} $$ 
+    
+    This means we now only consider the *amplitudes* $\alpha_{00}$ and $\alpha_{01}$, which correspond to $\lvert 00 \rangle$ and $\lvert 01 \rangle$.
+
+When measuring the first qubit:
+
+1. We divide the full state into subspaces based on the first qubit's value ($\lvert 00 \rangle$ or $\lvert 01 \rangle$)
+2. Only the amplitudes of the basis states corresponding to the observed value of the first qubit contribute to the measurement outcome and post-measurement state.
+3. This is because the measurement of one qubit effectively collapses the global superposition into a subset of states consistent with the measured value.
+
+Q4 What is "Conditioning" in Quantum Mechanics?
+
+When we say a qubit's state is "conditioned" on the outcome of another qubit, it means the state of the remaining qubit (or qubits) depends on the measurement result of the first qubit. This is analogous to the concept of conditional probability in classical probability theory, but here it applies to the post-measurement quantum state.
+
+Q5: Why Is It Called "Conditioning"?
+
+The term conditioning reflects how the state of the second qubit depends on the measurement outcome of the first qubit. This dependency can be understood as follows:
+
+1. Before Measurement:
+    - The two qubits are entangled (or at least correlated) in the general superposition state $\lvert \psi \rangle$.
+    - The global state doesn't assign definite states to individual qubits, only joint probabilities (e.g., the probabilities of $\lvert 00 \rangle$, $\lvert 01 \rangle$, $\lvert 10 \rangle$, $\lvert 11 \rangle$)
+2. After Measurement of the First Qubit:
+    - The measurement result "selects" a subspace of the original state, collapsing the first qubit into a definite state ($\lvert 0 \rangle$ or $\lvert 1 \rangle$).
+    - The second qubit's state is **updated** or **conditioned** to reflect this result.
+This process is mathematically analogous to conditioning in classical probability, where:
+
+$$ P(second \ qubit) = P(second \ qubit \ | first \ qubit result)$$
+
+**Takeaway**:
+
+1.  The second qubit's state is conditioned on the first qubit being $\lvert 1 \rangle$: This means the measurement result of the first qubit (being $\lvert 1 \rangle$) determines the possible state and probabilities of the second qubit.
+2.  The first qubit's state is conditioned on the first qubit being $\lvert 1 \rangle$: This is somewhat redundant and unusual phrasing, as it simply means that the first qubit is $\lvert 1 \rangle$ after measurement. It's not really "conditioned" in the same sense since it has alreadt collapsed to a definite value.
+
+
+### *Bell state* or *EPR pair*
+Let's look into two qubit state *Bell state* or *EPR pair*,
+$$ \lvert \psi \rangle = \frac{\lvert 00 \rangle + \lvert 11 \rangle}{\sqrt 2} $$
+This is a Bell state representing maximum entanglement.
+
+1. Before Measurement:
+    - Neither qubit has a definte state.
+    - Measuring the first qubit gives $\lvert 0 \rangle$ or $\lvert 1 \rangle$, each with 50% probability.
+
+2. Measuring the first Qubit:
+    - If the first Qubit is $\lvert 0 \rangle$, the second qubit collapses to $\lvert 0 \rangle$. The post-measurement state is 
+    $$ \lvert \psi_{post} \rangle = \lvert 00 \rangle $$
+    - If the first Qubit is $\lvert 1 \rangle$, the second qubit collapses to $\lvert 1 \rangle$. The post-measurement state is 
+    $$ \lvert \psi_{post} \rangle = \lvert 11 \rangle $$
+    Here, the second qubit's state depends entirely on the outcome of the first qubit, demonstrating conditional behavior.
