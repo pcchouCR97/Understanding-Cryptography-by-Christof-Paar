@@ -6,7 +6,7 @@ Last but not least, some `code` examples and projects are also inlcudes for the 
 
 # Quick Guide:
 1. [Cryptography](cryptography/fundamentals.md)
-2. [Math Prerequisite](modular/modular_arithmetic.md)
+2. [Math Prerequisite](Math_Fundamentals/Quantum_logic_gates.md)
 3. [Quantum](quantum/basics.md)
 4. [Projects](projects/quantum-simulations.md)
 
