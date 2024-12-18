@@ -31,9 +31,10 @@ nav:
   - Quantum Computing:
       # - Quantum Mechanics
       # - Pauli matrices
-      - Basics: quantum/basics.md
+      - Basics: 
+          - Basics: quantum/basics.md
+          - Algorithms: quantum/algorithms.md
       - Quantum Computation: quantum/computation.md
-      - Algorithms: quantum/algorithms.md
       - Applications: quantum/applications.md
   - Cryptography:
       - Fundamentals: cryptography/fundamentals.md
