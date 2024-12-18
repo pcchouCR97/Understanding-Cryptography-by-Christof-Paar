@@ -17,18 +17,22 @@ theme:
     - navigation.top
     - search.highlight
     - search.share
+    - math 
   #logo: assets/logo.png  # Optional: Add a custom logo
   favicon: assets/favicon.ico  # Optional: Add a favicon
 
 # Navigation structure
 nav:
   - Home: index.md
-  - Modular Algorithms:
-      - Modular Arithmetic: modular/modular_arithmetic.md
+  - Math Fundamentals:
+      - Modular Arithmetic: Math_Fundamentals/modular_arithmetic.md
+      - Logic Gates: Math_Fundamentals/logic_gates.md
+      - Quantum Logic Gates: Math_Fundamentals/Quantum_logic_gates.md
   - Quantum Computing:
       # - Quantum Mechanics
       # - Pauli matrices
       - Basics: quantum/basics.md
+      - Quantum Computation: quantum/computation.md
       - Algorithms: quantum/algorithms.md
       - Applications: quantum/applications.md
   - Cryptography:

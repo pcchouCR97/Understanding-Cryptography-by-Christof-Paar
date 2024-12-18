@@ -155,6 +155,3 @@ The Bell state has the property that upon measuring the first qubit, one obtains
 
 we may consider a system of n qubits. The computational basis states of this system are of the form $\lvert x_{1}x_{2}...x_{n}\rangle$, and so a quantum state of such a system is specified by $2^{2}$ amplitudes.
 
-# 1.3 Quantum Computation
-Changes occurring to a quantum state can be described using the language of quantum
-computation.
