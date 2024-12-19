@@ -42,7 +42,39 @@ H = \frac{1}{\sqrt{2}}
 \end{bmatrix}
 $$
 
+# Pauli-X gate
+The pauli-X gate is a single-qubis rotation through $\pi$ radians around the X-axis.
 
-# 
+$$ 
+X = \sigma_{x} = \sigma_{1} =
+\begin{bmatrix}
+1 & 1  \\
+1 & -1  \\
+\end{bmatrix}
+$$
+
+# Pauli-Y gate 
+The Pauli-Y gate is a single-qubit rotation through π radians around the y-axis.
+
+$$ 
+Y = \sigma_{y} = \sigma_{2} =
+\begin{bmatrix}
+0 & -i  \\
+i & 0  \\
+\end{bmatrix}
+$$
+
+# Pauli-Z gate
+The Pauli-Z gate is a single-qubit rotation through π radians around the z-axis.
+
+$$ 
+Z = \sigma_{z} = \sigma_{3} =
+\begin{bmatrix}
+1 & 0  \\
+0 & -1  \\
+\end{bmatrix}
+$$
 
 ### Reference
+1. https://www.quantum-inspire.com/kbase/pauli-x/
+
