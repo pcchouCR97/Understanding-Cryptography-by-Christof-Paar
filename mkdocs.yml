@@ -28,12 +28,14 @@ nav:
       - Modular Arithmetic: Math_Fundamentals/modular_arithmetic.md
       - Logic Gates: Math_Fundamentals/logic_gates.md
       - Quantum Logic Gates: Math_Fundamentals/Quantum_logic_gates.md
+      - Linear Algebra: 
+        - Tensor: Math_Fundamentals/linear_algebr_tensor.md
   - Quantum Computing:
       # - Quantum Mechanics
       # - Pauli matrices
       - Basics: 
-          - Basics: quantum/basics.md
-          - Algorithms: quantum/algorithms.md
+        - Basics: quantum/basics.md
+        - Algorithms: quantum/algorithms.md
       - Quantum Computation: quantum/computation.md
       - Applications: quantum/applications.md
   - Cryptography:

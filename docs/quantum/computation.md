@@ -71,5 +71,57 @@ Another important gate is the measurement. see figure 4 below.
 ### Quantum copying circuit
 
 ## Example: Bell states
+Let's considering a more complicated circuit like image showed belowed
+The Bell state compose two state 1. Hadamard gate followed by a `CNOT`. The Hadamard gate takes the input $\lvert 00 \rangle$ to $\frac{(\lvert 0 \rangle + \lvert 1 \rangle)\lvert 0 \rangle)}{\sqrt{2}}$ and then the CNOT gives the output state $\frac{(\lvert 00 \rangle + \lvert 11 \rangle)}{\sqrt{2}}$. first the Hadamard transform puts the top qubis in a superposition; theis then acts as a control input to the `CNOT`, and the target gets inverted only when the control is $1$.
+![Bell_state](images/Bell_state.png)
+
+From [Tensor Product](linear_algebr_tensor), The initial state is $\lvert 00 \rangle = \lvert 0 \rangle \otimes \lvert 0 \rangle$,
+
+Apply $H$ to the first qubit,
+$$
+H\lvert 0 \rangle = \frac{\lvert 0 \rangle + \lvert 1 \rangle}{\sqrt{2}}
+$$
+
+Thus, the state of the system becomes:
+$$
+(H\lvert 0 \rangle) \otimes \lvert 0 \rangle = (\frac{\lvert 0 \rangle + \lvert 1 \rangle}{\sqrt{2}}) \otimes \lvert 0 \rangle
+$$
+
+This can be expanded as:
+$$
+\frac{(\lvert 0 \rangle\lvert 0 \rangle + \lvert 1 \rangle\lvert 0 \rangle)}{\sqrt{2}} = \frac{(\lvert 00 \rangle + \lvert 10 \rangle)}{\sqrt{2}}
+$$
+
+By the effect of the `CNOT`, which inverted only whe the control is $1$, we have:
+$$
+\frac{(\lvert 00 \rangle + \lvert 11 \rangle)}{\sqrt{2}} = \lvert \beta_{00} \rangle = \lvert \Phi^+\rangle
+$$
+
+ we can get all the following truth table,
+
+$$
+\begin{array}{|c|c|c|c|}
+\hline
+\text{Input Qubit 1 (\( A \))} & \text{Input Qubit 2 (\( B \))} & \text{Hadamard on \( A \)} & \text{CNOT Output (\( \lvert\Phi^+\rangle \))} \\
+\hline
+0 & 0 & \frac{\lvert0\rangle + \lvert1\rangle}{\sqrt{2}} & \frac{\lvert00\rangle + \lvert11\rangle}{\sqrt{2}} \\
+0 & 1 & \frac{\lvert0\rangle + \lvert1\rangle}{\sqrt{2}} & \frac{\lvert01\rangle + \lvert10\rangle}{\sqrt{2}} \\
+1 & 0 & \frac{\lvert0\rangle - \lvert1\rangle}{\sqrt{2}} & \frac{\lvert00\rangle - \lvert11\rangle}{\sqrt{2}} \\
+1 & 1 & \frac{\lvert0\rangle - \lvert1\rangle}{\sqrt{2}} & \frac{\lvert01\rangle - \lvert10\rangle}{\sqrt{2}} \\
+\hline
+\end{array}
+$$
+
+## Bell States:
+Below are the four possible Bell states:
+
+$$
+\begin{aligned}
+\lvert\beta_{00}\rangle = \lvert\Phi^+\rangle & = \frac{\lvert00\rangle + \lvert11\rangle}{\sqrt{2}} \\
+\lvert\beta_{01}\rangle = \lvert\Psi^+\rangle & = \frac{\lvert01\rangle + \lvert10\rangle}{\sqrt{2}} \\
+\lvert\beta_{10}\rangle = \lvert\Phi^-\rangle & = \frac{\lvert00\rangle - \lvert11\rangle}{\sqrt{2}} \\
+\lvert\beta_{11}\rangle = \lvert\Psi^-\rangle & = \frac{\lvert01\rangle - \lvert10\rangle}{\sqrt{2}}
+\end{aligned}
+$$
 
 ## Example: Quantum Teleportation
