@@ -43,6 +43,8 @@ nav:
       - Symmetric Cryptography: cryptography/symmetric.md
       - Asymmetric Cryptography: cryptography/asymmetric.md
       - Quantum Cryptography: cryptography/quantum.md
+  - Quantum Cryptography:
+      - Fundamentals: qcryptography/fundamentals.md
   - Projects:
       - Quantum Simulations: projects/quantum-simulations.md
       - Cryptography Implementations: projects/crypto-implementations.md

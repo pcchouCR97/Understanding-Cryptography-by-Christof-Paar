@@ -75,7 +75,7 @@ Let's considering a more complicated circuit like image showed belowed
 The Bell state compose two state 1. Hadamard gate followed by a `CNOT`. The Hadamard gate takes the input $\lvert 00 \rangle$ to $\frac{(\lvert 0 \rangle + \lvert 1 \rangle)\lvert 0 \rangle)}{\sqrt{2}}$ and then the CNOT gives the output state $\frac{(\lvert 00 \rangle + \lvert 11 \rangle)}{\sqrt{2}}$. first the Hadamard transform puts the top qubis in a superposition; theis then acts as a control input to the `CNOT`, and the target gets inverted only when the control is $1$.
 ![Bell_state](images/Bell_state.png)
 
-From [Tensor Product](linear_algebr_tensor), The initial state is $\lvert 00 \rangle = \lvert 0 \rangle \otimes \lvert 0 \rangle$,
+From [Tensor Product](../Math_Fundamentals/linear_algebr_tensor.md), The initial state is $\lvert 00 \rangle = \lvert 0 \rangle \otimes \lvert 0 \rangle$,
 
 Apply $H$ to the first qubit,
 $$
@@ -97,7 +97,7 @@ $$
 \frac{(\lvert 00 \rangle + \lvert 11 \rangle)}{\sqrt{2}} = \lvert \beta_{00} \rangle = \lvert \Phi^+\rangle
 $$
 
- we can get all the following truth table,
+we can get all the following truth table,
 
 $$
 \begin{array}{|c|c|c|c|}
