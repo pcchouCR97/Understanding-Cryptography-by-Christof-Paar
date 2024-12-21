@@ -45,6 +45,8 @@ nav:
       - Quantum Cryptography: cryptography/quantum.md
   - Quantum Cryptography:
       - Fundamentals: qcryptography/fundamentals.md
+      - QKD: 
+        - BB84: qcryptography/BB84.md
   - Projects:
       - Quantum Simulations: projects/quantum-simulations.md
       - Cryptography Implementations: projects/crypto-implementations.md

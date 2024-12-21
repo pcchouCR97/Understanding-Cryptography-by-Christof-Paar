@@ -13,3 +13,32 @@ Quantum key distribution (QKD) is a technique that allows two parties, conventio
 First, how is the confidentiality of the key ensured? If an eavesdropper, conventionally called Eve, tries to determine the key, she will be detected. The legitimate parties will then discard the key, while no confidential information has been transmitted yet. If, on the other hand, no tapping is detected, the secrecy of the distributed key is guaranteed.
 
 Quantum key distribution requires a transmission channel on which quantum carriers are transmitted from Alice to Bob. In theory, any particle obeying the laws of quantum mechanics can be used. In practice, however, the quantum carriers are usually photons, the elementary particle of light, while the channel may be an optical fiber (e.g., for telecommunication networks) or the open air (e.g., for satellite communications).
+
+Alice encoding only zeroes and ones. The whole point is that an eavesdropper cannot predict any of the transmitted bits. During the tranmission between Alice and Bob, Eve might listen to the quantum channel and therefore spy on potential secret key bits This does not pose a fundamental problem to the legitimate parties, as the eavesdropping is detectable by way of transmission errors. Furthermore, the secret-key distillation techniques allow Alice and Bob to recover from such errors and create a secret key out of the bits that are unknown to Eve.
+
+**After the transmission, Alice and Bob can compare a fraction of the exchanged key to see if there are any transmission errors caused by eavesdropping.**
+
+![QKD](images/QKD_basics.png)
+
+**Quantum key distribution comprises a quantum channel and a public classical authenticated channel.**
+
+### Encoding random bits using qubits
+We will first introduce a QKD tool [BB84](https://en.wikipedia.org/wiki/BB84#:~:text=BB84%20is%20a%20quantum%20key,the%20first%20quantum%20cryptography%20protocol.). In BB84, Alice encodes random (classical) bits, called key elements, using a set of four different qubits.
+
+The 0 can be encoded with either $\lvert 0 \rangle$ or $\lvert + \rangle = \frac{\lvert 0 \rangle + \lvert 1 \rangle}{\sqrt{2}}$. The bit 1 can be encoded with $\lvert 1 \rangle$ or $\lvert - \rangle = \frac{\lvert 0 \rangle - \lvert 1 \rangle}{\sqrt{2}}$.
+
+When the photon arrives at bob's station, he would like to decode what Alice sent. Here is what he has to do:
+
+1. Perform a *measurement*. However, the laws of quantum mechanics prohibit Bob from determining the qubit **completely**. Actually, it's impossible to measure the exact coefficient of $\alpha$ and $\beta$ of $\alpha \lvert 0 \rangle + \beta \lvert 1 \rangle$ received from Alice.
+2. Bob must choose **a pair of *orthogonal* qubits** and perform a measurement that distinguishes only among them. For an example we have two qubits $\lvert \psi \rangle = \alpha \lvert 0 \rangle + \beta \lvert 1 \rangle$ and $\lvert \psi' \rangle = \alpha' \lvert 0 \rangle + \beta' \lvert 1 \rangle$ such that $\alpha\alpha'^{*} + \beta\beta'^{*} = 0$, we said these two qubits are *orthogonal*.
+
+### Detecting eavesdropping
+The key feature for detecting eavesdropping is that the information is encoded in non-orthogonal qubits. Eve can, of course, intercept the quantum carriers and try to measure them. However, like Bob, she does not know in advance which set of carriers Alice chose for each key element. Like Bob, she may unsuccessfully distinguish between |0i and |1i when Alice encodes a bit as |+i or |−i, or vice versa.
+
+Learn more about [Base shifting in BB84](../qcryptography/BB84.md)
+
+**{==In quantum mechanics, measurement is destructive.(call out)==}**
+
+Both Bob and Eve have the same difficulties in determining what Alice sent, since they do not know which encoding is used. But the situation is not symmetric in Bob and Eve: all the communications required to do the sifting are made over the classical authenticated channel. This allows Alice to make sure she is talking to Bob and not to Eve. So, the legitimate parties can guarantee that the sifting process is not influenced by Eve. Owing to this, Alice and Bob can select only the key elements which are correctly measured.
+
+### Distilling a secret key
