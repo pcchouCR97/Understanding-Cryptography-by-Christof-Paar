@@ -41,6 +41,55 @@ Each qubit has its own state space, but when combined, they form a composite sys
 2. **Non-Entangled States**: The tensor product $\lvert 0 \rangle \otimes \lvert 0 \rangle$ imples a product state, meaning two qubits are independent and not entangled.
 
 
+# Non-cloing in quantum mechanics:
+The expression $\lvert \psi \rangle \otimes \lvert \psi \rangle$ represents the **tensor product** of a quantum state $\lvert \psi \rangle$ with itself. In the context of cloning, this means having **two identical copies** of the quantum state $\lvert \psi \rangle$.
+
+---
+
+### **Understanding Tensor Products**
+In quantum mechanics:
+1. The **tensor product** combines two quantum systems into a single composite system.
+2. If two systems are in identical states $\lvert \psi \rangle$, the tensor product $\lvert \psi \rangle \otimes \lvert \psi \rangle$ describes a system where both subsystems are in the same state $\lvert \psi \rangle$.
+
+---
+
+### **Why $\lvert \psi \rangle \otimes \lvert \psi \rangle$ Represents Cloning**
+1. **Single Qubit**:
+    - A single qubit in the state $\lvert \psi \rangle$ has amplitudes $\alpha$ and $\beta$ for the basis states $\lvert 0 \rangle$ and $\lvert 1 \rangle$, respectively:
+    $$
+     \lvert \psi \rangle = \alpha \lvert 0 \rangle + \beta \lvert 1 \rangle
+    $$
+
+2. **Cloning**:
+    - To clone $\lvert \psi \rangle$, we want to produce a second qubit in the exact same state, so the final system contains two qubits, both in state $\lvert \psi \rangle$.
+
+3. **Mathematical Representation**:
+    - If the first qubit is $\lvert \psi \rangle$ and the second (blank) qubit starts in $\lvert 0 \rangle$, then after cloning, the system would be described as:
+    $$
+     \lvert \psi \rangle \otimes \lvert \psi \rangle = (\alpha \lvert 0 \rangle + \beta \lvert 1 \rangle) \otimes (\alpha \lvert 0 \rangle + \beta \lvert 1 \rangle)
+    $$
+
+4. **Expansion**:
+    - Expanding the tensor product:
+    $$
+     \lvert \psi \rangle \otimes \lvert \psi \rangle = \alpha^2 \lvert 00 \rangle + \alpha \beta \lvert 01 \rangle + \beta \alpha \lvert 10 \rangle + \beta^2 \lvert 11 \rangle
+    $$
+   - This describes a **two-qubit system** where both qubits are in the same state $\lvert \psi \rangle$.
+
+---
+
+### **Why Cloning is Different from Classical Duplication**
+In classical systems:
+1.  Information can be copied exactly without any loss or disturbance.
+
+In quantum systems:
+2.  A state like $\lvert \psi \rangle = \alpha \lvert 0 \rangle + \beta \lvert 1 \rangle$ cannot be perfectly duplicated into $\lvert \psi \rangle \otimes \lvert \psi \rangle$ because of the **no-cloning theorem**.
+
+---
+
+### **Summary**
+1.  $\lvert \psi \rangle \otimes \lvert \psi \rangle$ represents a quantum system where two qubits are in the same state $\lvert \psi \rangle$, which corresponds to a cloned system.
+2. Achieving this for an arbitrary $\lvert \psi \rangle$ is impossible because cloning would violate the linearity of quantum mechanics, as shown by the no-cloning theorem. 
 
 Reference:
 

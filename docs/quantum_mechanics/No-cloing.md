@@ -13,7 +13,7 @@ The proof is rooted in the linearity of quantum mechanics:
 $$
 U(\lvert\psi\rangle \otimes \lvert0\rangle) = \lvert\psi\rangle \otimes \lvert\psi\rangle
 $$
-where  $\lvert0\rangle$  is a blank state (e.g., an auxiliary system).
+where  $\lvert0\rangle$  is a blank state (e.g., an auxiliary system). See [Non-cloing](../Math_Fundamentals/linear_algebr_tensor.md) for tensor.
 
 2.  For two arbitrary quantum states $\lvert\psi\rangle$ and $\lvert\phi\rangle$, linearity requires:
 $$
@@ -45,7 +45,7 @@ where $ \lvert 0 \rangle $ is an auxiliary "blank" state.
 ### **2. Why Cloning is Impossible**
 The proof relies on the **linearity** of quantum mechanics. 
 
-Suppose we have two distinct quantum states $ \lvert \psi \rangle $ and $ \lvert \phi \rangle $. For a universal cloning operation $U$, we require:
+Suppose we have two distinct quantum states $\lvert \psi \rangle$ and $\lvert \phi \rangle$. For a universal cloning operation $U$, we require:
 $$
 U(\lvert \psi \rangle \otimes \lvert 0 \rangle) = \lvert \psi \rangle \otimes \lvert \psi \rangle,
 $$
