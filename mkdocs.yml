@@ -30,6 +30,12 @@ nav:
       - Quantum Logic Gates: Math_Fundamentals/Quantum_logic_gates.md
       - Linear Algebra: 
         - Tensor: Math_Fundamentals/linear_algebr_tensor.md
+  - Quantum Mechanics:
+      - Theorems:
+        - No-cloning: quantum_mechanics/No-cloing.md
+        - No-deleting: quantum_mechanics/No-deleting.md
+        - No-hiding: quantum_mechanics/No-hiding.md
+        - No-teleportation: quantum_mechanics/No-teleportation.md
   - Quantum Computing:
       # - Quantum Mechanics
       # - Pauli matrices
