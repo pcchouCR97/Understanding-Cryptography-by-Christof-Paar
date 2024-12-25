@@ -35,8 +35,42 @@ Consider the figure, which applies $U_f$ to and input not in the computational b
 $$
 \frac{\lvert 0, f(0)\rangle + \lvert 1, f(1)\rangle}{\sqrt{2}}
 $$
-
 The different terms contain information about both $f(0)$ and $f(1)$; it is almost as if we have evaluated $f(x)$ for two values of x simultaneously, a feature known as ‘quantum parallelism’.
+
+---
+Proof: $\frac{\lvert 0, f(0)\rangle + \lvert 1, f(1)\rangle}{\sqrt{2}}$
+
+The operation $U_f$ is a unitary operation that maps:
+$$
+\lvert x\rangle \lvert y\rangle \rightarrow \lvert x\rangle \lvert y\oplus f(x)\rangle 
+$$
+where $\oplus$ is XOR (addition modulo 2)
+
+1. $x$ is the value of the data register.
+2. $y$ is the value of the ancilla qubit.
+3. $f(x)$ is the output of the function being evaluated.
+
+**We know that the inital state can be written as**:
+$$
+\big( \frac{\lvert 0\rangle + \lvert 1\rangle}{\sqrt{2}}\big)\lvert 0 \rangle = \frac{\lvert 0\rangle\lvert 0\rangle + \lvert 1\rangle\lvert 0\rangle}{\sqrt{2}}
+$$
+
+**Apply $U_f$ to each term from the initial state**:
+
+1. For the first term $\lvert 0\rangle\lvert 0\rangle$:
+$$
+\lvert 0\rangle\lvert 0\rangle \rightarrow \lvert 0\rangle\lvert 0\oplus f(0)\rangle = \lvert 0\rangle \lvert f(0) \rangle
+$$
+2. For the second term $\lvert 1\rangle\lvert 0\rangle$:
+$$
+\lvert 1\rangle\lvert 0\rangle \rightarrow \lvert 1\rangle\lvert 0\oplus f(1)\rangle = \lvert 1\rangle \lvert f(1) \rangle
+$$
+Thus, the new state:
+$$
+\frac{\lvert 0, f(0)\rangle + \lvert 1, f(1)\rangle}{\sqrt{2}}
+$$
+
+---
 
 Unlike classical parallelism, where multiple circuits each built to compute f(x) are executed simultaneously, here a single f(x) circuit is employed to evaluate the function for multiple values of x simultaneously
 
@@ -58,25 +92,75 @@ Quantum computation it requires the ability to extract information about more
 than one value of $f(x)$ from superposition states like $\sum_{x} \lvert x. f(x)\rangle$.
 
 ## Deutsch's algorithm
+Let's see how quantum circuits can outperform classical ones by implementing *Deutsch’s algorithm*. Deutsch’s algorithm combines quantum parallelism with a property of quantum mechanics known as interference
+
+Build on the previous case, we apply Hadamard gate to the state $\lvert 1 \rangle$. Thus, we have $\frac{\lvert 0 \rangle + \lvert 1 \rangle}{\sqrt{2}}$ for the first qubit and $\frac{\lvert 0 \rangle - \lvert 1 \rangle}{\sqrt{2}}$ for the second qubit. 
+The input state:
+$$
+\lvert \psi_0 \rangle = \lvert 01 \rangle
+$$
+Therefore we have the state:
+$$
+\lvert \psi_1 \rangle = \bigg[\frac{\lvert 0 \rangle + \lvert 1 \rangle}{\sqrt{2}}\bigg]\bigg[\frac{\lvert 0 \rangle - \lvert 1 \rangle}{\sqrt{2}}\bigg]
+$$
+Then, we apply $U_f$ on the state $\lvert x\rangle(\frac{\lvert 0 \rangle - \lvert 1 \rangle}{\sqrt{2}})$, we will have:
+
+$$
+\lvert\psi_2\rangle =
+\begin{cases}
+\pm \frac{\lvert0\rangle + \lvert1\rangle}{\sqrt{2}} \frac{\lvert0\rangle - \lvert1\rangle}{\sqrt{2}} & \text{if } f(0) = f(1), \\
+\pm \frac{\lvert0\rangle - \lvert1\rangle}{\sqrt{2}} \frac{\lvert0\rangle - \lvert1\rangle}{\sqrt{2}} & \text{if } f(0) \neq f(1).
+\end{cases}
+$$
+
+Then we apply one Hadamard gate on the first qubit thus gives us:
+
+$$
+\lvert\psi_2\rangle =
+\begin{cases}
+\pm \lvert0\rangle \frac{\lvert0\rangle - \lvert1\rangle}{\sqrt{2}} & \text{if} f(0) = f(1), \\
+\pm \lvert1\rangle \frac{\lvert0\rangle - \lvert1\rangle}{\sqrt{2}} & \text{if} f(0) \neq f(1).
+\end{cases}
+$$
+
+Realizing that $f(0) \oplus f(1)$ is $0$ if $f(0) = f(1)$ and $1$ otherwise, we can rewrite this result as:
+
+$$
+\lvert \psi_{3} \rangle = \pm\lvert f(0)\oplus f(1)\rangle \bigg[ \frac{\lvert0 \rangle - \lvert 1 \rangle}{\sqrt{2}} \bigg]
+$$
+
+By measurign the first qubit we may determin $f(0) \oplus f(1)$. This is very interesting: the quantum circuit has given us the ability to determine a *global property* of $f(x)$, namely $f(0)\oplus f(1)$, using only *one* evaluation of $f(x)$. {==This is faster than a classical apparatus, which would require at least two evaluations==}.
+
+This example highlights the difference between quantum parallelism and classical
+randomized algorithms.
+
+The essence of the design of many quantum algorithms is that a clever choice of function and final transformation allows efficient determination of useful global information about the function – information which cannot be attained quickly on a classical computer.
+
+## The Deutsch-Jozsa Algorithm
+
+Deutsch Algorithm is a special case for Deutsch-Jozsa Algorithm, at which $n=1$ for $2^{n}-1$.
+Deutsch’s algorithm is a simple case of a more general quantum algorithm, which we shall refer to as the Deutsch–Jozsa algorithm. 
+
+## Algorithm Summary
+TheDeutsch–Jozsa algorithm suggests that quantum computers may be capable of solving
+some computational problems much more efficiently than classical computers. Unfortunately,
+the problem it solves is of little practical interest. Are there more interesting problems whose solution may be obtained more efficiently using quantum algorithms? What are the principles underlying such algorithms? What are the ultimate limits of a quantum computer’s computational power?
+
+Broadly speaking, there are three classes of quantum algorithms which provide an
+advantage over known classical algorithms:
+
+1. The class of algorithms based upon quantum versions of the Fourier transform
+2. Quantum search algorithm
+3. Quantum simulation
 
 
 
+### Quantum Algorithm based upon the Fourier transform
 
+### Quantum search algorithm
 
+### Quantum simulation
 
-
-
-
-
-
-
-
-
-
-
-
-
+### The power of quantum computation
 ---
-
-
 Ref: quantum-computation-and-quantum-information-nielsen-chuang
