@@ -36,7 +36,7 @@ a\oplus a = 0 \ (Self-Inverse)
 \end{array} 
 $$
 
-where all additions are done modulo 2. The effect of the circuit, therefore, is to interchange the state of two qubits. To review logic gate, please see [Logic gate](../Math_Fundamentals/logic_gates.md) and more about [Quantum logic gate (Wiki)](https://en.wikipedia.org/wiki/Quantum_logic_gate) and [Quantum logic gate](../Math_Fundamentals/Quantum_logic_gates.md).
+where all additions are done modulo 2. The effect of the circuit, therefore, is to interchange the state of two qubits. To review logic gate, please see [Logic gate](../Math_Fundamentals/logic_gates.md) and more about [Quantum logic gate (Wiki)](https://en.wikipedia.org/wiki/Quantum_logic_gate) and [Quantum logic gate](../quantum_mechanics/Quantum_logic_gates.md).
 
 ![Circuit_swap](images/Fig1-7_Circuit_swap.png)
 

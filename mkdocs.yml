@@ -23,14 +23,19 @@ theme:
 
 # Navigation structure
 nav:
-  - Home: index.md
+  - Homepage: 
+      - Home: index.md
+
   - Math Fundamentals:
       - Modular Arithmetic: Math_Fundamentals/modular_arithmetic.md
       - Logic Gates: Math_Fundamentals/logic_gates.md
-      - Quantum Logic Gates: Math_Fundamentals/Quantum_logic_gates.md
       - Linear Algebra: 
         - Tensor: Math_Fundamentals/linear_algebr_tensor.md
   - Quantum Mechanics:
+      - Basics:
+        - Qubit: quantum_mechanics/Qubit.md
+        - Quantum gates: quantum_mechanics/Quantum_logic_gates.md
+        - The Bloch sphere and rotations: quantum_mechanics/TheBlochSphereAndRotation.md
       - Theorems:
         - No-cloning: quantum_mechanics/No-cloing.md
         - No-deleting: quantum_mechanics/No-deleting.md
@@ -55,8 +60,8 @@ nav:
         - BB84: qcryptography/BB84.md
   - Quantum Optimization:
       - Optimization:
-        - Quadratic Unconstrained Binary Optimization: QuantumOpt/QUBO.md
-        - Adiabatic Quantum Computing & Quantum Annealing: QuantumOpt/AQQA.md
+        - Quadratic Unconstrained Binary Optimization (QUBO): QuantumOpt/QUBO.md
+        - Adiabatic Quantum Computing & Quantum Annealing (AQQA): QuantumOpt/AQQA.md
         - Quantum Approximate Optimization Algorithm (QAOA): QuantumOpt/QAOA.md
         - Grover Adaptive Search (GAS): QuantumOpt/GAS.md
   - Projects:

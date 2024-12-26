@@ -4,9 +4,17 @@ This is a collection of my learnings and projects on Quantum Computing and Crypt
 
 Last but not least, some `code` examples and projects are also inlcudes for the real life demonstratation.
 
+Highlight:
+
+1. Quantum Optimization:
+2. Quantum Multidisciplinary Design Analysis and Optimization (QMDAO)
+    - Realizing QMDAO: Quantum + OpenMDAO on real world aircraft design
+    - Quantum Annealing 
+
+
 # Quick Guide:
 1. [Cryptography](cryptography/fundamentals.md)
-2. [Math Prerequisite](Math_Fundamentals/Quantum_logic_gates.md)
+2. [Math Prerequisite](quantum_mechanics/Quantum_logic_gates.md)
 3. [Quantum](quantum/basics.md)
 4. [Projects](projects/quantum-simulations.md)
 
