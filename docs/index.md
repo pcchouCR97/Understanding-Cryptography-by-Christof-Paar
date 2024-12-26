@@ -11,6 +11,15 @@ Highlight:
     - Realizing QMDAO: Quantum + OpenMDAO on real world aircraft design
     - Quantum Annealing 
 
+Beginner:
+1. Quantum mechanics
+2. Linear algebra
+
+Imtermediate:
+1. Quantum Algorithm
+
+Advanced:
+1. optimization
 
 # Quick Guide:
 1. [Cryptography](cryptography/fundamentals.md)

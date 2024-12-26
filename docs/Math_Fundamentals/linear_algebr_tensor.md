@@ -1,5 +1,64 @@
 # What is a Tensor Product $\otimes$ ?
 
+The tensor product of two vectors is defined as:
+
+$$
+\begin{pmatrix}
+a_1 \\
+a_2 \\
+\vdots \\
+a_n
+\end{pmatrix}
+\otimes
+\begin{pmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m
+\end{pmatrix}
+=
+\begin{pmatrix}
+a_1
+\begin{pmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m
+\end{pmatrix} \\
+a_2
+\begin{pmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m
+\end{pmatrix} \\
+\vdots \\
+a_n
+\begin{pmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m
+\end{pmatrix}
+\end{pmatrix}
+=
+\begin{pmatrix}
+a_1 b_1 \\
+a_1 b_2 \\
+\vdots \\
+a_1 b_m \\
+a_2 b_1 \\
+a_2 b_2 \\
+\vdots \\
+a_2 b_m \\
+\vdots \\
+a_n b_1 \\
+a_n b_2 \\
+\vdots \\
+a_n b_m
+\end{pmatrix}
+$$
+
 The tensor product is a mathematical operation that combines two quantum states into a single state describing a composite system. If you have two systems, $A$ and $B$, with states $\lvert 0 \rangle$ and $\lvert 0 \rangle$, their combined state is written as:
 $$
 \lvert a \rangle \otimes \lvert b \rangle

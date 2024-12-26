@@ -21,6 +21,9 @@ where $I$ is the identity matrix and $u^{\dagger}$ is the adjoint of U, that is,
 
 ## CNOT Gate
 
+CNOT gate: The value of the second qubit is flipped if and only if the value of the first
+qubit is 1.
+
 Matrix Representation of the CNOT Gate
 In the computational basis $\{\lvert 00 \rangle,\lvert 01 \rangle, \lvert 10 \rangle, \lvert 11 \rangle\}$, the CONT gate is represented as a **4x4 matrix**:
 

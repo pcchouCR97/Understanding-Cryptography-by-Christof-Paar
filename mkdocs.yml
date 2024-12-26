@@ -23,9 +23,7 @@ theme:
 
 # Navigation structure
 nav:
-  - Homepage: 
-      - Home: index.md
-
+  - Home: index.md
   - Math Fundamentals:
       - Modular Arithmetic: Math_Fundamentals/modular_arithmetic.md
       - Logic Gates: Math_Fundamentals/logic_gates.md
@@ -33,7 +31,7 @@ nav:
         - Tensor: Math_Fundamentals/linear_algebr_tensor.md
   - Quantum Mechanics:
       - Basics:
-        - Qubit: quantum_mechanics/Qubit.md
+        - Qubit(s): quantum_mechanics/Qubit.md
         - Quantum gates: quantum_mechanics/Quantum_logic_gates.md
         - The Bloch sphere and rotations: quantum_mechanics/TheBlochSphereAndRotation.md
       - Theorems:
@@ -58,8 +56,8 @@ nav:
       - Fundamentals: qcryptography/fundamentals.md
       - QKD: 
         - BB84: qcryptography/BB84.md
-  - Quantum Optimization:
-      - Optimization:
+  - Quantum machine learning and optimization:
+      - Optimization Algorithms:
         - Quadratic Unconstrained Binary Optimization (QUBO): QuantumOpt/QUBO.md
         - Adiabatic Quantum Computing & Quantum Annealing (AQQA): QuantumOpt/AQQA.md
         - Quantum Approximate Optimization Algorithm (QAOA): QuantumOpt/QAOA.md
