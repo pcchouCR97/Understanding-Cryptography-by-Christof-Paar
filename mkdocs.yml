@@ -53,6 +53,12 @@ nav:
       - Fundamentals: qcryptography/fundamentals.md
       - QKD: 
         - BB84: qcryptography/BB84.md
+  - Quantum Optimization:
+      - Optimization:
+        - Quadratic Unconstrained Binary Optimization: QuantumOpt/QUBO.md
+        - Adiabatic Quantum Computing & Quantum Annealing: QuantumOpt/AQQA.md
+        - Quantum Approximate Optimization Algorithm (QAOA): QuantumOpt/QAOA.md
+        - Grover Adaptive Search (GAS): QuantumOpt/GAS.md
   - Projects:
       - Quantum Simulations: projects/quantum-simulations.md
       - Cryptography Implementations: projects/crypto-implementations.md

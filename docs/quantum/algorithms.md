@@ -159,6 +159,10 @@ advantage over known classical algorithms:
 
 ### Quantum search algorithm
 
+The quantum search algorithm solves the following problem: Given a search space of size N, and no prior knowledge about the structure of the information in it, we want to find an element of that search space satisfying a known property. How long does it take to find an element satisfying that property?
+
+*The quantum search algorithm and its applications are described in Chapter 6.*
+
 ### Quantum simulation
 
 ### The power of quantum computation
