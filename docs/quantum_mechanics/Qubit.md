@@ -541,9 +541,50 @@ $$
 
 
 ## Multi-qubit gates
+Since 𝑛-qubit states are represented by $2^{𝑛}$-dimensional column vectors, $𝑛$-qubit gates can
+be identified with $2^{𝑛} \times 2^{𝑛}$ unitary matrices. Thus,i if $U_1$ is an $n_1$-qubit gate and $U_2$ is an $n_2$-qubit gate, the $U_{1}\otimes U_{2}$ is an $(n_{1}+n_{2})$-qubit gate and its matrix is given by the tensor product of the matrices $U_1$ and $U_2$.
 
+!!! note 
+    An expression for the tensor product of two matices $A$ and $B$ is
+
+    $$
+    \begin{bmatrix}
+    a_{11} & \cdots & a_{1q} \\
+    \vdots & \ddots & \vdots \\
+    a_{p1} & \cdots & a_{pq} \\
+    \end{bmatrix}
+    \otimes
+    B = 
+    \begin{bmatrix}
+    a_{11}B & \cdots & a_{1q}B \\
+    \vdots & \ddots & \vdots \\
+    a_{p1}B & \cdots & a_{pq}B \\
+    \end{bmatrix}
+    $$
+
+However, **Toffoli** or **CCNOT** gate, a three-qubit gate that acts on the computational basis as 
+
+$$
+\text{CCNOT}\lvert x\rangle\lvert y\rangle\lvert z\rangle = \lvert x\rangle\lvert y\rangle\lvert z \otimes (x \wedge y) \rangle,
+$$
+
+where $\otimes$ is the **NOR** function and $\wedge$ is the symbol for the AND Boolean function. CCNOT applies a doubly controlled NOT gate to the thired qubit. 
+
+The Toffoli gate is crucial in quantum computing because it allows us to simulate any classical Boolean operation using auxiliary qubits. For example, the Toffoli gate can perform logical negations (¬z) and conjunctions (AND operations). With this, quantum circuits can replicate any classical digital circuit by using additional ancillary qubits.
+
+This is surprising because all quantum gates can work in reverse (they are invertible), but not all classical logic functions (Boolean functions) can be reversed. This means we can potentially make all digital circuits reversible by using the **Toffoli** gate.
 
 ## Universal gates in quantum computing
+Current quantum computers can’t implement every possible quantum gate. Instead, they rely on universality results that show how any unitary operation can be decomposed as a circuit that uses a reduced set of primitive gates.
+
+To us, it will be important to know that, for any unitary operation, we can construct a circuit that implements it using only one-qubit gates and the CNOT gate. For this reason, we say that those gates are universal — in the same sense that, for example, negation and conjunction are universal for Boolean logic.
+
+!!! Note
+    In addition to one-qubit gates plus CNOT, H and T can also be used to approcimate any unitary operation to any desired accuracy.
+
+![Qcircuit_ToffolifromCNOT](../quantum_mechanics/images/Qcircuit_ToffolifromCNOT.png)
+The Toffoli gate can be constructed from single qubit T- and Hadamard-gates, and a minimum of six CNOTs.
+
 
 ---
 Ref: A Practical Guide to Quantum Machine Learning and Quantum Optimization_ Hands-on Approach to Modern Quantum Algorithms
