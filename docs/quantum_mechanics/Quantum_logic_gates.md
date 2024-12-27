@@ -40,6 +40,17 @@ $$
 - The first qubit is the control qubit.
 - The second qubit is the target qubit.
 
+And, if we apply `CNOT` gate on the element of the two-qubit computational basis, we can get,
+
+$$
+\begin{array}{cccc}
+    \text{CNOT}\lvert00\rangle = \lvert00\rangle,& 
+    \text{CNOT}\lvert01\rangle = \lvert01\rangle,& 
+    \text{CNOT}\lvert10\rangle = \lvert11\rangle,& 
+    \text{CNOT}\lvert11\rangle = \lvert10\rangle
+\end{array}
+$$
+
 ## Hadamard Gate
 
 The Hadamard gate is a single-qubit operation that maps the basis state $\lvert 0 \rangle$ to $\frac{\lvert 0 \rangle + \lvert 1 \rangle}{\sqrt{2}}$ and $\lvert 1 \rangle$ to $\frac{\lvert 0 \rangle - \lvert 1 \rangle}{\sqrt{2}}$, which creates an equal superposition of the basis states.

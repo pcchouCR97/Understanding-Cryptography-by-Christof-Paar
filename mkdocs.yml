@@ -69,10 +69,12 @@ nav:
 
 # Plugins
 #plugins:
-#  - macros
+#  - mathjax
 
 extra_javascript:
   - https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML
+  #- https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML
+  #- https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 markdown_extensions:
   - pymdownx.arithmatex
@@ -81,6 +83,7 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - mdx_math
   
   # Font Formatting: https://squidfunk.github.io/mkdocs-material/reference/formatting/
   - pymdownx.critic
@@ -107,7 +110,15 @@ extra:
       link: https://x.com/
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/po-chih-chou-0638941ab/
-
+  
+  mathjax_config: |
+    MathJax = {
+      tex: {
+        macros: {
+          ket: ["\\left|#1\\right\\rangle", 1]
+        }
+      }
+    };
 
 copyright: |
   &copy; 2024 <a href="https://github.com/pcchouCR97"  target="_blank" rel="noopener">Po-Chih Chou</a>

@@ -1,5 +1,38 @@
 The **no-cloning theorem** is a fundamental principle in quantum mechanics that states it is {==impossible to create an exact copy of an arbitrary unknown quantum state==}. This is a cornerstone of the security in quantum key distribution protocols like [BB84](../qcryptography/BB84.md).
 
+---
+Another interesring property of quantum systems is the no-cloning theorm. Check [No-cloning](../quantum_mechanics/No-cloing.md) for proof. In short, for an example, if we would like to have a {==two-qubit quantum gate $U$ that will be able to copy the first qubit into the second==}. we would need,
+
+$$
+U(\lvert\psi\rangle \otimes \lvert0\rangle) = \lvert\psi\rangle \otimes \lvert\psi\rangle
+$$
+
+from above, we know that $U\lvert00\rangle = \lvert00\rangle$ and $U\lvert10\rangle = \lvert11\rangle$. Therefore,
+
+$$
+U\bigg(\frac{1}{\sqrt{2}}(\lvert00\rangle + \lvert10\rangle)\bigg) = \frac{1}{\sqrt{2}}(U\lvert00\rangle + U\lvert10\rangle) = \frac{1}{\sqrt{2}}(\lvert00\rangle + \lvert11\rangle).
+$$
+
+Then, from previous example, we also know that $\frac{1}{\sqrt{2}}(\lvert00\rangle + \lvert10\rangle$ can be written in a product form,
+
+$$
+\frac{1}{\sqrt{2}}(\lvert00\rangle + \lvert10\rangle = \frac{1}{\sqrt{2}}\bigg(\lvert0\rangle + \lvert1\rangle\bigg)\lvert0\rangle 
+$$
+
+Now, let's apply gate $U$, we should have,
+
+$$
+U\frac{1}{\sqrt{2}}(\lvert00\rangle + \lvert10\rangle = U\bigg(\frac{1}{\sqrt{2}}\bigg(\lvert0\rangle + \lvert1\rangle\bigg)\lvert0\rangle\bigg) =  \frac{\lvert0\rangle + \lvert1\rangle}{\sqrt{2}}\frac{\lvert0\rangle + \lvert1\rangle}{\sqrt{2}}
+$$
+
+which is a product state, and we also know have $U\bigg(\frac{1}{\sqrt{2}}(\lvert00\rangle + \lvert10\rangle)\bigg) = \frac{1}{\sqrt{2}}(\lvert00\rangle + \lvert11\rangle)$,
+
+$$
+\frac{\lvert0\rangle + \lvert1\rangle}{\sqrt{2}}\frac{\lvert0\rangle + \lvert1\rangle}{\sqrt{2}}\neq \frac{1}{\sqrt{2}}(\lvert00\rangle + \lvert11\rangle)
+$$
+
+therefore, no such gate $U$ exist.
+---
 
 ### **What is the No-Cloning Theorem?**
 The no-cloning theorem ensures that:
