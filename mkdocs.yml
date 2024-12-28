@@ -84,7 +84,6 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-  - mdx_math
   
   # Font Formatting: https://squidfunk.github.io/mkdocs-material/reference/formatting/
   - pymdownx.critic
