@@ -211,4 +211,66 @@ which has values of $3,1,7,7$ and weight $2,1,5,4$ with the maximum weight of $8
 
 In the graph coloring problem, we are given a graph and we are asked to assign a color to each vertex in such a way that vertices that are connected by and edge (also called **adjacent**) receive different colors. We also are asked to do this using the minimum possible numebr of colors or using no mroe than a given number of different colors. If we can color a graph with $k$ colors, we say that it is $k$-**colorable.** The minimum number of colors needed to color a graph is called its **chromatic number**.
 
-### The Traveling Saleperson Problem
+![GraphColoring](../QuantumOpt/images/GraphColoring%20.png)
+
+Let's get start to formulate the graph coloring problem to a QUBO framework!
+
+1. first, we have to define some binary variables, let's say we have $m$ vertices from $j=0,\cdots,m$, and $k-1$ of different colors with $l$th on each vertices.
+To ensure each vertice $j$ only recieve **one** color $l$, we can have the following condition:
+
+$$
+\sum_{l=0}^{k-1}x_{jl} = 1.
+$$
+
+For an example, this ensure that every $j$-th vertice only receive one $l$-th color. We also have to consider for every vertice $j$, there must exist $l$ such that $x_{jl}=1$ and such that $x_{jh}=0$ for any $h\neq l$. 
+
+Now, we can impose a constraint that adjacent vertice are not assigned the same color. We know that if two vertices $j$ and $h$ receive the same color $l$, then we would have $x_{jl}X_{hl}=1$. Therefore, the sum of any $j$ and $h$ must be $0$, that is,
+
+$$
+\sum_{l=0}{k-1}x_{jl}x_{hl} = 0.
+$$
+
+Then we can write this graph coloring problem into a QUBO framework as,
+
+$$
+\begin{array}{ll}
+\text{minimize} & \sum_{j=0}^{m}\bigg(\sum_{l=0}^{k-1}x_{jl}-1\bigg)^{2} + \sum_{(j,h)\in E}\sum_{l=0}^{k-1}x_{jl}x_{hl}\\
+\text{subject to} & x_{jl}\in \{0,1\}, \ j = 0,\cdots,m, \ l = 0,\cdots,k-1.
+\end{array}
+$$
+
+We added $-1$ term to ensure when the result deviates from 1, our framework impose a penalty on it. And we don't need to square the second term since they are always non-negative.
+
+### The Traveling Salesperson Problem
+The Traveling salesperon problem is one of the most famous problems in combinatorial optimization. The problem is wasy to state: you need to find a route that goes through each of the cities in a given set once and only once while minimizing some global quantity (distance traveled, time spent, total cost...). 
+
+First, let's deal with visiting each vertex  $j$ once and route $l$ once. Let's says we have $j$ vertices and $l$th different route. If vertex $j$ is the $l$-th in our travel route, the $x_{ij}$ will be $1$ and $x_{jh}$ will be $0$ for $h \neq l$. Thus, for every vertex $j$, we must impose a constraint,
+
+$$
+\sum_{l=0}^{m}x_{ij}=1
+$$
+
+because every vertex needs to be visited exactly once. Next, since we can only visit one city at a time for each $l$ travel route. 
+
+$$
+\sum_{j=0}^{m}x_{jl} = 1.
+$$
+
+If these two constraints are met, we will have a path that visit every vertex once and only once. However, that's not enough. Remember that we may want to minimize some global quantity (distance traveled, time spent, total cost...)? We need an expression that gives us that alobal quantity in terms of the $x_{jl}$ varialbles. Notice that an edge $(j,k)$ is used if and only if the vertices $j$ and $k$ are consecutive in the path. That is, if and only if there exists an $l$ such that $j$ is visited in position $l$ and $k$ is visited in position **$l+1$**. in that case, the cost of using the edge will be given by $w_{jk}x_{jl}x_{kl+1}$, because $x_{jl}x_{kl+1} =1$. and if $j$ and $k$ are not consecutive in the path, then $x_{jl}x_{kl+1} = 0$ for every $l$.
+
+This ensure that we only visit $kl+1$ after vertiex $kl$, thus we calculate the cost(or any global quantity). As a resutl, the cost of our tour is given by,
+
+$$
+\sum_{l=0}^{m-1}\sum_{j=0}^{m}\sum_{k=0}^{m} w_{jk}x_{jl}x_{kl+1},
+$$
+
+then we conbine our constraints and get:
+
+$$
+\begin{array}{ll}
+\text{minimize} & \sum_{l=0}^{m-1}\sum_{j=0}^{m}\sum_{k=0}^{m} w_{jk}x_{jl}x_{kl+1} + B_{1}(\sum_{l=0}^{m}x_{ij}-1)^{2}+B_{2}(\sum_{j=0}^{m}x_{jl}-1)^{2}\\
+\text{subject to} & x_{jl}\in \{0,1\}, \ j = 0,\cdots,m, \ l = 0,\cdots,k-1.
+\end{array}
+$$
+
+where penalty constants $B_1$ and $B_2$ is choosen so that any deviated results will generate large outcome in our cost function.
