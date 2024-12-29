@@ -1,0 +1,1 @@
+We are going to showhowthe ideas thatwe have already explored can also be used on digital quantum computers. We will be using our beloved quantum circuits — with all their qubits, quantum gates, and measurements — to solve combinatorial optimization problems formulated in the QUBO framework.
