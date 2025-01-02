@@ -226,6 +226,26 @@ $$
 where $m_{x}$ is the number of times that $x$ was measured. The higher the value of $M$, the better this approximation will be.
 
 ## QUBO and HOBO
+The Higher Order Binary Optimization (HOBO) or Polynomial Unconstrained Binary Optimization (PUBO), are the optimization problems that deals with minimizing a binary polynomial - of any degree - with no additional restrictions.
+
+### Solving HOBO by tansforming it to QUBO problems
+One way to solve HOBO problems is by transforming them into QUBO problems. For an example, you can substitute prodcuts $xy$ by a new binary variables $z$ as long as you introduce a penalty term $xy - 2xz - 2yz +3z$, which is $0$ if and only if $xy = z$. This kind of transformations can be access in D-Wave via `BinaryPolynomial` objects that you can reduce polynomials of degree $2$ with the `make_quadratic` function.
+
+### Solving QUBO via QAOA
+We can consider a binary polynomial of any degree and transform it using the techniques we have covered in [QUBO section](../QuantumOpt/QUBO.md). We will end up having a Hamiltonian that is a sum of tensor products of $Z_{j}$ matrices. Luckly, we can now deal with more than just one or two $Z_{j}$ matrices.
+
+In the same fashion, If $\lvert x \rangle$ is a basis state, we have 
+
+$$
+e^{-iaZ_{j1}Z_{j2}\cdots Z_{jm}} \lvert x \rangle = e^{-ia} \lvert x \rangle
+$$
+
+if the sum of the bits of $x$ in positions $j_{1}, j_{2}, \cdots, j_{m}$ is even, and 
+
+$$
+e^{-iaZ_{j1}Z_{j2}\cdots Z_{jm}} \lvert x \rangle = e^{ia} \lvert x \rangle
+$$
+if the sum is odd.
 
 
 # Using QAOA with Qiskit
