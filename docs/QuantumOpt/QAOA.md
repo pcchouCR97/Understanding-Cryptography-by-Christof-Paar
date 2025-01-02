@@ -247,5 +247,29 @@ e^{-iaZ_{j1}Z_{j2}\cdots Z_{jm}} \lvert x \rangle = e^{ia} \lvert x \rangle
 $$
 if the sum is odd.
 
+This unitary action can be implemented by using consecutive CNOT gates with control qubits in $j_{1}, j_{1}, \cdots, j_{m-1}$ and targets in $j_{m}$ then a $R_Z$ gate with parameter $2a$ on qubit $j_{m}$ and again, consecutive CNOT gates with control qubits $j_{m-1}, j_{m-2}, \cdots, j_{1}$ and targets in $j_{m}. You can see the implementation in the image down below for case $e^{-iaZ_{0}Z_{1}Z_{3}}$.
+
+
+We can also expand the same concept to help us evaluate the Hamiltonian $H_{1}$ that includes tensor products of $Z$ matrices. We have 
+
+$$
+\langle x | Z_{j_1}Z_{j_2} \cdots Z_{m} | x \rangle = 1
+$$
+
+if the sum of the bits of $x$ positions $j_{1}, j_{1}, \cdots, j_{m}$ is {==**even**==}. And
+
+$$
+\langle x | Z_{j_1}Z_{j_2} \cdots Z_{m} | x \rangle = -1
+$$
+
+if the sum of the bits of $x$ positions $j_{1}, j_{1}, \cdots, j_{m}$ is {==**odd**==}.
+
+!!! example
+    Please evaluate $\langle 100| H_{1} |100 \rangle$ with $H_{1} = Z_{0}Z_{1}Z_{2} + 3Z_{0}Z_{1}Z_{2} - Z_{1}Z_{2} + 2Z_{0}$    
+
+    ---
+    Answer: = $1 + 3 \times (-1) - 1 + 2 \times 2 = 0$
+
+
 
 # Using QAOA with Qiskit
