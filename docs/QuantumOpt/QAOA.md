@@ -130,7 +130,7 @@ $$
 \lvert \beta, \gamma \rangle = e^{i\beta_{p}H_{0}}e^{i\gamma_{p}H_{1}} \dots e^{i\beta_{2}H_{0}}e^{i\gamma_{2}H_{1}} e^{i\beta_{1}H_{0}}e^{i\gamma_{1}H_{1}}  \lvert \psi_{0} \rangle,
 $$
 
-where $\lvert \psi_{0} \rangle$ is the groudn state of $H_{0}$. As we know, $H_{0}$ is usually taken to be $ -\sum_{j=0}^{n-1} X_{j}$, while $H_{1}$ is an Ising Hamiltonian of the form 
+where $\lvert \psi_{0} \rangle$ is the groudn state of $H_{0}$. As we know, $H_{0}$ is usually taken to be $-\sum_{j=0}^{n-1} X_{j}$, while $H_{1}$ is an Ising Hamiltonian of the form 
 
 $$
 -\sum_{j,k} J_{jk}Z_{j}Z_{k} - \sum_{j} h_{j}Z_{j}
@@ -144,7 +144,7 @@ $$
 e^{i \beta_{k}H_{0}} = e^{-i \beta_{k} \sum_{j=0}^{n-1}X_{j}} = \prod_{j=0}^{n-1} e^{-i \beta_{k}X_{j}}
 $$
 
-{==But $e^{i \beta X_{j}}$ is the expression for the rotation gate $R_{X}(2\beta), so this means that we just need to apply this gate to each of the qubits in our circuit.$ ==}
+{==But $e^{i \beta X_{j}}$ is the expression for the rotation gate $R_{X}(2\beta)$, so this means that we just need to apply this gate to each of the qubits in our circuit.==}
 
 Next, we will take care of the $e^{i \gamma_{l}H_{1}}$ for any real coefficient $\gamma_{l}$. We know that $H_{1}$ is a sum of terms of the form $J_{jk}Z_{j}Z_{k}$ and $h_{j}Z_{j}$. Since these matrices commute with each other, we get
 
@@ -171,9 +171,59 @@ This unitary action is implemented by the circuit below, where we have only depi
 
 Figure. Circuit Implementation of $e^{-iaZ_{j}Z_{k}}$
 
+Imagine that the Ising Hamiltonian of your problem is $3Z_{0}Z_{2} - Z_{1}Z_{2} + 2Z_{0}$ Then, the circuit used by QAOA to prepare $\beta, \gamma$
+
+![circuit_implementation_QAOA_2](../QuantumOpt/images/circuit_implementation_QAOA_2.png)
+
+Figure. QAOA circuit with $p=1$
+
+Don't worry, let's go through this together!
+
+1. First, we prepare the ground state of $H_0$ with a column of Hadamard gates.
+2. Remember that we set $a = \gamma_{l}J_{jk}$ and $e^{-iaZ_{j}Z_{k}}\lvert x \rangle = e^{ia}\lvert x \rangle$ if qubit j and k have the different values. Since $J = 3$, we implemented $R_{Z}(2a = 2 \times 3\gamma_{l} = 6 \gamma_{1})$ with CNOT gate between qubit 0 and 2. 
+3. Next, we perform the same operation between qubit 1 and 2 with $R_{Z}(2a = 2 \times -1\gamma_{l} = -2 \gamma_{1})$ and CNOT gates.
+4. Then we use an $R_Z$ gate on qubit $0$ to implement $e^{-i2\gamma_{1}Z_{0}}$.
+5. Finally, a column of $R_X(2\beta_1)$ gates implements $e^{-i\beta_{1}\sum_{j}X_{j}}$
+
+If we increase the number of **layers** $p$, the circuit would grow by repeating for another $p-1$ times the very same circuit structure shown above except for the inintal Hadamard gates. More, we have to replace $\beta$ and $\gamma$ with corresponding $p$.
 
 ## Estimating the energy
+After knowing how to construct a quantum circuit, let's see how to estimate the energy for the state $\lvert \beta, \gamma \rangle$.
 
+Here, we are more interested in the energy of the $\lvert \beta, \gamma \rangle$ since this is the quantity that we want to minimize. That's beeing say, we need to evaluate $\langle \beta, \gamma \lvert H_{1} \lvert \beta, \gamma \rangle$. Of course, we don't have to access to the state vector since we re preparing the state with a quantum computer.
+
+Since we already know how to evaluate efficiently $\langle x\lvert H_{1} \lvert x \rangle$ for any basis state $\lvert x \rangle$/. In fact, $\langle x\lvert H_{1} \lvert x \rangle$ is the value of $x$ in the cost function of our combinatorial optimization problem, because we derived $H_{1}$ from it. We only need to notice that $\langle x\lvert Z_{j} \lvert x \rangle = 1$ if the $j$-th bit of $x$ is 0 and that $\langle x\lvert Z_{j} \lvert x \rangle = -1$ otherwise. In the same fashion, $\langle x\lvert Z_{j}Z_{k} \lvert x \rangle = 1$ if $j$-th and $k$=th buts of x are equal and $\langle x\lvert Z_{j}Z_{k} \lvert x \rangle = -1$ if they are different.
+
+Let's look into this problem, for instance, try to evaluate $\langle x \lvert H_{1} \lvert x \rangle$ if $H_{1} = 3Z_{0}Z_{2}-Z_{1}Z_{2}+2Z_{0}$, 
+
+$$
+\langle 101 \lvert H_{1} \lvert 101\rangle = 3\langle 101 \lvert Z_{0}Z_{2} \lvert 101\rangle - \langle 101 \lvert Z_{1}Z_{2} \lvert 101\rangle + 2\langle 101 \lvert Z_{0} \lvert 101\rangle = 3 + 1 - 2 = 4
+$$
+
+!!! note 
+    Try to evaluate $\langle 100 \lvert H_{1} \lvert 100\rangle$ with $H_{1} = 3Z_{0}Z_{2}-Z_{1}Z_{2}+2Z_{0}$ = ?
+
+We also know that the can always write $\lvert \beta, \gamma \rangle$ as a linear combination of basis state,
+
+$$
+\lvert \beta, \gamma \rangle = \sum_{x} a_{x} \lvert x \rangle
+$$
+
+for certain amplitudes $a_{x}$ such that $\sum_{x}|a_{x}|^{2} = 1$. Therefore, we can have,
+
+$$
+\langle \beta, \gamma \lvert H_{1} \lvert \beta, \gamma \rangle = \bigg( \sum_{y} a_{y}^{*} \langle y \lvert \bigg) H_{1} \bigg( \sum_{y} a_{x}^{*} \lvert x \rangle \bigg) = \sum_{y}\sum_{x} a_{y}^{*} a_{x} \langle y \lvert H_{1} \lvert x \rangle = \sum_{x} \lvert a_{x} \lvert ^{2} \langle x \lvert H_{1} \lvert x \rangle.
+$$
+
+because $H_{1} \lvert c \rangle$ is always a multiple of $\lvert x \rangle$ ($H_{1}$ is a diagonal matrix since it is a sum of diagonal matrices), because $\langle y | x \rangle = 0$ when $y\neq x$, and because $a_{y}^{*} a_{x} = | a_{x} |^{2}$.
+
+From this, we obtain
+
+$$
+\langle \beta, \gamma \lvert H_{1} \lvert \beta, \gamma \rangle \approx \sum_{x} \frac{m_{x}}{M} \langle x | H_{1} | x \rangle,
+$$
+
+where $m_{x}$ is the number of times that $x$ was measured. The higher the value of $M$, the better this approximation will be.
 
 ## QUBO and HOBO
 

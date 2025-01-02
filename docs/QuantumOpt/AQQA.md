@@ -112,21 +112,20 @@ Next, all we need is to tell the quantum annealer is that those are the coeffici
 
 Next, let's move to our Jupyter file to work on this!
 
-
 ## Takeaways
 1. **Adiabatic Quantum Computing**:
-   - Adiabatic quantum computing (AQC) is equivalent to the quantum circuit model but uses a time-dependent Hamiltonian for continuous evolution instead of discrete quantum gates.
-   - The adiabatic theorem ensures that, with slow enough evolution, the ground state can be measured at the end.
+      - Adiabatic quantum computing (AQC) is equivalent to the quantum circuit model but uses a time-dependent Hamiltonian for continuous evolution instead of discrete quantum gates.
+      - The adiabatic theorem ensures that, with slow enough evolution, the ground state can be measured at the end.
 
 2. **Quantum Annealing**:
-   - In practice, quantum annealing is used over AQC because adiabatic evolution can be too slow for practical applications.
-   - D-Wave Leap is a platform that enables finding approximate solutions to combinatorial optimization problems using quantum annealers.
+      - In practice, quantum annealing is used over AQC because adiabatic evolution can be too slow for practical applications.
+      - D-Wave Leap is a platform that enables finding approximate solutions to combinatorial optimization problems using quantum annealers.
 
 3. **Parameter Control**:
-   - Understanding and controlling annealing parameters improves solution quality with quantum annealers.
+      - Understanding and controlling annealing parameters improves solution quality with quantum annealers.
 
 4. **Hybrid Solvers**:
-   - Hybrid solvers divide large problems into smaller pieces and combine classical and quantum methods to find global solutions.
+      - Hybrid solvers divide large problems into smaller pieces and combine classical and quantum methods to find global solutions.
 
 5. **Future Topic**:
-   - The next focus will be on discretizing quantum annealing to implement it using quantum gates, integrating it into the quantum circuit model.
+      - The next focus will be on discretizing quantum annealing to implement it using quantum gates, integrating it into the quantum circuit model.
