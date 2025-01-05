@@ -167,12 +167,43 @@ where $k$ is samll compared to $2^{n}$.
 
 
 ## Finding minima with Grover's algorithm
-As you can imagine, finding a minima is some action that find a value with a special property. Suppose we want to find a minimum of a function $g$ that is computed over binary strings of length $n$. We select one such string $x_0$ at random and we compute $g(x_0)$. Now we apply Grover's algorithm with an oracle that, on input $x$, returns 1 if $g(x) < g(x_{0})$ and 0 otherwise.
+As you can imagine, finding a minima is some action that find a value with a special property. Suppose we want to find a minimum of a function $g$ that is computed over binary strings of length $n$. We select one such string $x_0$ at random and we compute $g(x_0)$. Now we apply Grover's algorithm with an oracle that, on input $x$, returns 1 if $g(x) < g(x_{0})$ and 0 otherwise. If the element $x_1$ that we measure after applying Grover's search is lower than $g(x_0)$, we replace $x_0$ with it and repeat the process but now with an oracle that checks the condition $g(x) < g(x_1)$. If not, we keep using $x_0$. We repeat this process several times until find the lowest value.
 
 
 # Quantum oracles for combinatorial optimization
 
+After knowing the basic knowedge of the Dürr-Høyer algorithm, the next will be how to find a quantum oracle, which uses $x$ and $y$ to check if $g(x) < g(y)$, for us to use in order to find the minimum of function $g$.
+
+We will start our jounery by considering the QUBO and HOBO cases with the coefficients of the polynomial are integer numbers and, then, we will extend our study to the most general when the coefficients are real numbers. However, before that, we need to understand one of the most important subroutines in all of quantumn computing: the **quantum Fourier transform**.
+
 ## The quantum Fourier transform
+The quantum Fourier transform (QFT) is one of the most important and useful tool in quantum computing. It is an essential part of Shor's algorith for integer factorization and other algorithm such as HHL.
+
+We will use the QFT to help us implement the arithmetical operations that we need to compute the values of the polynomial function of our QUBO and HOBO problems. The QFT on $m$ qubits is defined as the unitary transformation that takes the basis states $\lvert j \rangle$ to 
+
+$$
+\frac{1}{\sqrt{2^{m}}} \sum_{k=0}^{2^{m}-1} e^{\frac{2\pi ijk}{2^{m}}} \vert k \rangle,
+$$
+
+where $i$ is the imaginary unit.
+
+The QFT can be implemented with a number of one- and two- qubit gates that is quadratic in $m$. This is an exponenetial speedup ocer the best algorithm that we have fot the analogous classical operation (the discrete Fourier transform). 
+
+For instance, the circuit for the QFT on three qubits is shown below. As you can see, the rightmost gate, which acts on the top and bottom qibits, is the SWAP gate. Moreover, this QFT circuit uses the **phase gate**, denote by $P(\theta)$. This is a parameterized gate that depends on an angle $\theta$ and whose coordinate matrix is 
+
+$$
+\begin{pmatrix}
+1 & 0\\
+0 & e^{i\theta}
+\end{pmatrix}
+$$
+
+![quantum_Fourier_transform_on_3_qubits](../QuantumOpt/images/quantum_Fourier_transform_on_3_qubits.png)
+
+Figure: Circuit for the quantum Fourier transform on 3 qubits.
+
+
+
 
 ## Encoding and adding integer numbers
 
