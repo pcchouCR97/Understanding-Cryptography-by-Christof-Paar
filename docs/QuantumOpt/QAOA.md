@@ -273,3 +273,8 @@ if the sum of the bits of $x$ positions $j_{1}, j_{1}, \cdots, j_{m}$ is {==**od
 
 
 # Using QAOA with Qiskit
+
+# Using QAOA with PennyLane
+
+# Summary
+In this chapter, you've learn the most popular quantum algorithms used to solve optimization problmes with gate-based quantum computers. You also learned that QAOA is a "discretization version" of a quantum annealing and it is implemented in hybrid way such that we run the classical optimization tool to update parameters such as $\beta$ and $\gamma$ and then use the powerful qunatum computer to prepare its energy state. And you surely know how to use these circuits to estimate expectation values in an efficient way.
