@@ -315,7 +315,7 @@ This diagram represents an **oracle** to determine whether $g(x) < g(y)$, utiliz
 
 ### Key elements in the Circuit:
 1. **Input Qubits:**
-    - $\lvert x\rangle$ and $\lvert y\rangle$: Encodes the inputs $x$ and $y$ as $n$-qubit registers.
+    - $\lvert x\rangle$ and $\lvert y\rangle$:https://www.youtube.com/ Encodes the inputs $x$ and $y$ as $n$-qubit registers.
     - $\lvert 0^m\rangle$: A work register initialized to $\lvert 0\rangle$ with $m$ qubits, used for intermediate computations (store all the intermediate results).
 
 2. **Phase Encoding of Differences:**

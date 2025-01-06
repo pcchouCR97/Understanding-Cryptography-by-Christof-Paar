@@ -62,6 +62,7 @@ nav:
         - Adiabatic Quantum Computing & Quantum Annealing (AQQA): QuantumOpt/AQQA.md
         - Quantum Approximate Optimization Algorithm (QAOA): QuantumOpt/QAOA.md
         - Grover Adaptive Search (GAS): QuantumOpt/GAS.md
+        - Variational Quantum Eignesolver (VQE): QuantumOpt/VQE.md
   - Real-world projects:
       - Quantum Computing Tools: projects/QuantumComputingTools.md
       - Quantum Simulations: projects/quantum-simulations.md
