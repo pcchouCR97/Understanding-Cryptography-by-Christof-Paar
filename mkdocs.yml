@@ -29,6 +29,7 @@ nav:
       - Logic Gates: Math_Fundamentals/logic_gates.md
       - Linear Algebra: 
         - Tensor: Math_Fundamentals/linear_algebr_tensor.md
+        - Matrices: Math_Fundamentals/matrices.md
   - Quantum Mechanics:
       - Basics:
         - Qubit(s): quantum_mechanics/Qubit.md
