@@ -8,10 +8,10 @@ theme:
       scheme: default
       primary: indigo
       accent: pink
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: deep purple
-      accent: light blue
+    #- media: "(prefers-color-scheme: dark)"
+    #  scheme: slate
+    #  primary: deep purple
+    #  accent: light blue
   features:
     - navigation.tabs
     - navigation.top

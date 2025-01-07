@@ -66,13 +66,83 @@ for every $j = 1, \cdots, l$ and fpr every $k = 1, \cdots, r_{j}$.
 
 Here, 
 
-1. We are considering the possiblility of having several eigenvectors $\lambda_{j} \lvert \lambda_{j}^{k} \rangle$ associated with the same eigenvalue $\lambda_{j}$, hence the use of the superindices $k = 1, \cdots, r_{j}$, where $r_j$ is the number of eigenvectors associated with the $\lambda_{j}^{k}$ eigenvalue. 
+1. We are considering the possiblility of having several eigenvectors $\lvert \lambda_{j}^{k} \rangle$ associated with the same eigenvalue $\lambda_{j}$, hence the use of the superindices $k = 1, \cdots, r_{j}$, where $r_j$ is the number of eigenvectors associated with the $\lambda_{j}^{k}$ eigenvalue. 
 2. If all the eigenvalues are different, then we will have $r_{j} = 1$ for every $j$ and we can drop the $k$ superindices.
 
+Let's consider tan obervable represented by a Hermitian operator $A$, and also an orthonormal basis of eigenvectors $\{ \lvert \lambda_{j}^{k} \}_{j,k}$ such that $A \lvert \lambda_{j}^{k} \rangle = \lambda_{j} \lvert \lambda_{j}^{k} \rangle$. Plus, the possible outcomes of the measurement of the observable must be represented by the different eigenvalues $\lambda_{j}$. More, upon measurement, the probability that a state $\lvert \psi \rangle$ will yield $\lambda_{j}$ must be $\sum_{k}|\langle \lambda_{j}^{k}|\psi\rangle |^{2}$.
+
+It is a fact that any physical observable can be represented by a Hermitian operator that those are requirements are met.
+
+!!! note
+    {==Remember, in quantum mehcanics, if the measurement returns the result associated to an eigenvalue $\lambda_{j}$, the state of the system will then become the normalized projection of $\| \psi \rangle$ onto the space of eigenvectors with eigenvalue $\lambda_{j}$.==}
+
+That is, if we measure a state in a superposition such as 
+
+$$
+\sum_{j,k} a_{j}^{k} \lvert \lambda_{j}^{k} \rangle
+$$
+
+and we obtain $\lambda_{j}$ as the result, then the new state will be
+
+$$
+\frac{\sum_{j,k} a_{j}^{k} \lvert \lambda_{j}^{k} \rangle}{\sqrt{\sum_{j,k} |a_{j}^{k}|^{2}}}.
+$$
+
+This is the {==***collapse***==} of the original state! For instance, whenever we measure in the computational basis, we are indeed measuring some physical observable, and this physical observable can be represented by a Hermitian operator.
+
+The coordinated matrix of this measurement operator with respect to the computational basis could be the diagonal matrix 
+
+$$
+\begin{pmatrix}
+0 & & & \\
+& 1 & & \\
+& & \ddots & \\
+& & & 2^n - 1
+\end{pmatrix}
+$$
+
+when we measure a single qubit in the computational basis, the coordinate matrix with respect to the computational basis of the associated hermitian operator could be either of
+
+$$
+\begin{array}{cc}
+    N = 
+    \begin{pmatrix}
+    0 & 0 \\
+    0 & 1
+    \end{pmatrix}
+    ,&
+    Z = 
+    \begin{pmatrix}
+    1 & 0 \\
+    0 & -1
+    \end{pmatrix}
+    .
+\end{array}
+$$
+
+Both of these operators represent the same observable; they only differ in the eigenvalues that they associate to the distinct possible outcomes. 
+
+1. N operator: eigenvalues 0 and 1 to the qubit's value being 0 and 1 respectively.
+2. Z operator: eigenvalues 1 and -1 to these outcomes.
+
+!!! Note
+    {==Measurements in quantum mechanics are represented by Hermitian operators, which we refer to as observable.==} One possible operator corresponding to measuring a qubit in the computational basis can be the Pauli Z matrix.
+
 ### Expectation values 
+Let's see what **expectation value** is and how it can be computed. 
+
+The expectation value of any observable under a state $\lvert \psi \rangle$ can be defined as
+
+$$
+\langle A \rangle_{\psi} = \sum_{j,k} |\langle \lambda_{j}^{k}|\psi \rangle|^{2} \lambda_{j}, 
+$$
+
+which is a natural definition that agrees with the statistical expected value of the results obtained when we measure $\lvert \psi \rangle$ according to $A$. 
+
+## Estimaing the expectation values of observables
 
 
-## Intoducing the Variational Quantum Eigensolver
+## Intoducing Variational Quantum Eigensolver
 
 
 ## Using VQE with Qiskit
