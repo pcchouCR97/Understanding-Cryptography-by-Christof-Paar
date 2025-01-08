@@ -1,3 +1,5 @@
+# Matrices
+
 ## Hermitian matrix
 
 A **Hermitian matrix** is a complex square matrix that is equal to its own conjugate transpose - that is, the element in the $i$-th row and $j$-th column is equal to the complex conjugate of the element in the $j$-th row and $i$-th column, for all indices $i$ and $j$. A is a Hermitian matrix $A$ contains elements $a_{ij}$, then 
