@@ -141,7 +141,7 @@ which is a natural definition that agrees with the statistical expected value of
 
 $$
 \begin{array}{lllll}
-\langle A \rangle_{\psi} & = & \sum_{j,k}|\langle \lambda_{j}^{k} | \psi \rangle |^{2} & = & \sum_{j,k} \langle \psi | \lambda_ {j}^{k} \rangle \langle \lambda_ {j}^{k} | \psi \rangle \lambda_{j}\\
+\langle A \rangle_{\psi} & = & \sum_{j,k}|\langle \lambda_{j}^{k} | \psi \rangle |^{2} \lambda_{j} & = & \sum_{j,k} \langle \psi | \lambda_ {j}^{k} \rangle \langle \lambda_ {j}^{k} | \psi \rangle \lambda_{j}\\
  & = & \sum_{j,k} \langle \lambda_ {j}^{k} | \psi  \rangle \langle \psi | \lambda_ {j}^{k} \rangle \lambda_{j} & = &\sum_{j,k} \langle \lambda_ {j}^{k} | \psi \rangle \langle \psi | A | \lambda_ {j}^{k} \rangle\\
  & = & \langle \psi | A \sum_{j,k} \rangle \lambda_{j}^{k} | \psi \rangle | \lambda_{j}^{k} \rangle & = & \langle \psi | A | \psi \rangle
 \end{array}
@@ -175,6 +175,29 @@ $$
 The equation shows how the expectation value of a Hermitian operator (observable) is calculated by summing over all possible eigenvalues $\lambda_{j}$, weighted by the probability of measuring $\lambda_{j}$ when the system is in state $|\psi\rangle$. The expectation value $\langle A \rangle_{\psi}$ is the weighted average of the possible outcomes $\lambda_{j}$, with the probabilities $\left| \langle \lambda_{j}^{k} | \psi \rangle \right|^2$ serving as weights.
 
 Then, we moved on to the second row.
+
+
+
+Notice that we have used the fact that $A|\lambda_{j}^{k} = \lambda_{j}|\lambda_{j}^{k} \rangle$ and that $|\psi \rangle = \sum_{j,k} \rangle \lambda_{j}^{k} | \psi \rangle | \lambda_{j}^{k} \rangle$.
+
+---
+
+!!! Note 
+    The expectation value of any Hermitian operator (observable) $A$ is given by
+    
+    $$
+    \langle A \rangle_{\psi} = \sum_{j,k}|\langle \lambda_{j}^{k} | \psi \rangle |^{2} \lambda_{j} = \langle \psi | A | \psi \rangle.
+    $$
+
+
+
+The {==variational principle==} states that the smallest expectation value of an observable $A$ is alwyas achieved at an eigenvector of that observable. Suppose that $\lambda_{0}$ is minimal among all the eigenvalues of $A$. Then, for any state $\psi$ it holds that 
+
+$$
+\langle A\rangle_\psi = \sum_{j,k}|\langle \lambda_{j}^{k} | \psi \rangle |^{2}\lambda_{j} \geq \sum_{j,k}| \langle \lambda_{j}^{k}| \psi \rangle|^2\lambda_{0} = \lambda_{0}
+$$
+
+where the last equality follows from the fact the $\sum_{j,k}| \langle \lambda_{j}^{k}| \psi \rangle|^{2} = 1$
 
 ## Estimaing the expectation values of observables
 
