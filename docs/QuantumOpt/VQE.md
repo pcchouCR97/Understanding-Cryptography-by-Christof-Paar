@@ -176,7 +176,42 @@ The equation shows how the expectation value of a Hermitian operator (observable
 
 Then, we moved on to the second row.
 
+These equations show how the **expectation value** of a Hermitian operator $A$ in a quantum state $|\psi\rangle$ is derived, step by step. Let’s break it down:
 
+---
+
+### First Step:
+$$
+\sum_{j,k} \langle \psi | \lambda_j^k \rangle \langle \lambda_j^k | \psi \rangle \lambda_j
+= \sum_{j,k} \langle \lambda_j^k | \psi \rangle \langle \psi | \lambda_j^k \rangle \lambda_j
+$$
+- This step shows that the ordering of inner products doesn't matter due to the properties of complex conjugation.
+
+---
+
+### Second Step:
+$$
+\sum_{j,k} \langle \lambda_j^k | \psi \rangle \langle \psi | A | \lambda_j^k \rangle
+= \langle \psi | A \sum_{j,k} | \lambda_j^k \rangle \langle \lambda_j^k | \psi \rangle
+$$
+- Here, $\lambda_j | \lambda_j^k \rangle = A | \lambda_j^k \rangle$, because $| \lambda_j^k \rangle$ is an eigenstate of $A$ with eigenvalue $\lambda_j$.
+- The summation $\sum_{j,k} | \lambda_j^k \rangle \langle \lambda_j^k |$ represents the **resolution of identity**, which means that any state can be expressed in this eigenbasis.
+
+---
+
+### Final Step:
+$$
+\langle \psi | A | \psi \rangle
+$$
+- This simplifies the expectation value entirely into the form $\langle \psi | A | \psi \rangle$, which is the standard expression for the expectation value of a Hermitian operator $A$ in the state $|\psi\rangle$.
+
+---
+
+### Physical Interpretation:
+- The derivation connects the abstract summation over eigenvalues and eigenstates to the compact, widely-used notation $\langle \psi | A | \psi \rangle$.
+- The expectation value $\langle \psi | A | \psi \rangle$ represents the average value of many measurements of the observable $A$ when the system is in state $|\psi\rangle$.
+
+---
 
 Notice that we have used the fact that $A|\lambda_{j}^{k} = \lambda_{j}|\lambda_{j}^{k} \rangle$ and that $|\psi \rangle = \sum_{j,k} \rangle \lambda_{j}^{k} | \psi \rangle | \lambda_{j}^{k} \rangle$.
 
@@ -197,7 +232,15 @@ $$
 \langle A\rangle_\psi = \sum_{j,k}|\langle \lambda_{j}^{k} | \psi \rangle |^{2}\lambda_{j} \geq \sum_{j,k}| \langle \lambda_{j}^{k}| \psi \rangle|^2\lambda_{0} = \lambda_{0}
 $$
 
-where the last equality follows from the fact the $\sum_{j,k}| \langle \lambda_{j}^{k}| \psi \rangle|^{2} = 1$
+where the last equality follows from the fact the $\sum_{j,k}| \langle \lambda_{j}^{k}| \psi \rangle|^{2} = 1$, since the sum of the probabilities of all the outcomes must add up to 1. 
+
+If we take any eignevector $|\lambda_{0}^{k} \rangle$ associated to $\lambda_{0}$, its expectation value will be 
+
+$$
+\langle \lambda_{0}^{k} |A|\lambda_{0}^{k}\rangle = \lambda_{0} \langle \lambda_{0}^{k} | \lambda_{0}^{k} \rangle = \lambda_{0}^{k},
+$$
+
+proving that the minimum expectation value is achieved at and eigenvector of $A$.
 
 ## Estimaing the expectation values of observables
 
