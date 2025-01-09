@@ -128,7 +128,7 @@
 
      These represent neither the same physical situation, nor do they represent distinct physical situations.
 
--   A quantum system cannot simultaneously process two incompatible properties. For example, a spin-half particle cannot have both $S_{x} = 1/2$ and $S_{z} = 1/2$. There is nothing in the Hilbert space that could be used to represent such a combined property.
+-   A quantum system cannot simultaneously process two incompatible properties. For example, a spin-half particle cannot have both $S_{x} = +1/2$ and $S_{z} = +1/2$. There is nothing in the Hilbert space that could be used to represent such a combined property.
 
 # Operators
 ## Definition
@@ -154,34 +154,102 @@
 -   The simplest operator is a *dyad*, $|x\rangle \langle w|$. This action is defined by 
 
     $$
-    \color{red}{(|x\rangle \langle w|)}|\psi\rangle = |x \rangle \langle w | \psi \rangle = \color{blue}{(\langle w | \psi \rangle)}|x\rangle.
-    $$
-
-    remember the *operators* properties
-
-    $$
-    \color{red}{(AB)}|\psi\rangle = A(B|\psi\rangle) = \color{blue}{AB}|\psi\rangle.
+    (\color{red}{|x\rangle} \color{blue}{\langle w|})|\psi\rangle = \color{red}{|x\rangle} \color{blue}{\langle w|} \psi \rangle = (\color{blue}{\langle w|} \psi \rangle)\color{red}{|x\rangle}.
     $$
 
     !!! note 
         The middle term, formed by removing the parentheses and replacing two vertivle bars $||$ with one bar $|$.
 
+-   The completness relation
+
+    $$
+    I = \sum_{j}|j\rangle \langle j|,
+    $$
+
+    where $I$ is the identity operator, $I|\psi\rangle = |\psi\rangle$ for any $|\psi\rangle$. The sum on the right is dyads $|j\rangle \langle j|$ corresponding to the elements $|j\rangle$ of an orthonormal basis.
+
+    -   Theus, we can rewrite a state $|\psi\rangle$
+        $$
+        \psi = (\sum_{j} \color{red}{|j\rangle}\color{blue}{\langle j|})|\psi\rangle = \sum \color{red}{|j\rangle}\color{blue}{\langle j|}\psi\rangle = \sum_{j}\color{blue}{\langle j |}\psi\rangle \color{red}{|j\rangle}.
+        $$
+
 ## Matrices
+-   Given an operator $A$ and a bisis $\{ |\beta_{j} \rangle\}$ , which need not to be orthonormal, the *matrix* associated with $A$ is the square array of numbers $A_{jk}$ defined by
+    
+    $$
+    A|\beta_{k}\rangle = \sum{j}|\beta_{j}\rangle A_{jk} = \sum_{j}A_{jk}|\beta_{j}\rangle.
+    $$
+
+-    For an orthonormal basis, we can rewrite the [completness relation](../Math_Fundamentals/hilbert_space.md#dyads-and-completness)
+
+    $$
+    A|k\rangle = I \cdot A|k\rangle = (\sum_{j}\color{red}{|j\rangle} \langle j|)A|k\rangle = \sum_{j}\color{red}{|j\rangle} \langle j| A|k\rangle = \sum_{j}\langle j|A|k\rangle\color{red}{|j\rangle}.
+    $$
+
+    In $\langle j|A|k\rangle$, the inner product of $|j\rangle$ with $A|k\rangle$ is just the $A_{jk}$ above. Thus, $\langle j|A|k\rangle$, can be written as $\langle \psi|A|\omega\rangle$, is referred to as a "matrix element" when using Dirac notation.
+
+-   In a similar way the expression
+
+    $$
+    A = I \cdot A \cdot I = \sum_{j}|j\rangle \langle j| \cdot A \cdot \sum_{k}|k\rangle \langle k| = \sum{jk}\langle j|A|k\rangle\cdot|j\rangle\langle k|
+    $$
+
+    allows us to express *operator $A$* as a sum of dyads, with coefficients given by its matrix elements.
+
+-   When $A$ refers to a qubit the usual wawy of writing the matrix in the standard basis is 
+
+    $$
+    \begin{pmatrix}
+    \langle 0|A|0\rangle & \langle 0|A|1\rangle \\
+    \langle 1|A|0\rangle & \langle 1|A|1\rangle
+    \end{pmatrix}
+    $$
+
+-   We can also write the matrix element of the product of two operators in terms of the individual matrix elements:
+
+    $$
+    \langle j|AB|k\rangle = \langle j|A \cdot I \cdot B|k\rangle = \sum_{m}\langle j|A|m\rangle\langle m|b|k\rangle.
+    $$
+
+    If we write this equation in subscripts form,
+
+    $$
+    (AB)_{jk} = \sum_{m}A_{jm}B_{mk}.
+    $$
 
 ## Dagger or adjoint
+-   Here are some dagger $^\dagger$ properties:
+
+    $$
+    \begin{array}{c}
+    (|\psi\rangle)^{\dagger} = \langle\psi|,\\
+    (\langle \psi|)^{\dagger} = |\psi \rangle,\\
+    (a|\psi\rangle+b|\psi\rangle)^{\dagger} = a^{*}\langle\psi|+b^{*}\langle\psi|,\\
+    (|\psi\rangle \langle \omega|)^{\dagger} = |\omega\rangle \langle \psi|,\\
+    \langle j|A^{\dagger}|k\rangle = (\langle k|A^{\dagger}|j\rangle)^{*},\\
+    (aA+bB)^{\dagger} = a^{*}A + b^{*}B,\\
+    (AB)^{\dagger} = B^{\dagger}A^{\dagger},
+    \end{array}
+    $$
+
+    where $a$ and $b$ are complex numbers; $a^{*}$ and $b^{*}$ are its complex conjugate. The operator $A^{\dagger}$ is called the ***adjoint*** of the operator $A$. The matrix of $A^{\dagger}$ is the complex conjugate of the transpose of the matrix of $A$.
 
 ## Normal operators
+-   A ***normal*** operator $A$ on a Hilbert space in one that commutes with its adjoint, that is, $AA^{\dagger} = A^{\dagger}A$.
+
+
 
 ## Hermitian operators
 
 ## Projectors 
 
-## positive operators
+## Positive operators
 
 ## Unitary operators 
 
 # Bloch sphere
 
+# Composite systems and tensor products
 
 ## Reference
 1. [Hilbert Space Quantum Mechanics](https://quantum.phys.cmu.edu/QCQI/qitd114.pdf)
