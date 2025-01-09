@@ -101,6 +101,8 @@
 ## Kets as physical properties
 
 -   In quantum mechanics, two vectors $|\psi\rangle$ and $c|\psi$, where $c$ is any *nonzero* complex number have *exactly the same* physical significance. For this reason, it is sometimes helpful to say that the physical state corresponds not to a particular vector in the Hilbert space, but the *$ray$*, or one-dimensional subspace, defined by the collection of all the complex multiples of a particular vector.
+    - One can always choose $c$ in such way that the $| \psi \rangle$ corresponding to a particular physical situation is *normalized*, $\langle \psi | \psi \rangle = 1$ or $||$
+
 
 # Operators
 ## Definition
