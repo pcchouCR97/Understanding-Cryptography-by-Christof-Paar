@@ -1,5 +1,9 @@
 # Matrices
 
+## Hilbert space quantum 
+
+
+
 ## Hermitian matrix
 
 A **Hermitian matrix** is a complex square matrix that is equal to its own conjugate transpose - that is, the element in the $i$-th row and $j$-th column is equal to the complex conjugate of the element in the $j$-th row and $i$-th column, for all indices $i$ and $j$. A is a Hermitian matrix $A$ contains elements $a_{ij}$, then 
@@ -114,7 +118,13 @@ $$
 Q^{T} = Q^{-1}.
 $$
 
+## Orthonormal basis 
+An orthonormal basis is a set of vectors have a norm of 1 and are pairwise orthogonal. [ref](matrices.md#references)
+
 ## References:
 1. [Conjugate transpose (Wiki)](https://en.wikipedia.org/wiki/Conjugate_transpose)
 2. [Orthogonal matrix (Wiki)](https://en.wikipedia.org/wiki/Orthogonal_matrix)
 3. [Hermitian matrix (Wiki)](https://en.wikipedia.org/wiki/Hermitian_matrix)
+4. [Orthonormal basis](https://www.sciencedirect.com/topics/mathematics/orthonormal-basis#:~:text=A%20basis%20is%20orthonormal%20if,product%20spaces%20to%20orthonormal%20bases.)
+5. [Orthonormal basis](https://en.wikipedia.org/wiki/Orthonormal_basis)
+6. [Hilbert Space Quantum Mechanics](https://quantum.phys.cmu.edu/QCQI/qitd114.pdf)
