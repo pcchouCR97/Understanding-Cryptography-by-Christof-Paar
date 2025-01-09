@@ -226,7 +226,7 @@
     (\langle \psi|)^{\dagger} = |\psi \rangle,\\
     (a|\psi\rangle+b|\psi\rangle)^{\dagger} = a^{*}\langle\psi|+b^{*}\langle\psi|,\\
     (|\psi\rangle \langle \omega|)^{\dagger} = |\omega\rangle \langle \psi|,\\
-    \langle j|A^{\dagger}|k\rangle = (\langle k|A^{\dagger}|j\rangle)^{*},\\
+    \langle j|A^{\dagger}|k\rangle = (\langle k|A|j\rangle)^{*},\\
     (aA+bB)^{\dagger} = a^{*}A + b^{*}B,\\
     (AB)^{\dagger} = B^{\dagger}A^{\dagger},
     \end{array}
@@ -235,17 +235,42 @@
     where $a$ and $b$ are complex numbers; $a^{*}$ and $b^{*}$ are its complex conjugate. The operator $A^{\dagger}$ is called the ***adjoint*** of the operator $A$. The matrix of $A^{\dagger}$ is the complex conjugate of the transpose of the matrix of $A$.
 
 ## Normal operators
--   A ***normal*** operator $A$ on a Hilbert space in one that commutes with its adjoint, that is, $AA^{\dagger} = A^{\dagger}A$.
+-   A ***normal*** operator $A$ on a Hilbert space in one that commutes with its adjoint, that is, $AA^{\dagger} = A^{\dagger}A$. 
+-   A normal operators can be diagonalized using an orthonormal basis, that is 
 
+    $$
+    A = \sum_{j} \alpha_{j} |\alpha_{j}\rangle \langle a_{j}|
+    $$
 
+    where the basis vectors $|a_{j}\rangle$ are ***eigenvectors*** of $A$ and the complex numbers $\alpha_{j}$ are its ***eigenvalues***. Equivalently, the matrix of $A$ in this basis is diagonal
+
+    $$
+    \langle a_{j} | A | a_{k} \rangle = \alpha_{j}\delta_{jk}.
+    $$
 
 ## Hermitian operators
+-   A ***hermitian*** or ***self-adjoint*** operator $A$ is defined by the property that $A = A^{\dagger}$, so it is a normal operator. It is the qunatum analog of a real (not complex) number. Its eigenvalues $\lambda_{j}$ are real numbers.
+    -   The term "Hermitian" and "self-adjoint" mean the same thing for a finite-dimensional Hilber space.
+    -   Hermitian operators in quantum mechanics are used to represent ***physical variables***, quantities such as energy, momentum, angular momentum, position, etc. The operator representing the energy is the {==***Hamiltonian $H$***==}.
+
 
 ## Projectors 
 
 ## Positive operators
 
 ## Unitary operators 
+-    A unitary operator $U$ has the property that 
+
+    $$
+    U^{\dagger}U = I = UU^{\dagger}.
+    $$
+
+    -   Since $U$ commutes with its adjoints, it is a normal operator and can diagonalized using an orthonormal basis. Aboove equation also implies that all the eigenvalues of $U$ are complex numbers of magnitude 1. That is, they lie on the unit circuile in the complex plane.
+
+    - In a finite-dimentional Hilbert space, with $U$ mapping the space into itself, thus, we only have to check one of the above equation to see if $U$ is unitary.
+
+    - In quantum mechnics, unitary operators are used to change from one orthonormal basis to another, to represent ***symmetries***, such as rotational symmetry, and to describe some aspects of the ***dynamics*** or ***time development*** of a quantum system.
+
 
 # Bloch sphere
 
