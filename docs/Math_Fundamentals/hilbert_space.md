@@ -252,11 +252,29 @@
 -   A ***hermitian*** or ***self-adjoint*** operator $A$ is defined by the property that $A = A^{\dagger}$, so it is a normal operator. It is the qunatum analog of a real (not complex) number. Its eigenvalues $\lambda_{j}$ are real numbers.
     -   The term "Hermitian" and "self-adjoint" mean the same thing for a finite-dimensional Hilber space.
     -   Hermitian operators in quantum mechanics are used to represent ***physical variables***, quantities such as energy, momentum, angular momentum, position, etc. The operator representing the energy is the {==***Hamiltonian $H$***==}.
-
+-   There is no always has a well-defined value for a physical system in a particulate in quantum mechanics. Let's say a quantum state $|\psi\rangle$, the physical variable corresponding to the operator $A$ has a well-defined value **if and only if** $| \psi\rangle$ is an eigenvector of $A$, $A|\psi\rangle = \alpha|\psi\rangle$, where $\alpha$m must be a real number since $A^{\dagger} = A$.
+    -   The eigenstates of $S_{z}$ for a spin-half particle are $|z^{+}\rangle$ and $|z^{-}\rangle$, with eigenvalues of +1/2 and -1/2, respectively.
+    -   If $|\psi\rangle$ is ***not*** an eigenstate of $A$, then in this state the physical quantity $A$ is ***undefined*** , or ***meaningless*** in the sense that quantum theory can assign it no meaning.
+    -   The state $|x^{+}\rangle$ is an eigenstate of $S_{x}$ but not of $S_{z}$. hence in this state $S_{x}$ has well-defined value (1/2), where as $S_{z}$ is undefined.
 
 ## Projectors 
+-   A ***projectors***, short for ***orthogonal projection operator***, is a Hermitian operator $P = P^{\dagger}$ which is idempotent in the sense that $P^{2} = P$. It is a Hermitian operator all or whose eigenvalues are either 0 or 1. {==Therefore, there is always a basis in which its matrix is diagonal $\langle a_{j}|A|a_{k}\rangle = \alpha_{j} \delta_{jk}$, with only 0 or 1 on the diagonal.==} Such a matrix always represents a projector.
+    -   
 
 ## Positive operators
+-   The ***positive*** operators is useful when dealing with probabilities. They are defined as that for every ket $|\psi\rangle$
+
+    $$
+    \langle \psi |A|\psi\rangle \geq 0.
+    $$
+
+    or 
+
+    $$
+    A = \sum_{j} \alpha_{j} |\alpha_{j}\rangle \langle a_{j}|,
+    $$
+
+    where $\alpha_{j} \geq 0$. Both representations should be normalized.    
 
 ## Unitary operators 
 -    A unitary operator $U$ has the property that 
@@ -290,6 +308,29 @@
     -   Any orthonormal basis of a qubit is associated with a pair or antipodes of that Bloch sphere.
 
 -   A linear operator maps a ray onto a ray, or onto a zero vector. A linear operator on a qubit maps the Bloch sphere onto itself, or in the case of a noninvertible operator, onto a single point on the sphere.
+
+-   Of particular importance are rotations of 180${^\circ}$ about the $x$, $y$, and $z$ axes, obtained using the unitary operators $X = \sigma_{x}$, $Y = \sigma_{y}$, and $Z = \sigma_{z}$, respectively. In the standard basis the corresponding matrices are the Pauli matrices:
+
+$$
+X = 
+\begin{pmatrix}
+0 & 1\\
+1 & 0
+\end{pmatrix}
+, \
+Y = 
+\begin{pmatrix}
+0 & -i\\
+i & 0
+\end{pmatrix}
+, \
+Z = 
+\begin{pmatrix}
+1 & 0\\
+0 & -1
+\end{pmatrix}
+.
+$$
 
 # Composite systems and tensor products
 
