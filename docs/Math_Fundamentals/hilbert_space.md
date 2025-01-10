@@ -271,8 +271,25 @@
 
     - In quantum mechnics, unitary operators are used to change from one orthonormal basis to another, to represent ***symmetries***, such as rotational symmetry, and to describe some aspects of the ***dynamics*** or ***time development*** of a quantum system.
 
-
 # Bloch sphere
+-   Any physical state $\psi$ of a qubit (ray or normalized vector in the two-dimensional Hilbert space) can be associated in this way with a direction $w = (w_{x}, w_{y}, w_{z})$ in space for which $S_{w} = 1/2$, i.e., the $w$ component of angular momentum is positive. There is therefore a one-to-one coorespondence bewteen directions, or the correspondence points on the unit shpere, with rays of a two-dimensional Hilber space. This is also known as the ***Bloch sphere representation *** of qubit states.
+    -   We often write a state 
+
+    $$
+    \begin{array}{c}
+    \cos{(\theta/2)}|0\rangle + e^{i\phi}\sin{(\theta/2)}|1\rangle \leftrightarrow S_{w} = +1/2, \\
+    \sin{(\theta/2)}|0\rangle - e^{i\phi}\cos{(\theta/2)}|1\rangle \leftrightarrow S_{w} = -1/2,
+    \end{array}
+    $$
+
+    where the ket are normalized.
+
+    -   Note that it is the ***surface*** of the Bloch sphere - vector $w$ of unit length - that correspond to different rays.
+
+-   Two states of a qubit are orthogonal, physically distinct ot distinguishable, if they are antipodes, two points at opposite ends of a diagonal. For example, $|0\rangle$ $|1\rangle$ are the north and south pole of the Bloch sphere.
+    -   Any orthonormal basis of a qubit is associated with a pair or antipodes of that Bloch sphere.
+
+-   A linear operator maps a ray onto a ray, or onto a zero vector. A linear operator on a qubit maps the Bloch sphere onto itself, or in the case of a noninvertible operator, onto a single point on the sphere.
 
 # Composite systems and tensor products
 
