@@ -245,7 +245,62 @@ proving that the minimum expectation value is achieved at and eigenvector of $A$
 ## Estimaing the expectation values of observables
 
 
-## Intoducing Variational Quantum Eigensolver
+## Intoducing Variational Quantum Eigensolver (VQE)
+{==The goal of the **Variational Quantum Eigensolver (VQE)** is to find a ground state of a given Hamiltonian $H_1$.==} This Hamiltonian can describe, for instance, the energy of a certain physical or chemical process. We first focus on finding a state $|\psi\rangle$ such that $\langle \psi|H_1|\psi\rangle$ is minimum. In this sub-section, we will use $H_1$ to refer to the Hamiltonian.
+
+The general structure of VQE is very similar to that of QAOA. 
+
+``` mermaid
+flowchart TD
+    A[Parepare a parameterized quantum state. ***Done by quantum computer***] --> B[Measurement. ***Done by quantum computer***];
+    B --> C[Energy estimation. ***Handle by classical computer***];
+    C --> F[Minimization. ***Handle by classical computer***];
+    F --> E{Minimum energy state reached?}
+    E --> |No| D[Change parameters];
+    D --> A;
+    E --> |Yes| G[Minimum found!]
+```
+
+The parameterized circuit is called {==ansatz==} or {==variational form==}, is usually chosen taking into account information from the problem domain. 
+
+!!! Note
+    Think about {==ansatz==} that parameterize typical solutions to the kind of problem under study. The ansatz is selected inadvance and it is usually easy to implement on a quantum circuit.
+
+!!! Note 
+    In many applications, we distinguish two parts in the creation of the parameterized state:
+    -   The preparation of an initial state $|\psi_{0} \rangle$, this is independent on any parameter.
+    -   The variational form $V(\theta)$ itself, which depends on $\theta$.
+    If we have $|\psi_{0} \rangle = U|0\rangle$, for some unitary transformation $U$ implemented with some quantum gates, the ansatz gives us the state $V(\theta)U|\psi\rangle$. We usually denote $V(\theta)U$ as the ansatz and require the initial state to be $|0\rangle$ to simplify our notation.
+
+---
+***Algorithm VQE***
+
+**Require:** $H_1$: given as a linear combination of tensor products of Pauli matrices  
+
+-   Choose a ansatz (variational form) $V(\theta)$  
+-   Choose a starting set of values for $\theta$ (initial values)
+
+**While** the stopping criteria are not met **do**:
+
+-   Prepare the state $|\psi(\theta)\rangle = V(\theta)|0\rangle$   {==*This is done on the quantum computer!*==}
+-   From the measurements of $|\psi(\theta)\rangle$ in different bases, estimate $\langle\psi(\theta)|H_{1}|\psi(\theta)\rangle$
+-   Update $\theta$ according to the minimization algorithm
+
+**End While**
+
+-   Parepare the sate $|\psi(\theta)\rangle = V(\theta)|0\rangle$   {==*This is done on the quantum computer!*==}
+-   From the measurement of $|\psi(\theta)\rangle$ in different bases, estimate $\langle\psi(\theta)|H_{1}|\psi(\theta)\rangle$
+
+---
+
+Notice that:
+
+1.  We require that $H_{1}$ be given as a linear combination of tensor products of Pauli matrices since we can use the technique - change of basis operator - that we introduced before to estimate $\langle \psi|H_{1}|\psi \rangle$. 
+2.  The more terms we have in the linear combination, the bigger the number of bases in which we need to perform measurements. However, we can group serval measurements together. For instance, if we have $I \otimes X \otimes I \otimes X, I \otimes I \otimes X \otimes X$, and $I \otimes X \otimes I \otimes X$, we can use $I \otimes H \otimes H \otimes H$ as our change of basis matrix (H is Hadamard matrix) because it works for the three terms at the same time - that any orthonormal basis is an eigenvector basis of $I$, not just $\{|0\rangle, |1\rangle \}$.
+3.  More frequent we measure $|\psi \rangle$ in each basis can lead to a more accurate estimation but increase time needed to estimate $\langle \psi |H_{1}|\psi \rangle$
+4.  We usually estimiate $\langle\psi(\theta)|H_{1}|\psi(\theta)\rangle$ for the last state $|\psi(\theta)\rangle$ found by the optimization algorithm.
+5. At the end of the VQ execution, you also know the $\theta_{0}$ parameters that were used to build the ground state, and you could use them to reconstruct $|\psi(\theta_{0})\rangle = V(\theta_{0})|0\rangle$. This state can be used to send to another quantum algorithm.
+
 
 
 ## Using VQE with Qiskit

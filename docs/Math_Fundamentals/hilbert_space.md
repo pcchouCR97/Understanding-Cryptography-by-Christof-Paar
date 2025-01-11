@@ -252,6 +252,7 @@
 -   A ***hermitian*** or ***self-adjoint*** operator $A$ is defined by the property that $A = A^{\dagger}$, so it is a normal operator. It is the qunatum analog of a real (not complex) number. Its eigenvalues $\lambda_{j}$ are real numbers.
     -   The term "Hermitian" and "self-adjoint" mean the same thing for a finite-dimensional Hilber space.
     -   Hermitian operators in quantum mechanics are used to represent ***physical variables***, quantities such as energy, momentum, angular momentum, position, etc. The operator representing the energy is the {==***Hamiltonian $H$***==}.
+    -   For example, the operator $S_{z} = \frac{1}{2}(|z^{+}\rangle\langle z^{+}| - |z^{-}\rangle\langle z^{-}|)$ is the $z$ component of angular momentum of a spin-half particle.
 -   There is no always has a well-defined value for a physical system in a particulate in quantum mechanics. Let's say a quantum state $|\psi\rangle$, the physical variable corresponding to the operator $A$ has a well-defined value **if and only if** $| \psi\rangle$ is an eigenvector of $A$, $A|\psi\rangle = \alpha|\psi\rangle$, where $\alpha$m must be a real number since $A^{\dagger} = A$.
     -   The eigenstates of $S_{z}$ for a spin-half particle are $|z^{+}\rangle$ and $|z^{-}\rangle$, with eigenvalues of +1/2 and -1/2, respectively.
     -   If $|\psi\rangle$ is ***not*** an eigenstate of $A$, then in this state the physical quantity $A$ is ***undefined*** , or ***meaningless*** in the sense that quantum theory can assign it no meaning.
@@ -259,7 +260,22 @@
 
 ## Projectors 
 -   A ***projectors***, short for ***orthogonal projection operator***, is a Hermitian operator $P = P^{\dagger}$ which is idempotent in the sense that $P^{2} = P$. It is a Hermitian operator all or whose eigenvalues are either 0 or 1. {==Therefore, there is always a basis in which its matrix is diagonal $\langle a_{j}|A|a_{k}\rangle = \alpha_{j} \delta_{jk}$, with only 0 or 1 on the diagonal.==} Such a matrix always represents a projector.
-    -   
+    -   There is a one-to-one correspondence between a projector $P$ and the ***subspace*** $P'$ of the Hilbert space that it projects onto. $P'$ consists of all the kets $|\psi\rangle$ such that $P|\psi\rangle = |\psi \rangle$. That is, it is the eigenspace consisting of eigenvectors a projector.
+    -   {==Projector operator "projects" a vector in a "perpendicular" manner onto a subsapce.==}
+    -   The dyad $|\psi\rangle \langle \psi|$ for a normalized state $|\psi\rangle$. If $|\psi\rangle$ is not normalized (and not zero), the corresponding projector is 
+    
+    $$
+    P = \frac{|\psi\rangle \langle \psi|}{\langle \psi|\psi\rangle}
+    $$
+
+    -   If $|\psi\rangle$ and $|\phi\rangle$ are two normalized states orthogonal to each other, i.e., the inner product is 0. Then the sum $|\psi\rangle\langle\psi|+|\phi\rangle\langle\phi|$ of the corresponding dyads is also a projector.
+
+-   The physical significance of projectors is that they represent ***physical properties*** of a quantum system that can be either true or false. 
+    -   The property $P$ corresponding to a projector $P$ is trueuf the physical state $|\psi\rangle$ of the system is an eigenstate of $P$ with eigenvalue of 1, and false if it is an eigenstate with eigenvalue of 0. If $|\psi\rangle$ is not an eigenstate of $P$, then the corresponding property is undefined (meaningless) for this state.
+
+-   Two quantum properties represented by projectors $P$ and $Q$ are said to be ***compatible*** if $PQ = QP$ (if $P$ and $Q$ commute). Incompatible oterwise.
+    -   When $P$ and $Q$ are compatible, the product $PQ$ is itself a projector, and represents the property "$P$ AND $Q$". That is, the property that the system has both properties $P$ and $Q$ at the same time.
+    -   The projectors $|z^{+}\rangle\langle z^{+}|$ and $|x^{+}\rangle\langle x^{+}|$ do not commute, and so $S_{z} = +1/2$ and $S_{x}=+1/2$ are examples of incompatible properties.
 
 ## Positive operators
 -   The ***positive*** operators is useful when dealing with probabilities. They are defined as that for every ket $|\psi\rangle$
@@ -333,6 +349,16 @@ Z =
 $$
 
 # Composite systems and tensor products
+##  Definition
+
+##  Product and entangled states
+
+##  Operators on tensor products 
+
+##  Example of two qubits 
+
+##  Multiple systems. Identical particles.
+
 
 ## Reference
 1. [Hilbert Space Quantum Mechanics](https://quantum.phys.cmu.edu/QCQI/qitd114.pdf)
