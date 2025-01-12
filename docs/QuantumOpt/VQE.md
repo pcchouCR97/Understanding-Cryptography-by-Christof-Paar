@@ -56,7 +56,7 @@ We also know that $|a_x|^{2} = |\langle x | \psi \rangle|^{2}$ is the probabilit
 ### Observables
 In quantum mechanics, any physical magnitude that you can measure is represented by a Hermitian operator. These are linear operators $A$ that are equal to their adjoints (their [conjugate transposes](../Math_Fundamentals/matrices.md/#conjugate-transpose)) $A^{\dagger} = A$.
 
-The nice thing about Hermitian operators is that one can always {==find an [orthonormal basis](../Math_Fundamentals/matrices.md#orthonormal-basis) of eigenvectors with real eigenvalues==}. This means that there exist real numbers $\lambda_{j}$, $j = 1, \cdots, l,$ all of them different, and states $\lvert \lambda_{j}^{k} \rangle$, where $j = 1, \cdots, l,$ and $k = 1, \cdots, r_{j}$ such that the state $\{\lvert \lambda_{j}^{k}\rangle \}_{j,k} $ form an [orthonormal basis](../Math_Fundamentals/matrices.md#orthonormal-basis) and 
+The nice thing about Hermitian operators is that one can always {==find an [orthonormal basis](../Math_Fundamentals/matrices.md#orthonormal-basis) of eigenvectors with real eigenvalues==}. This means that there exist real numbers $\lambda_{j}$, $j = 1, \cdots, l,$ all of them different, and states $\lvert \lambda_{j}^{k} \rangle$, where $j = 1, \cdots, l,$ and $k = 1, \cdots, r_{j}$ such that the state $\{\lvert \lambda_{j}^{k}\rangle \}_{j,k}$ form an [orthonormal basis](../Math_Fundamentals/matrices.md#orthonormal-basis) and 
 
 $$
 A \lvert \lambda_{j}^{k} \rangle = \lambda_{j} \lvert \lambda_{j}^{k} \rangle,
@@ -341,8 +341,61 @@ $$
 |\lambda_{A}\rangle = (I\otimes H \otimes I)|\lambda_{C}\rangle.
 $$
 
+Actually, for every state in the computational basis $\color{red}{|\lambda_{C}\rangle}$, there is also a unique eigenvectro $\color{blue}{|\lambda_{A}\rangle}$ of $Z\otimes X\otimes Z$ such that $\color{red}{|\lambda_{C}\rangle} = (I\otimes H\otimes I)^{\dagger}\color{blue}{|\lambda_{A}\rangle}$, sinec $U^{\dagger} = U^{-1}$. We call this operator, $(I\otimes H\otimes I)$, a {==***Change of basis operator***==}. For example,
 
+$$
+\color{blue}{|1\rangle|-\rangle|1\rangle} = (I\otimes H\otimes I)\color{red}{|1\rangle|1\rangle|1\rangle}, \ \color{red}{|1\rangle|1\rangle|1\rangle} = (I\otimes H\otimes I)^{\dagger}\color{blue}{|1\rangle|-\rangle|1\rangle}.
+$$
 
+That is, if we want to estimate the probabilities $|\langle\lambda_{j}^{k}|\psi|^{2}$ when $|\lambda_{j}^{k}$ are the eigenvector of $Z\otimes X\otimes Z$, 
+
+1.  {==We just need to prepare $(I\otimes H\otimes I)^{\dagger}|\psi\rangle$ and measure it in the computational basis==}.
+2.  Then, given any eigenvector $|\lambda_{A}$ of $Z\otimes X\otimes Z$, the probability $|\langle\lambda_{A}|\psi\rangle|^{2}$ can be estimated by the relative frequency of the measurement outcome associated to the eigenstate $|\lambda_{C}\rangle = (I\otimes H\otimes I)^{\dagger}|\lambda_{A}\rangle$ in the computational basis. Since
+
+    $$
+    \langle \lambda_{C}|((I\otimes H\otimes I)^{\dagger}|\psi\rangle) = \langle\lambda_{A}|(I\otimes H\otimes I)(I\otimes H\otimes I)^{\dagger}|\psi\rangle = \langle \lambda_{A}|\psi\rangle,
+    $$
+
+where for any operaotr $L$ and any states $|\alpha\rangle$ and $|\beta\rangle$, if $\beta\rangle = L|\alpha\rangle$, then $\langle \beta| = \langle \alpha|L^{\dagger\dagger}$, and $L^{\dagger\dagger} = L$.
+
+!!! note "Measurement in the computational basis"
+    If we measure $|\psi\rangle$ in the computational basis, we have probability $\color{red}{|\langle x|\psi\rangle|^{2}}$ of botaining the outcome associated to $\color{blue}{|x\rangle}$. That is, we are measure an observable that had all the $|\lambda_{j}^{k}\rangle$ as eigenvectors with a distinct eigenvalue for each of tehm, we would have probability $\color{red}{|\langle\lambda_{j}^{k}|\psi\rangle|^{2}}$ of getting the outcome associated to $\color{blue}{|\lambda_{j}^{k}\rangle}$.
+
+This is why we say the process of changing basis and, then, measuring in computational basis, as performing a **measurement in the eigenvector basis $\{\lambda_{j}^{k}\}$ of $A$**. Therefore, we don't have to run executions for each of the possibilities individually if we want to compute the probabilities $|\langle\lambda_{A}\psi\rangle|^{2}$. We can just measure $(I\otimes H\otimes I)^{\dagger}|\psi\rangle$ in the computational basis several times and then retrieve the relative frequency of every outcome. 
+
+Since, as we mentioned before, $(I\otimes H\otimes I)^{\dagger}$ transfers all the eigenvectors of $A$ into the state of the computational basis. The probability $|\langle\lambda_{A}\psi\rangle|^{2}$ will be the relative frequency of the outcome in the computational basis associated to $(I\otimes H\otimes I)^{\dagger}|\lambda_{A}\rangle$.
+
+!!! Practice "Exercise 4"
+    Since the computational basis is an eigenvector basis of $Z$, a change of basis opeartor of $Z$ can be the identity $I$. Check that you can use $H$ for $X$ in order to change from the computational basis to the basis of eigenvactors; and $SH$ for Y.
+
+??? Practice "Answer exercise 4"
+    Answer 4
+
+!!! Practice "Exercise 5"
+    Prove that if $U_{1}$ and $U_{2}$ are the respective change of basis operations from the computational basis to the eigenvector basis of two observables $A_1$ and $A_2$, the $U_{1}\otimes U_{2}$ is the change of basis operator from the computational basis to the eigenvector basis of $A_{1}\otimes A_{2}$.
+
+??? Practice "Answer exercise 5"
+    Answer 5
+
+From the original question, 
+
+$$
+\begin{array}{lll}
+A & = & \frac{1}{2}Z\otimes I\otimes X -3I\otimes Y \otimes Y + 2Z\otimes X \otimes Z. \\
+& = & \frac{1}{2}\langle\psi|(Z\otimes I\otimes X)|\psi\rangle -3\langle \psi|I\otimes Y \otimes Y|\psi\rangle + 2\langle \psi|(Z\otimes X \otimes Z)\psi\rangle.
+\end{array}
+$$
+
+we can use certain tensor product of Pauli matrices for each case:
+
+1.  $I\otimes H\otimes H$ takes the eigenvectors of $Z\otimes I\otimes X$ to the computational basis.
+2.  $I\otimes (SH)^{\dagger}\otimes (SH)^{\dagger}$ takes the eigenvectors of $I\otimes Y\otimes Y$ to the computational basis.
+3.  $I\otimes H\otimes I$ takes the eigenvectors of $Z\otimes X\otimes Z$ to the computational basis.
+
+{==Remember, to estimate $\langle\psi|(I\otimes Y\otimes Y)|\psi\rangle$, we first prepare $|\psi\rangle$ then apply $I\otimes (SH)^{\dagger}\otimes (SH)^{\dagger} = I\otimes HS^{\dagger}\otimes HS^{\dagger}$, and finally, measure in the computational basis==}.
+
+!!! Note 
+    For any Hermitian operator $A$, there's always a unitary transformation that takes any basis of eigenvectors of $A$ to the computational basis.
 
 ## Intoducing Variational Quantum Eigensolver (VQE)
 {==The goal of the **Variational Quantum Eigensolver (VQE)** is to find a ground state of a given Hamiltonian $H_1$.==} This Hamiltonian can describe, for instance, the energy of a certain physical or chemical process. We first focus on finding a state $|\psi\rangle$ such that $\langle \psi|H_1|\psi\rangle$ is minimum. In this sub-section, we will use $H_1$ to refer to the Hamiltonian.
@@ -441,6 +494,10 @@ $$
 $$
 
 This is the probability of obtaining $|0\rangle$ as the outcome of measuring $V(\theta_{0})^{\dagger}V(\theta)|0\rangle$ in the computational basis! This is something that we can easily estimate because we can prepare $V(\theta_{0})^{\dagger}V(\theta)|0\rangle$ by first applying our ansatz $V$, using $\theta$ as the parameters, to $|0\rangle$, and then applying the inverse of our ansatz, with parameter $\theta_{0}$, to the resulting state. We will repeat this process several times, always measuring the resulting state $V(\theta_{0})^{\dagger}V(\theta)|0\rangle$ in the computational basis and computing the relative frequency of the outcome $|0\rangle$.
+
+![vqe_circuit_copmute](../QuantumOpt/images/vqe_circuit_copmute.png)
+
+Figure. Circuit to copmute $\langle0|V(\theta_{0})^{\dagger}V(\theta)|0\rangle$.
 
 Then we have to deal with preparing the circuit for $V(\theta_{0})^{\dagger}$. All you need to remember that every unitary gate is reversible. Thus, you can take the circuit for $V(\theta)$ and read the gates from right to left, reversing each one of them. For example, if $\theta_{0} = (a,b)$ and $V(\theta_{0}) = XR_{Z}(a)R_{X}(b)S$, then $V(\theta_{0})^{\dagger} = S^{\dagger}R_{x}(-b)R_{z}(-a)X^{\dagger} = S^{\dagger}R_{x}(-b)R_{z}(-a)X$.
 
