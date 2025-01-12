@@ -213,7 +213,7 @@ $$
 
 ---
 
-Notice that we have used the fact that $A|\lambda_{j}^{k} = \lambda_{j}|\lambda_{j}^{k} \rangle$ and that $|\psi \rangle = \sum_{j,k} \rangle \lambda_{j}^{k} | \psi \rangle | \lambda_{j}^{k} \rangle$.
+Notice that we have used the fact that $A|\lambda_{j}^{k}\rangle = \lambda_{j}|\lambda_{j}^{k} \rangle$ and that $|\psi \rangle = \sum_{j,k} \rangle \lambda_{j}^{k} | \psi \rangle | \lambda_{j}^{k} \rangle$.
 
 ---
 
@@ -243,6 +243,105 @@ $$
 proving that the minimum expectation value is achieved at and eigenvector of $A$.
 
 ## Estimaing the expectation values of observables
+As we know, for a fiven state $|\psi\rangle$, the expectation value of $A$ can be computed by
+
+$$
+\sum_{j,k}|\langle \lambda_{j}^{k}|\psi\rangle|^{2}\lambda_{j}.
+$$
+
+That is, if we know the eigenvalues $\lambda_{j}$ and the eigenvectors $\{|\lambda_{j}^{k}\rangle \}_{j,k}$ of $A$, we could try to compute $\sum_{j,k}|\langle \lambda_{j}^{k}|\psi\rangle|^{2}$ and hence, the expectation value of $A$. However, these values are generally hard to find. In fact, the purpose of VQE is finding certain eigenvalues and eigenvectors of a Hamiltonian.
+
+To find these eigenvalues and eigenvectors, we will use the fact that we can always express and observable $A$ on $n$ qubits as a linear combination of tensor products of Pauli matrices. Let's consider an observable 
+
+!!! note 
+    $A$ will be given to us in such form, in most cases, in the same way that the Hamiltonians of our combinatorial optimization problems were always expressed as sums of tensor products of $Z$ matrices.
+
+$$
+A = \frac{1}{2}Z\otimes I\otimes X -3I\otimes Y \otimes Y + 2Z\otimes X \otimes Z.
+$$
+
+From the linearity,
+
+$$
+\begin{array}{lll}
+\langle \psi |A|\psi\rangle & = & \langle\psi|\big( \frac{1}{2}Z\otimes I\otimes X -3I\otimes Y \otimes Y + 2Z\otimes X \otimes Z \big)|\psi\rangle\\
+& = & \frac{1}{2}\langle\psi|(Z\otimes I\otimes X)|\psi\rangle -3\langle \psi|I\otimes Y \otimes Y|\psi\rangle + 2\langle \psi|(Z\otimes X \otimes Z)\psi\rangle.
+\end{array}
+$$
+
+To compute the expectation value of $A$, we can compute the expectation values of $Z\otimes I\otimes X$, $I\otimes Y \otimes Y$, and $2Z\otimes X \otimes Z$ as combine their results.
+
+!!! Practice "Exercise 1"
+    Suppoer that $|\lambda_{j}\rangle$ is an eigenvector of $A_{j}$ with associated eigenvalue $\lambda_{j}$ for $j = 1, \cdots,n.$ Prove that $|\lambda_{1}\rangle\otimes\cdots\otimes|\lambda_{n}\rangle$ is an eigenvector of $A_{1}\otimes\cdots\otimes A_{n}$ with associated eigenvalue $\lambda_{1} \cdot \lambda_{n}$.
+
+??? Answer "Answer exercise 1"
+    Answer 1
+
+!!! Practice "Exercise 2"
+    Prove that:
+
+    1.  The eigenvectors of $Z$ are $|0\rangle$ (with assocaiated eignevalue 1) and $|1\rangle$ (with assocaiated eignevalue -1). 
+    2.  The eigenvectors of $Z$ are $|+\rangle$ (with assocaiated eignevalue 1) and $|-\rangle$ (with assocaiated eignevalue -1). 
+    3.  The eigenvectors of $Z$ are $\frac{1}{2}(|0\rangle+i|1\rangle)$ (with assocaiated eignevalue 1) and $\frac{1}{2}(|0\rangle-i|1\rangle)$ (with assocaiated eignevalue -1).
+    4. Any non-null state is an eigenvector of $I$ with associated eigenvalue 1.
+
+??? Answer "Answer exercise 2"
+    Answer 2
+
+Using the results from theses exercises, we can find that 
+
+1.  $|0\rangle|+\rangle|0\rangle$, $|0\rangle|-\rangle|1\rangle$, $|1\rangle|+\rangle|1\rangle$, and $|1\rangle|-\rangle|0\rangle$ are eigenvectors of $Z\otimes X\otimes Z$ with eigenvalue of $1$.
+2.  $|0\rangle|+\rangle|1\rangle$, $|0\rangle|-\rangle|0\rangle$, $|1\rangle|+\rangle|0\rangle$, and $|1\rangle|-\rangle|1\rangle$ are eigenvectors of $Z\otimes X\otimes Z$ with eigenvalue of $-1$.
+
+All these states together form an orthonormal basis of eigenvectors of $Z\otimes X\otimes Z$.
+
+!!! Practice "Exercise 3"
+    Find orthonormal bases of eigenvectors for $Z\otimes I \otimes X$ and $I\otimes Y \otimes Y$. Compute their associated eigenvalues.
+
+??? Answer "Answer exercise 3"
+    Answer 3
+
+For a given Hermitian matrix $A$, we can compute their expectation value $\langle \psi|A|\psi\rangle$ by
+
+$$
+\sum_{j,k}|\langle \lambda_{j}^{k}|\psi\rangle|^{2}\color{red}{\lambda_{j}}.
+$$
+
+where their $eigenvalues of $A$ are $\color{red}{\lambda_{j}}$ and the associated eigenvectors are $\{|\lambda_{j}^{k} \}_{j,k}$. In our case, we only have eigenvalues 1 and -1.
+
+Let's see how we can compute $|\langle \lambda_{j}^{k}|\psi\rangle|^{2}$. By giving an observable $Z\otimes X\otimes Z$, we can use the technique we've just practiced to get the eigenvalues and eigenvectors of any tensor product of Pauli matrices. Now, we focus on one of them: $|0\rangle|+\rangle|0\rangle$. If we want to compute $|(\langle 0 |\langle+|\langle0|)|\psi\rangle|^{2}$, where $|\psi\rangle$ is a 3-qubit state
+
+$$
+|0\rangle|+\rangle|0\rangle = (I\otimes H\otimes I)0\rangle|0\rangle|0\rangle
+$$
+
+and hence
+
+$$
+\begin{array}{lll}
+\color{green}{\langle 0 |\langle+|\langle0|} & = & (|0\rangle|+\rangle|0\rangle)^{\dagger}\\
+& = & ((I\otimes H\otimes I)|0\rangle|+\rangle|0\rangle)^{\dagger}\\
+& = & \color{blue}{\langle 0 |\langle+|\langle0|(I\otimes H\otimes I)^{\dagger}}\\
+& = & \langle 0 |\langle+|\langle0|(I\otimes H\otimes I)
+\end{array}
+$$
+
+as we already know that $I^{\dagger} = I$ and $H^{\dagger} = H$. Therefore,
+
+$$
+|\color{green}{(\langle 0 |\langle+|\langle0|)}|\psi\rangle|^{2} = |\color{blue}{\langle 0 |\langle+|\langle0|(I\otimes H\otimes I)^{\dagger}}|\psi\rangle|^{2}.
+$$
+
+-   The equation ${(\langle 0 |\langle+|\langle0|)}|\psi\rangle|^{2}$ represents the probability of obtaining the state $|0\rangle|0\rangle|0\rangle$ (all qubits in the "0" state) when measuring the state $|\psi\rangle$ in the computational basis.
+-   Quantum mechanics is probabilistic, so each measurement provides one outcome, which may not immediately reflect the actual probability. Repeating the process many times and recording how often $|0\rangle|0\rangle|0\rangle$ is observed allows you to calculate its relative frequency, which approximates the probability ${(\langle 0 |\langle+|\langle0|)}|\psi\rangle|^{2}$.
+
+In fact, this is not only eigenvector for which this works. It turns out that for {==each and every eigenvector $|\lambda_{A}\rangle$==} of $Z\otimes X\otimes Z$, there is a unique state in the computational basis $|\lambda_{C}\rangle$ such that 
+
+$$
+|\lambda_{A}\rangle = (I\otimes H \otimes I)|\lambda_{C}\rangle.
+$$
+
+
 
 
 ## Intoducing Variational Quantum Eigensolver (VQE)
@@ -258,7 +357,7 @@ flowchart TD
     F --> E{Minimum energy state reached?}
     E --> |No| D[Change parameters];
     D --> A;
-    E --> |Yes| G[Minimum found!]
+    E --> |Yes| G[Minimum energy state found!]
 ```
 
 The parameterized circuit is called {==ansatz==} or {==variational form==}, is usually chosen taking into account information from the problem domain. 
@@ -301,7 +400,49 @@ Notice that:
 4.  We usually estimiate $\langle\psi(\theta)|H_{1}|\psi(\theta)\rangle$ for the last state $|\psi(\theta)\rangle$ found by the optimization algorithm.
 5. At the end of the VQ execution, you also know the $\theta_{0}$ parameters that were used to build the ground state, and you could use them to reconstruct $|\psi(\theta_{0})\rangle = V(\theta_{0})|0\rangle$. This state can be used to send to another quantum algorithm.
 
+## VQE
+VQE is used to search for a ground state of a given Hamiltonian $H$. However, with a small modification, we can also use it to find ***excited states***: eigenstates with higher energies.
 
+Suppose that you have been given a Hamiltonian $H$ and you have used VQE to find a ground state $|\psi_{0}\rangle = V(\theta_{0})|0\rangle$ with energy $\lambda_{0}$. We may consider the modified Hamiltonian
+
+$$
+H' = H + C|\psi_{0}\rangle\langle\psi_{0}|,
+$$
+
+where $C$ is a ***positive real number***.
+
+-   $|\psi_{0}\rangle\langle\psi_{0}|$: This is a product of a column vector ($|\psi_{0}\rangle$) and a row vector ($\langle\psi_{0}|$) of the same length. This is also a Hermitian matrix, since 
+
+    $$
+    (|\psi_{0}\rangle\langle\psi_{0}|)^{\dagger} = \langle\psi_{0}|^{\dagger} |\psi_{0}\rangle^{\dagger} = |\psi_{0}\rangle\langle\psi_{0}|.
+    $$
+
+-   $H'$ is a Hermitian since it's the sum of two Hermitian matrics.
+
+If we have a generic quantum state $|\psi\rangle$, then
+
+$$
+\langle\psi|H'|\psi\rangle = \langle\psi|H|\psi\rangle + C\langle\psi|\psi_{0}\rangle\langle\psi_{0}|\psi\rangle = \langle\psi|H|\psi\rangle+|\langle\psi_{0}|\psi\rangle|^{2}.
+$$
+
+This means that the expectation value of $H'$ in a state $|\psi\rangle$ is the expectation value of $H$ plus a non-negative value that **quantifies the overlap of $|\psi\rangle$ and $|\psi_{0}\rangle$**. Hence we will have two extreme cases.
+
+1.  $|\langle\psi_{0}|\psi\rangle| = C$ if $|\psi\rangle = |\psi_{0}\rangle$
+2.  $|\langle\psi_{0}|\psi\rangle| = 0$ if $|\psi\rangle$ and $|\psi_{0}\rangle$ are orthogonal.
+
+Thus, ***if we make $C$ big enough, $|\psi_{0}\rangle$, a ground state by hypothesis, will no longer be a ground state of H'***. Once you obtain $|\lambda_{1}\rangle$ (the first excited state), you can consider $H'' = H' + C|\psi_{1}\rangle\langle\psi_{1}|$ and use VQE to search for $|\lambda_{2}$, and so on and so forth. In this process, we need to pick the constants $C,C',\cdots$ wisely so that none of the eigenstates that we already know becomes a ground state again.
+
+We have discussed how to estimate the expectation value of a Hamiltonian under the assumption that it was given as a sum of tensor products of Pauli matrices. However, $|\psi_{0}\rangle\langle\psi_{0}|$ term is not of that form. In fact, we know $|\psi_{0}\rangle$ only as the result of applying VQE. so we will not know $|\psi_{0}\rangle$ explicitly. Instead, we will have nothing more than some parameters $\theta_{0}$ such that $V(\theta_{0})|0\rangle = |\psi_{0}\rangle$. This is enough to compute the expectation values that we need.
+
+At a given moment in the application of VQE, we have some parameters $\theta$ and we want to estimate the expectation value of $|\psi_{0}\rangle\langle\psi_{0}|$ with respect to $|\psi(\theta)\rangle = V(\theta)|0\rangle$. This quantuty is 
+
+$$
+\langle\psi(\theta)|\psi_{0}\rangle\langle\psi_{0}|\psi(\theta)\rangle = |\langle \psi_{0}|\psi(\theta)\rangle|^{2} = |\langle0|V(\theta_{0})^{\dagger}V(\theta)|0\rangle|^{2}.
+$$
+
+This is the probability of obtaining $|0\rangle$ as the outcome of measuring $V(\theta_{0})^{\dagger}V(\theta)|0\rangle$ in the computational basis! This is something that we can easily estimate because we can prepare $V(\theta_{0})^{\dagger}V(\theta)|0\rangle$ by first applying our ansatz $V$, using $\theta$ as the parameters, to $|0\rangle$, and then applying the inverse of our ansatz, with parameter $\theta_{0}$, to the resulting state. We will repeat this process several times, always measuring the resulting state $V(\theta_{0})^{\dagger}V(\theta)|0\rangle$ in the computational basis and computing the relative frequency of the outcome $|0\rangle$.
+
+Then we have to deal with preparing the circuit for $V(\theta_{0})^{\dagger}$. All you need to remember that every unitary gate is reversible. Thus, you can take the circuit for $V(\theta)$ and read the gates from right to left, reversing each one of them. For example, if $\theta_{0} = (a,b)$ and $V(\theta_{0}) = XR_{Z}(a)R_{X}(b)S$, then $V(\theta_{0})^{\dagger} = S^{\dagger}R_{x}(-b)R_{z}(-a)X^{\dagger} = S^{\dagger}R_{x}(-b)R_{z}(-a)X$.
 
 ## Using VQE with Qiskit
 
