@@ -63,8 +63,13 @@ nav:
         - Quadratic Unconstrained Binary Optimization (QUBO): QuantumOpt/QUBO.md
         - Adiabatic Quantum Computing & Quantum Annealing (AQQA): QuantumOpt/AQQA.md
         - Quantum Approximate Optimization Algorithm (QAOA): QuantumOpt/QAOA.md
-        - Grover Adaptive Search (GAS): QuantumOpt/GAS.md
-        - Variational Quantum Eignesolver (VQE): QuantumOpt/VQE.md
+        - Grover Adaptive Search (GAS): 
+          - GAS Intro: QuantumOpt/GAS.md
+          - GAS Example: QuantumOpt/GAS_Qiskit_molecule.ipynb
+        - Variational Quantum Eignesolver (VQE): 
+          - VQE Intro: QuantumOpt/VQEIntro.md
+          - VQE Example: QuantumOpt/VQE_Qiskit_molecule.ipynb
+        
   - Real-world projects:
       - Quantum Computing Tools: projects/QuantumComputingTools.md
       - Quantum Simulations: projects/quantum-simulations.md
@@ -72,7 +77,8 @@ nav:
   - About Me: about.md
 
 # Plugins
-#plugins:
+plugins:
+  - mkdocs-jupyter
 #  - mathjax
 #  - open-in-new-tab 
 
