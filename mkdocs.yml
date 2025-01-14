@@ -74,6 +74,8 @@ nav:
         - Variational Quantum Eignesolver (VQE): 
           - VQE Intro: QuantumOpt/VQEIntro.md
           - VQE Example: QuantumOpt/VQE_Qiskit_molecule.ipynb
+      - Optimization Machine Learning:
+        - Machine Learning Refresher: QuantumOpt/MachineLearningRefresher.md
         
   - Real-world projects:
       - Quantum Computing Tools: projects/QuantumComputingTools.md
