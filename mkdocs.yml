@@ -61,8 +61,13 @@ nav:
   - Quantum machine learning and optimization:
       - Optimization Algorithms:
         - Quadratic Unconstrained Binary Optimization (QUBO): QuantumOpt/QUBO.md
-        - Adiabatic Quantum Computing & Quantum Annealing (AQQA): QuantumOpt/AQQA.md
-        - Quantum Approximate Optimization Algorithm (QAOA): QuantumOpt/QAOA.md
+        - Adiabatic Quantum Computing & Quantum Annealing (AQQA): 
+          - AQQA Intro: QuantumOpt/AQQA.md
+          - AQQA Example: QuantumOpt/AQQA_D-WAVE.ipynb
+        - Quantum Approximate Optimization Algorithm (QAOA): 
+          - QAOA Intro: QuantumOpt/QAOA.md
+          - QAOA D-Wave Example: QuantumOpt/QAOA_D-Wave.ipynb.ipynb
+          - QAOA PennyLane Example: QuantumOpt/QAOA_PennyLane.ipynb
         - Grover Adaptive Search (GAS): 
           - GAS Intro: QuantumOpt/GAS.md
           - GAS Example: QuantumOpt/GAS_Qiskit_molecule.ipynb
@@ -86,6 +91,7 @@ extra_javascript:
   - https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML
   #- https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js
   #- https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.4/mermaid.min.js
 
 markdown_extensions:
   - pymdownx.arithmatex
