@@ -1,11 +1,43 @@
 # Quadratic unconstrained Binary Optimization Problems
 
 ## The Max-Cut problem and the Ising model
+
+When you are given a graph, you are essentially given some elements, which we will refer to as vertices, and some connections between pairs of these vertices, which we will call edges.
+
+![MaxCut0](../QuantumOpt/images/Max-cut_0.png)
+
+Figure: Example of a graph
+
 That is, it is a partition of the graph's vertices into two complementary sets S and T, such that the number of edges between S and T is as large as possible. Finding such a cut is known as the max-cut problem.
 
 ![MaxCut](../QuantumOpt/images/MaxCut.png)
 
 ### Problem formulation
+
+we can formulat the Max-Cut problem as combinatorial optimization problem with no reference whatsoever to graphy, edges, or vertices. To do that, we assign vairable $z_i$ to each vertix $i=0, \cdots, n-1$ of the graph. Variables $z_i$ will take value $1$ or $-1$. Each assignment of values to the variables determines a cut: {==vertices whose variable take value $1$ will be in one set and vertices whose variables take value $-1$ will be in the other one.==} 
+
+The key observation to formulate Max-Cut as a combinatorial optimization problem is that {==**edge is cut if and only if $z_{j}z_{k}=1$** This is because if two vertices are in the same set, then either $z_{j} = z_{k} = 1$ or $z_{j} = z_{k} = 1$ and, consequently, $z_{j}z_{k}=1$.==}
+
+Thus, we can formulate our problem into
+
+$$
+\begin{array}{ll}
+    \text{Minimize} &\sum_{(j,k)\in E} z_{j}z_{k}\\
+    \text{subject to} & z_{j} \in \{-1,1\}, \ j = 0, \cdots,n-1.
+\end{array}
+$$
+
+From the figure we showed above, we can write
+
+$$
+\begin{array}{ll}
+    \text{Minimize} &\sum_{(j,k)\in E} z_{0}z_{1}+z_{0}z_{2}+z_{1}z_{2}+z_{1}z_{3}+z_{2}z_{4}+z_{3}z_{4}\\
+    \text{subject to} & z_{j} \in \{-1,1\}, \ j = 0, \cdots,4.
+\end{array}
+$$
+
+The cut $z_{1}=z_{4}=-1$, $z_{0}=z_{2}=z_{3}=1$, which achieves a optimal value of -4. The cut $z_{0}=z_{3}=-1$, $z_{1}=z_{2}=z_{4}=1$, on the other hand, has a value of $-2$, which we already know that its not optimal value.
+
 
 ![MaxCut2](../QuantumOpt/images/MaxCut2.png)
 
@@ -15,7 +47,7 @@ $$
 \begin{array}{ll}
     \text{Minimize} & z_{0}z_{1}+z_{0}z_{2}+z_{1}z_{0}+z_{1}z_{2}+z_{1}z_{4}+z_{2}z_{0}+z_{2}z_{1}+z_{2}z_{3}\\
      & +z_{3}z_{4}+z_{3}z_{5}+z_{4}z_{5}\\
-    \text{subject to} & z_{j} \in {-1,1}, j = 0, \cdots,4.
+    \text{subject to} & z_{j} \in \{-1,1\}, \ j = 0, \cdots,4.
 \end{array}
 $$
 
@@ -274,3 +306,6 @@ $$
 $$
 
 where penalty constants $B_1$ and $B_2$ is choosen so that any deviated results will generate large outcome in our cost function.
+
+# Reference 
+[1] By Miym - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=6002348
