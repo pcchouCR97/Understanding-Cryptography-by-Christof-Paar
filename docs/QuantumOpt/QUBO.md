@@ -53,8 +53,31 @@ $$
 
 ### The Ising model
 
-As you can easily check that if $J_{jk}$ coefficients are $-1$ and all the $h_j$ coefficients are $0$, the problem is exactly the same as the max-cut problem.
+![Ising model](../QuantumOpt/images/Ising_model.png).
 
+The total energy of the system is given by a quantity called the {==**Hamiltonian**==} function defined by
+
+$$
+-\sum_{j,k}{J_{jk}}z_{j}z_{k}-\sum_{j}h_{j}z_{j}
+$$
+
+where the coefficients $J_{jk}$ represent the interaction between particles $j$ and $k$ and the coefficicents $h_j$ represent the influence of an external magnetic field on particle $j$.
+
+{==Finding the state of minimum energy of the system consists in obtaining a spin configuration for which the Hamiltonian function attains its minimum value==}. As you can easily check that if $J_{jk}$ coefficients are $-1$ and all the $h_j$ coefficients are $0$, the problem is exactly the same as the max-cut problem.
+
+That is, we can formulate the Ising showed above like as
+
+$$
+\begin{array}{ll}
+    \text{Recall:} & \color{red}{-\sum_{j,k}{J_{jk}}z_{j}z_{k}}\color{blue}{-\sum_{j}h_{j}z_{j}}\\
+    \text{Minimize} & \color{red}{z_{0}z_{1}-2z_{1}z_{2}+z_{2}z_{3}-3z_{0}z_{4}+z_{4}z_{5}+z_{1}z_{5}}\\
+                    & \color{red}{-2z_{5}z_{6}+z_{2}z_{6}+z_{6}z_{7}-3z_{3}z_{7}-3z_{4}z_{8}+z_{8}z_{9}}\\
+                    & \color{red}{z_{5}z_{9}-2z_{9}z_{10}+z_{6}z_{10}+z_{10}z_{11}-7z_{3}z_{11}}\\
+                    & \color{blue}{-z_{0}-z_{1}-z_{2}-z_{3}-z_{4}-z_{5}-z_{6}-z_{7}-z_{8}}\\
+                    & \color{blue}{-z_{9}-z_{10}-z_{11}}\\
+    \text{subject to} & z_{j} \in \{-1,1\}, \ j = 0, \cdots,11.
+\end{array}
+$$
 
 ## Formulating optimization problems the quantum way
 
