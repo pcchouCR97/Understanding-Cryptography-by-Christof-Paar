@@ -6,6 +6,7 @@
 
 2. Finding a minimum state in a combinatorial optimization problem is try to find the ground state its **[Hamiltonian](../Math_Fundamentals/hilbert_space.md#hermitian-operators)** of the system.
 
+3. A general rule of the numbers of slack variables: given a constraint $Ax\leq b$, we solve $x_{j}$ for $2^{j}-1\leq b$.
 
 ## The Max-Cut problem and the Ising model
 
@@ -307,13 +308,13 @@ $$
 !!! note
     Binary linear programming (**zero-one programming**) is $NP$-hard.
 
-To write a binary linear program in QUBO, we need to perfrom some transformations. The first one is to convert the inequality constraints into equality constraints by adding **slack variables**. In the previous example, we have inquality constraints $x_{0}+x_{2} \leq 1$ and $3x_{0} - x_{1}+3x_{2} \leq 4$. We know that the minimum value for the left hand side of the first equation is 0 and -1 for the left hand side of the second equation. The goal here is to add slack variable(s) to make the equation equal when left hand side of the original inequality has its minimum. To add **non-negative** slack variable(s), we can modify the first inequality into:
+To write a binary linear program in QUBO, we need to perfrom some transformations. The first one is to convert the inequality constraints into equality constraints by adding **slack variables**. In the previous example, we have inquality constraints $x_{0}+x_{2} \leq 1$ and $3x_{0} - x_{1}+3x_{2} \leq 4$. We know that the minimum value for the left hand side of the first equation is 0 and -1 for the left hand side of the second equation. {==The goal here is to add slack variable(s) to make the equation equals when left hand side of the original inequality has its minimum==}. To add **non-negative** slack variable(s), we can modify the first inequality into
 
 $$
 x_0 + x_2 + y_0 = 1
 $$
 
-and since the minimum of the second inequality is when $x_0 = x_2 =0$ and $x_1 = 1$, $3x_{0} - x_{1}+3x_{2} = -1$. We need to add at least 3 different slaock variables with a proper coefficient to make $3x_{0} - x_{1}+3x_{2} = 5$. Therefore,
+and since the minimum of the second inequality is when $x_0 = x_2 =0$ and $x_1 = 1$, $3x_{0} - x_{1}+3x_{2} = -1$. We need to add at least 3 different slack variables with a proper coefficient to make $3x_{0} - x_{1}+3x_{2} = 5$. Therefore,
 
 $$
 3x_0-x_1+3x_2+y_1+2y_2+2y_3 = 4
@@ -331,7 +332,7 @@ $$
 \end{array}
 $$
 
-Next, we introduce **penalty terms** in the expression that we are trying to minimize. For that, we use an integer $B$ (for which we will select a concrete value later on) and consider the problem,
+Next, we introduce **penalty terms** in the expression to our QUBO instance of the binary programming. For that, we use an integer $B$ (for which we will select a concrete value later on) and consider the problem,
 
 $$
 \begin{array}{ll}
@@ -346,15 +347,10 @@ which is *already in QUBO form*.
 
 Let's us breakdown why and how to choose the $B$. 
 
-1. First, $B(x_0 + x_2 + y_0-1)^2$ term will penalizes solutions where the sum of the $x_0, x_2, and y_0$ does not equal $1$.
-2. Second, $B(3x_0-x_1+3x_2+y_1+2y_2+2y_3-4)^2$ term will pernalizes solutions where this sum does not equal to $4$, which means, not a minimim solution.
-3. The choose of $B=11$ is based on the range of the solution, which, in this case is $[-7,3]$. We choose $11 > 10$ (range of the solution).
-4. What if I don't know the exact range? 
-    - You can use $B > \alpha \times \beta$
-    - where $\alpha$ is the largest coefficient in the objective, $\beta$ is the number of variable in penalty terms. In this case, $B > 5 \times 7 = 35$.
-    - Poper turning.
+1. First, $B(x_0 + x_2 + y_0-1)^2$ term will penalizes solutions where the sum of the $x_0, x_2,$ and $y_0$ does not equal $1$. ($\rightarrow$ violoates the first constraint.)
+2. Second, $B(3x_0-x_1+3x_2+y_1+2y_2+2y_3-4)^2$ term will pernalizes solutions where this sum does not equal to $4$. ($\rightarrow$ violoates the second constraint.)
 
-Re-write our QUBO,
+We then choose $B=11$ based on the range of the solution, which, in this case is $[-7,3]$. We choose $11 > 10$ (range of the solution). Re-write our QUBO,
 
 $$
 \begin{array}{ll}
@@ -366,16 +362,17 @@ $$
 $$
 
 
-**Integer linear programming** is a generalization of binary linear programming where non=negative variables are used instead of $0$ and $1$. For example, we have a constraint
+### Integer linear programming
+Integer linear programming is a generalization of binary linear programming where nonnegative variables are used instead of $0$ and $1$. For example, we have a constraint
 
 $$
 2a_0 + 3a_1 \leq 10
 $$
 
-where, we can replace $a_0$ with $x_0 + 2x_1 + 4x_2$ ($a_{0} \leq 5$) and $a_1$ with $x_3 + 2x_4$ ($a_{1} \leq 3$) where $x_{j} \in \{0,1\}$. By doing this, we successfully transform the integer linear programming to a QUBO problem. There is a general rule that tells you how many $x_{j}$ you need. For the fist constraint, $a_{0} \leq 5$, we need $j$ of $x_{j}$ such that $2^{j} - 1 \geq 5$. by solving this, we can get $j=3$, in the same fashion, we can get $j=2$ to satisfy $2^{2}-1 \geq 3$.
+where, we can replace $a_0$ with $x_0 + 2x_1 + 4x_2$ ($a_{0} \leq 5$) and $a_1$ with $x_3 + 2x_4$ ($a_{1} \leq 3$) where $x_{j} \in \{0,1\}$. By doing this, we successfully transform the integer linear programming to a QUBO problem. There is a general rule that tells you how many $x_{j}$ you need. For the fist constraint, $a_{0} \leq 5$, we need $j$ of $x_{j}$ such that $2^{j} - 1 \geq 5$. By solving this, we can get $j=3$, in the same fashion, we can get $j=2$ to satisfy $2^{2}-1 \geq 3$.
 
 ### The Knapsack problem
-It is straightforward to write the Knapsack problem as a binary linear problem. The Knapsack problem is a $NP$-hard problem. We need to define binary variables $x_j$, $j=0,\cdots,m$ that indicate **whether we choose object $j$ (x_j = 1) or not (x_j = 0)**.
+It is straightforward to write the Knapsack problem as a binary linear problem. The Knapsack problem is a $NP$-hard problem. We need to define binary variables $x_j$, $j=0,\cdots,m$ that indicate **whether we choose object $j$ ($x_j = 1$) or not ($x_j = 0$)**.
 
 $$
 \begin{array}{ll}
@@ -390,7 +387,7 @@ where $c_j$ are the object values, $w_j$ are their weights, and $W$ is the maxim
 $$
 \begin{array}{ll}
 \text{minimize} & -(3x_{0} + 1x_{1} + 7x_{2} + 7x_{3})\\
-\text{subject to} & 2x_{0} + x_{1}+ 5x_{1} + 4x_{1} \leq 8,\\
+\text{subject to} & 2x_{0} + x_{1}+ 5x_{2} + 4x_{3} \leq 8,\\
                 & x_{j}\in \{0,1\}, \ j = 0, 1, 2,3, 
 \end{array}
 $$
@@ -407,7 +404,7 @@ In the graph coloring problem, we are given a graph and we are asked to assign a
 
 Let's get start to formulate the graph coloring problem to a QUBO framework!
 
-1. first, we have to define some binary variables, let's say we have $m$ vertices from $j=0,\cdots,m$, and $k-1$ of different colors with $l$th on each vertices.
+First, we have to define some binary variables, let's say we have $m$ vertices from $j=0,\cdots,m$, and $k-1$ of different colors with $l$th on each vertices.
 To ensure each vertice $j$ only recieve **one** color $l$, we can have the following condition:
 
 $$
@@ -416,10 +413,10 @@ $$
 
 For an example, this ensure that every $j$-th vertice only receive one $l$-th color. We also have to consider for every vertice $j$, there must exist $l$ such that $x_{jl}=1$ and such that $x_{jh}=0$ for any $h\neq l$. 
 
-Now, we can impose a constraint that adjacent vertice are not assigned the same color. We know that if two vertices $j$ and $h$ receive the same color $l$, then we would have $x_{jl}X_{hl}=1$. Therefore, the sum of any $j$ and $h$ must be $0$, that is,
+Now, we can impose a constraint that adjacent vertice are not assigned the same color. **We know that if two vertices $j$ and $h$ receive the same color $l$, then we would have $x_{jl}x_{hl}=1$**. Therefore, the sum of any $j$ and $h$ must be $0$, that is,
 
 $$
-\sum_{l=0}{k-1}x_{jl}x_{hl} = 0.
+\sum_{l=0}^{k-1}x_{jl}x_{hl} = 0.
 $$
 
 Then we can write this graph coloring problem into a QUBO framework as,
@@ -427,14 +424,17 @@ Then we can write this graph coloring problem into a QUBO framework as,
 $$
 \begin{array}{ll}
 \text{minimize} & \sum_{j=0}^{m}\bigg(\sum_{l=0}^{k-1}x_{jl}-1\bigg)^{2} + \sum_{(j,h)\in E}\sum_{l=0}^{k-1}x_{jl}x_{hl}\\
-\text{subject to} & x_{jl}\in \{0,1\}, \ j = 0,\cdots,m, \ l = 0,\cdots,k-1.
+\text{subject to} & x_{jl}\in \{0,1\}, \ j = 0,\cdots,m, \ l = 0,\cdots,k-1,
 \end{array}
 $$
 
-We added $-1$ term to ensure when the result deviates from 1, our framework impose a penalty on it. And we don't need to square the second term since they are always non-negative.
+where $E$ is the set of edges of the graph. We added $-1$ term to ensure when the result deviates from 1, our framework impose a penalty on it. And we don't need to square the second term since they are always non-negative.
 
 ### The Traveling Salesperson Problem
 The Traveling salesperon problem is one of the most famous problems in combinatorial optimization. The problem is wasy to state: you need to find a route that goes through each of the cities in a given set once and only once while minimizing some global quantity (distance traveled, time spent, total cost...). 
+
+![TSP](../QuantumOpt/images/TSP.png)
+*Figure. An example of the Traveling Salesperson Problem (TSP)*
 
 First, let's deal with visiting each vertex  $j$ once and route $l$ once. Let's says we have $j$ vertices and $l$th different route. If vertex $j$ is the $l$-th in our travel route, the $x_{ij}$ will be $1$ and $x_{jh}$ will be $0$ for $h \neq l$. Thus, for every vertex $j$, we must impose a constraint,
 
