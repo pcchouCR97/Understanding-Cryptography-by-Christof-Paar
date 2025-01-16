@@ -183,7 +183,7 @@ For any number of qubits and any sum of tensor products $Z_{j}Z_{k}$, if we have
 
 $$
 \begin{array}{l}
-\text{minimize} \ \ \ \ \sum_{(j,k)\langle \psi|Z_{j}Z_{k}|\psi\rangle\in E}\\
+\text{minimize} \ \ \ \ \sum_{(j,k)\in E}\langle \psi|Z_{j}Z_{k}|\psi\rangle\\
 \text{where} |\psi\rangle \text{is taken from the set of quantum state on 3 qubits.}
 \end{array}
 $$
@@ -201,6 +201,15 @@ $$
 $$
 
 which we usually refer to the **expectation value** of $\sum_{(j,k)\in E}Z_{j}Z_{k}$, attains its minimum value on one of those eigenvectors, aclled the **ground state**.
+
+In the same fashion, we appy this method to the Ising model
+
+$$
+\begin{array}{l}
+\text{minimize} \ \ \ \ -\sum_{(j,k)\in E}J_{jk}\langle \psi|Z_{j}Z_{k}|\psi\rangle - \sum_{j}h_{j}\langle\psi|Z_{j}|\psi\rangle,\\
+\text{where} |\psi\rangle \text{is taken from the set of quantum state on 3 qubits.}
+\end{array}
+$$
 
 ## Moving from Ising to QUBO and back
 Let's say taht you are given a set of integers $S$ and $T$, and you are asked whether there is any subset of $S$ whose sum is $T$. For example, if $S = \{1,3,4,7,-4\}$ and $T = 6$, then the answer is affirmative because $3+7-4 = 6$. If $S = \{2,-2,4,8,-12 \}$ and $T=1$, the answer is **negative** because all the numbers in the set are even and they cannot add up to an odd number.
