@@ -1,5 +1,12 @@
 # Quadratic unconstrained Binary Optimization Problems
 
+
+## Takeaway
+1. A expectation value is defined as $\langle \psi| (\sum_{(j,k)\in E}Z_{j}Z_{k})|\psi \rangle = \sum_{(j,k)\in E}\langle \psi|Z_{j}Z_{k}|\psi\rangle$, formed by an orthonormal basis by real eigenvalues with their eigenvectors. The minimum state of one of these eigenvector are called **ground state**, this is also known as a **[variational principle](../QuantumOpt/VQEIntro.md)**.
+
+2. Finding a minimum state in a combinatorial optimization problem is try to find the ground state its **[Hamiltonian](../Math_Fundamentals/hilbert_space.md#hermitian-operators)** of the system.
+
+
 ## The Max-Cut problem and the Ising model
 
 When you are given a graph, you are essentially given some elements, which we will refer to as vertices, and some connections between pairs of these vertices, which we will call edges.
@@ -14,7 +21,7 @@ That is, it is a partition of the graph's vertices into two complementary sets S
 
 ### Problem formulation
 
-we can formulat the Max-Cut problem as combinatorial optimization problem with no reference whatsoever to graphy, edges, or vertices. To do that, we assign vairable $z_i$ to each vertix $i=0, \cdots, n-1$ of the graph. Variables $z_i$ will take value $1$ or $-1$. Each assignment of values to the variables determines a cut: {==vertices whose variable take value $1$ will be in one set and vertices whose variables take value $-1$ will be in the other one.==} 
+We can formulate the Max-Cut problem as combinatorial optimization problem with no reference whatsoever to graphy, edges, or vertices. To do that, we assign vairable $z_i$ to each vertix $i=0, \cdots, n-1$ of the graph. Variables $z_i$ will take value $1$ or $-1$. Each assignment of values to the variables determines a cut: {==vertices whose variable take value $1$ will be in one set and vertices whose variables take value $-1$ will be in the other one.==} 
 
 The key observation to formulate Max-Cut as a combinatorial optimization problem is that {==**edge is cut if and only if $z_{j}z_{k}=1$** This is because if two vertices are in the same set, then either $z_{j} = z_{k} = 1$ or $z_{j} = z_{k} = 1$ and, consequently, $z_{j}z_{k}=1$.==}
 
@@ -69,7 +76,7 @@ That is, we can formulate the Ising showed above like as
 
 $$
 \begin{array}{ll}
-    \text{Recall:} & \color{red}{-\sum_{j,k}{J_{jk}}z_{j}z_{k}}\color{blue}{-\sum_{j}h_{j}z_{j}}\\
+    \text{Recall} & \color{red}{-\sum_{j,k}{J_{jk}}z_{j}z_{k}}\color{blue}{-\sum_{j}h_{j}z_{j}}\\
     \text{Minimize} & \color{red}{z_{0}z_{1}-2z_{1}z_{2}+z_{2}z_{3}-3z_{0}z_{4}+z_{4}z_{5}+z_{1}z_{5}}\\
                     & \color{red}{-2z_{5}z_{6}+z_{2}z_{6}+z_{6}z_{7}-3z_{3}z_{7}-3z_{4}z_{8}+z_{8}z_{9}}\\
                     & \color{red}{z_{5}z_{9}-2z_{9}z_{10}+z_{6}z_{10}+z_{10}z_{11}-7z_{3}z_{11}}\\
@@ -200,7 +207,7 @@ $$
 \langle \psi| \bigg( \sum_{(j,k)\in E}Z_{j}Z_{k} \bigg)|\psi \rangle = \sum_{(j,k)\in E}\langle \psi|Z_{j}Z_{k}|\psi\rangle,
 $$
 
-which we usually refer to the **expectation value** of $\sum_{(j,k)\in E}Z_{j}Z_{k}$, attains its minimum value on one of those eigenvectors, aclled the **ground state**.
+which we usually refer to the **expectation value** of $\sum_{(j,k)\in E}Z_{j}Z_{k}$, attains its minimum value on one of those eigenvectors, aclled the **ground state**. 
 
 In the same fashion, we appy this method to the Ising model
 
@@ -212,11 +219,12 @@ $$
 $$
 
 ## Moving from Ising to QUBO and back
-Let's say taht you are given a set of integers $S$ and $T$, and you are asked whether there is any subset of $S$ whose sum is $T$. For example, if $S = \{1,3,4,7,-4\}$ and $T = 6$, then the answer is affirmative because $3+7-4 = 6$. If $S = \{2,-2,4,8,-12 \}$ and $T=1$, the answer is **negative** because all the numbers in the set are even and they cannot add up to an odd number.
+### Subset Sum
+Let's say that you are given a set of integers $S$ and $T$, and you are asked whether there is any subset of $S$ whose sum is $T$. For example, if $S = \{1,3,4,7,-4\}$ and $T = 6$, then the answer is **positive** because $3+7-4 = 6$. If $S = \{2,-2,4,8,-12 \}$ and $T=1$, the answer is **negative** because all the numbers in the set are even and they cannot add up to an odd number.
 
 This problem is so called the **Subset Sum** problem and known for a $N$**-complete**. It turns out that we can **reduce** the Subset Sum problem to finding a spin configuration of minimal energy for any Ising model.
 
-Let's consider a binery values instead of $1$ and $-1$ in this case. if we are given a case $S = {a_{0},\cdots,a_{m}}$ and an integer $T$, we can define binary variable $x_j, j=0,\cdots,m$ and consider
+Let's consider a binery values instead of $1$ and $-1$ in this case. If we are given a case $S = {a_{0},\cdots,a_{m}}$ and an integer $T$, we can define binary variable $x_j, j=0,\cdots,m$ and consider
 
 $$
 c(x_{0},x_{1},\cdots,x_{m}) = (a_{0}x_{0}+a_{1}x_{1}+ \cdots +a_{m}x_{m} - T)^{2}
@@ -342,7 +350,7 @@ Let's us breakdown why and how to choose the $B$.
 2. Second, $B(3x_0-x_1+3x_2+y_1+2y_2+2y_3-4)^2$ term will pernalizes solutions where this sum does not equal to $4$, which means, not a minimim solution.
 3. The choose of $B=11$ is based on the range of the solution, which, in this case is $[-7,3]$. We choose $11 > 10$ (range of the solution).
 4. What if I don't know the exact range? 
-    - You can use $B > \alpha \times \beta $
+    - You can use $B > \alpha \times \beta$
     - where $\alpha$ is the largest coefficient in the objective, $\beta$ is the number of variable in penalty terms. In this case, $B > 5 \times 7 = 35$.
     - Poper turning.
 
