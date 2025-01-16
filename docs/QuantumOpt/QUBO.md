@@ -80,7 +80,10 @@ $$
 $$
 
 ## Formulating optimization problems the quantum way
-To transform a Max-Cut problem in to a quantum one, we have to use $Z$ matrix. Since we know that
+
+![MaxCut0](../QuantumOpt/images/MaxCut0.png)
+
+Taking above very simple Max-Cut problem as an example. To transform a Max-Cut problem in to a quantum one, we have to use $Z$ matrix. Since we know that
 
 $$
 \begin{array}{ll}
@@ -99,7 +102,7 @@ Now, consider the tensor product $Z\otimes Z\otimes I$ and basis state $|010\ran
 
 $$
 \begin{array}{ll}
-\langle 010 |Z\otimes Z\otimes I|010\rangle = & \langle 010|(Z|0\rangle \otimes Z|1\rangle\otimes I|0\rangle)\\
+\langle 010 |Z\otimes Z\otimes I|010\rangle & = \langle 010|(Z|0\rangle \otimes Z|1\rangle\otimes I|0\rangle)\\
    & = \langle0|Z|0\rangle \langle1|Z|1\rangle \langle0|I|0\rangle \\
    & = 1 \cdot (-1) \cdot 1 = -1
 \end{array}
@@ -107,8 +110,99 @@ $$
 
 -   $|010\rangle$ represents a cut where vertices $0$ and $2$ are grouped together and vertex is assigned to the other.
 -   The product $\langle 010 |Z\otimes Z\otimes I|010\rangle$ evaluates to $-1$ means that edge $(0,1)$ has extremes in dfferent sets of the cut since we have used $Z\otimes Z\otimes I$, having $Z$ operators acting on qubits $0$ and $1$.
+-   We usually denote $Z\otimes Z\otimes I$ as $Z_{0}Z_{1}$ and, following this convention, we could have, for instance
+    
+    $$
+    \langle 010|Z_{0}Z_{2}|010\rangle = \langle0|Z|0\rangle\langle1|I|1\rangle\langle0|Z|0\rangle = 1 \cdot 1 \cdot 1 = 1
+    $$
 
-## Miving from Ising to QUBO and back
+    since the edge (0,2) is not cut with this particular case.
+-   Also, we can expand this to 
+
+    $$
+    \langle x|(Z_{0}Z_{1}+Z_{0}Z_{2})|x\rangle = \langle x|Z_{0}Z_{1}|x\rangle+\langle x|Z_{0}Z_{2}|x\rangle
+    $$
+
+    due to linearity.
+
+This is also applies to all basis state $|x\rangle$ with $x \in \{000,001,\cdots,111\}$, so $\langle x|Z_{j}Z_{k}|x\rangle$ will be $-1$ if the edga $(j,k)$ is cut under an assignment $x$.
+
+
+!!! note Eigenvector and Eigenstate
+    For any basis state $|x\rangle$, it holds that either $Z_{j}Z_{k}|x\rangle = |x\rangle$ or $Z_{j}Z_{k}|x\rangle = -|x\rangle$. This indicates that $|x\rangle$ is an ***eigenvector*** of $Z_{j}Z_{k}$ with ***eigenvalue*** either $1$ or $-1$. Thus, for $x\neq y$ we have 
+    $$
+    \langle y | Z_{j}Z_{k} |x\rangle = \pm \langle y|x\rangle = 0.
+    $$
+
+Consequently, since we can write $|\psi \rangle$ as $\psi \rangle = \sum_{x}a_{x}|x\rangle$, from linearity, we have
+
+$$
+\begin{array}{ll}
+\langle \psi|Z_{j}Z_{k}|\psi\rangle & = \bigg( \sum_{y}a_{y}^{*}\langle y| \bigg) Z_{j}Z_{k} \bigg( \sum_{x}a_{x}\langle x| \bigg)\\
+    & = \sum_{y}\sum_{x}a_{y}^{*}a_{x}\langle y|Z_{j}Z_{k}|x\rangle\\
+    & = \sum_{x}|a_{x}|^{2}\langle x|Z_{j}Z_{k}|x\rangle,
+\end{array}
+$$
+
+where $a_{x}^{*}a_{x} = |a_{x}|^{2}$.
+
+Hence, we transform $\langle x|(Z_{0}Z_{1}+Z_{0}Z_{2})|x\rangle$ to
+
+$$
+\begin{array}{ll}
+\langle x|(Z_{0}Z_{1}+Z_{0}Z_{2})|x\rangle & = \langle\psi|Z_{0}Z_{1}|\psi\rangle\langle\psi|Z_{0}Z_{2}|\psi\rangle\\
+    & = \sum_{x}|a_{x}|^{2}\langle x|Z_{0}Z_{1}|x\rangle + \sum_{x}|a_{x}|^{2}\langle x|Z_{0}Z_{2}|x\rangle \\
+    & = \sum_{x}|a_{x}|^{2}\langle x|Z_{0}Z_{1}+Z_{0}Z_{2}|x\rangle.
+\end{array}
+$$
+
+Since we know $\sum_{x}|a_{x}|^{2} = 1$ (Total probability sum is 1) and the every $|a_{x}|^{2}$ is non-negative, 
+
+$$
+\begin{array}{ll}
+\sum_{x}|a_{x}|^{2}\langle x|Z_{0}Z_{1}+Z_{0}Z_{2}|x\rangle & \leq \sum_{x}|a_{x}|^{2}\langle x_{\text{min}}|Z_{0}Z_{1}+Z_{0}Z_{2}|x_{\text{min}}\rangle\\
+    & = \langle x_{\text{min}}|Z_{0}Z_{1}+Z_{0}Z_{2}|x_{\text{min}}\rangle \sum_{x}|a_{x}|^{2}\\
+    & = \langle x_{\text{min}}|Z_{0}Z_{1}+Z_{0}Z_{2}|x_{\text{min}}\rangle
+\end{array}
+$$
+
+where $|x_{\text{min}}\rangle$ is a basis state $x \in \{000,001,\cdots,111\}$ for which $x_{\text{min}}|Z_{0}Z_{1}+Z_{0}Z_{2}|x_{\text{min}}$ is minimum and $x_{\text{min}}$ represents a maximum cut.
+
+Therefore, we rewite our problem in to a quantum form as 
+
+$$
+\begin{array}{l}
+\text{minimize} \ \ \ \ \langle x_{\text{min}}|Z_{0}Z_{1}+Z_{0}Z_{2}|x_{\text{min}}\rangle = \sum_{x}|a_{x}|^{2}\langle x|Z_{0}Z_{1}+Z_{0}Z_{2}|x\rangle\\
+\text{where} |\psi\rangle \text{is taken from the set of quantum state on 3 qubits.}
+\end{array}
+$$
+
+This, in constrast to the previous example, we are minimizing overall possible quantum states.
+
+For any number of qubits and any sum of tensor products $Z_{j}Z_{k}$, if we have a graphy with set of vertices $V$, of size $n$, and set of edge $E$, we can rewrite the Max-Cut problem for the graph as:
+
+$$
+\begin{array}{l}
+\text{minimize} \ \ \ \ \sum_{(j,k)\langle \psi|Z_{j}Z_{k}|\psi\rangle\in E}\\
+\text{where} |\psi\rangle \text{is taken from the set of quantum state on 3 qubits.}
+\end{array}
+$$
+
+We said that the matrix
+
+$$
+\sum_{(j,k)\in E}Z_{j}Z_{k}
+$$
+
+are **Hamiltonian**, as the matrix equals to its conjugate tranpose. Hamiltonian has **real eigenvalues** and being able to form an **orthonomal basis withe their eigenvector**. The equantity 
+
+$$
+\langle \psi| \bigg( \sum_{(j,k)\in E}Z_{j}Z_{k} \bigg)|\psi \rangle = \sum_{(j,k)\in E}\langle \psi|Z_{j}Z_{k}|\psi\rangle,
+$$
+
+which we usually refer to the **expectation value** of $\sum_{(j,k)\in E}Z_{j}Z_{k}$, attains its minimum value on one of those eigenvectors, aclled the **ground state**.
+
+## Moving from Ising to QUBO and back
 Let's say taht you are given a set of integers $S$ and $T$, and you are asked whether there is any subset of $S$ whose sum is $T$. For example, if $S = \{1,3,4,7,-4\}$ and $T = 6$, then the answer is affirmative because $3+7-4 = 6$. If $S = \{2,-2,4,8,-12 \}$ and $T=1$, the answer is **negative** because all the numbers in the set are even and they cannot add up to an odd number.
 
 This problem is so called the **Subset Sum** problem and known for a $N$**-complete**. It turns out that we can **reduce** the Subset Sum problem to finding a spin configuration of minimal energy for any Ising model.
