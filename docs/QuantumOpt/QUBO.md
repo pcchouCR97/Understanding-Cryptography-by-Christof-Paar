@@ -80,7 +80,33 @@ $$
 $$
 
 ## Formulating optimization problems the quantum way
+To transform a Max-Cut problem in to a quantum one, we have to use $Z$ matrix. Since we know that
 
+$$
+\begin{array}{ll}
+\langle0|Z|0\rangle =
+    \begin{pmatrix}1 & 0 \end{pmatrix}
+    \begin{pmatrix}1 & 0\\ 0 & -1 \end{pmatrix}
+    \begin{pmatrix}1 \\ 0 \end{pmatrix}=1, &
+\langle1|Z|1\rangle =
+    \begin{pmatrix}0 & 1 \end{pmatrix}
+    \begin{pmatrix}1 & 0\\ 0 & -1 \end{pmatrix}
+    \begin{pmatrix}0 \\ 1 \end{pmatrix}=-1 
+\end{array} 
+$$
+
+Now, consider the tensor product $Z\otimes Z\otimes I$ and basis state $|010\rangle$. 
+
+$$
+\begin{array}{ll}
+\langle 010 |Z\otimes Z\otimes I|010\rangle = & \langle 010|(Z|0\rangle \otimes Z|1\rangle\otimes I|0\rangle)\\
+   & = \langle0|Z|0\rangle \langle1|Z|1\rangle \langle0|I|0\rangle \\
+   & = 1 \cdot (-1) \cdot 1 = -1
+\end{array}
+$$
+
+-   $|010\rangle$ represents a cut where vertices $0$ and $2$ are grouped together and vertex is assigned to the other.
+-   The product $\langle 010 |Z\otimes Z\otimes I|010\rangle$ evaluates to $-1$ means that edge $(0,1)$ has extremes in dfferent sets of the cut since we have used $Z\otimes Z\otimes I$, having $Z$ operators acting on qubits $0$ and $1$.
 
 ## Miving from Ising to QUBO and back
 Let's say taht you are given a set of integers $S$ and $T$, and you are asked whether there is any subset of $S$ whose sum is $T$. For example, if $S = \{1,3,4,7,-4\}$ and $T = 6$, then the answer is affirmative because $3+7-4 = 6$. If $S = \{2,-2,4,8,-12 \}$ and $T=1$, the answer is **negative** because all the numbers in the set are even and they cannot add up to an odd number.
