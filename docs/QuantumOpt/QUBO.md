@@ -443,7 +443,7 @@ $$
 \sum_{l=0}^{m}x_{jl}=1
 $$
 
-because every vertex needs to be visited exactly once. Next, since we can only visit one city at a time for each $l$ travel route. 
+because every vertex needs to be visited exactly once. Next, since we can only visit one city at a time for each $l$ travel route
 
 $$
 \sum_{j=0}^{m}x_{jl} = 1.

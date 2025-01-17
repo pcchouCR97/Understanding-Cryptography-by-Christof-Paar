@@ -46,6 +46,13 @@ H(t) = A(t)H_{0} + B(t)H_{1}
 $$
 where $A$ and $B$ are real-valued functions that accept inputs over the interval $[0, T]$ such that $A(0) = B(T) = 1$ and $A(T) = B(0) = 0$. {==Notice that it holds that $H(0) = H_{0}$ and $H(T) = H_{1}$, exactly as we desired==}. however, a more common choose is to set $A(t) = 1-t/T$ and $B(t) = t/T$. 
 
+!!! Note "Hamiltonian"
+      $H_0$ (Initial Hamiltonian):  
+      The ground state of $H_0$ is a simple, well-understood configuration (e.g., a uniform superposition of all states) that is easy to prepare and serves as the starting point for quantum annealing. {==It does not encode the solution to the problem==} but ensures a practical and reliable initialization for the system.
+
+      $H_1$ (Problem Hamiltonian):  
+      The ground state of $H_1$ represents the {==solution to the optimization or computational problem==}. The goal of quantum annealing is to evolve the system from the ground state of $H_0$ to the ground state of $H_1$, where the true minimum of the problem is found.
+
 ## Quantum annealing
 Quantum annealing relies on the same core idea as adiabatic quantum computing: it takes an initial Hamiltonian $H_0$, a final Hamiltonian $H_1$ whose ground state encodes the solution to the problem of interest, and it {==gradually changes the acting Hamiltonian from the initial to the final==} one by using some functions $A$ and $A$ (as described in the previous section) to decrease the action of $H_0$ and to increase the action of $H_1$. However, there are two difference between the quantum annealing and adiabatic quantum computing.
 
