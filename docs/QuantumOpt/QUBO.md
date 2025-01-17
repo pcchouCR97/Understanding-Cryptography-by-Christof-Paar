@@ -434,6 +434,7 @@ where $E$ is the set of edges of the graph. We added $-1$ term to ensure when th
 The Traveling salesperon problem is one of the most famous problems in combinatorial optimization. The problem is wasy to state: you need to find a route that goes through each of the cities in a given set once and only once while minimizing some global quantity (distance traveled, time spent, total cost...). 
 
 ![TSP](../QuantumOpt/images/TSP.png)
+
 *Figure. An example of the Traveling Salesperson Problem (TSP)*
 
 First, let's deal with visiting each vertex  $j$ once and route $l$ once. Let's says we have $j$ vertices and $l$th different route. If vertex $j$ is the $l$-th in our travel route, the $x_{ij}$ will be $1$ and $x_{jh}$ will be $0$ for $h \neq l$. Thus, for every vertex $j$, we must impose a constraint,
