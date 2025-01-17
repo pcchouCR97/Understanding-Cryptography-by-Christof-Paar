@@ -347,8 +347,8 @@ which is *already in QUBO form*.
 
 Let's us breakdown why and how to choose the $B$. 
 
-1. First, $B(x_0 + x_2 + y_0-1)^2$ term will penalizes solutions where the sum of the $x_0, x_2,$ and $y_0$ does not equal $1$. ($\rightarrow$ violoates the first constraint.)
-2. Second, $B(3x_0-x_1+3x_2+y_1+2y_2+2y_3-4)^2$ term will pernalizes solutions where this sum does not equal to $4$. ($\rightarrow$ violoates the second constraint.)
+1. First, $B(x_0 + x_2 + y_0-1)^2$ term will penalizes solutions where the sum of the $x_0, x_2,$ and $y_0$ does not equal $1$. ($\rightarrow$ violates the first constraint.)
+2. Second, $B(3x_0-x_1+3x_2+y_1+2y_2+2y_3-4)^2$ term will pernalizes solutions where this sum does not equal to $4$. ($\rightarrow$ violates the second constraint.)
 
 We then choose $B=11$ based on the range of the solution, which, in this case is $[-7,3]$. We choose $11 > 10$ (range of the solution). Re-write our QUBO,
 
@@ -434,12 +434,13 @@ where $E$ is the set of edges of the graph. We added $-1$ term to ensure when th
 The Traveling salesperon problem is one of the most famous problems in combinatorial optimization. The problem is wasy to state: you need to find a route that goes through each of the cities in a given set once and only once while minimizing some global quantity (distance traveled, time spent, total cost...). 
 
 ![TSP](../QuantumOpt/images/TSP.png)
+
 *Figure. An example of the Traveling Salesperson Problem (TSP)*
 
-First, let's deal with visiting each vertex  $j$ once and route $l$ once. Let's says we have $j$ vertices and $l$th different route. If vertex $j$ is the $l$-th in our travel route, the $x_{ij}$ will be $1$ and $x_{jh}$ will be $0$ for $h \neq l$. Thus, for every vertex $j$, we must impose a constraint,
+First, let's deal with visiting each vertex  $j$ once and route $l$ once. Let's says we have $j$ vertices and $l$ th different route. If vertex $j$ is the $l$ th in our travel route, the $x_{ij}$ will be $1$ and $x_{jh}$ will be $0$ for $h \neq l$. Thus, for every vertex $j$, we must impose a constraint,
 
 $$
-\sum_{l=0}^{m}x_{ij}=1
+\sum_{l=0}^{m}x_{jl}=1
 $$
 
 because every vertex needs to be visited exactly once. Next, since we can only visit one city at a time for each $l$ travel route. 
