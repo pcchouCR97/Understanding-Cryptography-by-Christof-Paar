@@ -1,7 +1,7 @@
 # Quadratic unconstrained Binary Optimization Problems
 
 
-## Takeaway
+## Key Takeaways
 1. A expectation value is defined as $\langle \psi| (\sum_{(j,k)\in E}Z_{j}Z_{k})|\psi \rangle = \sum_{(j,k)\in E}\langle \psi|Z_{j}Z_{k}|\psi\rangle$, formed by an orthonormal basis by real eigenvalues with their eigenvectors. The minimum state of one of these eigenvector are called **ground state**, this is also known as a **[variational principle](../QuantumOpt/VQEIntro.md)**.
 
 2. Finding a minimum state in a combinatorial optimization problem is try to find the ground state its **[Hamiltonian](../Math_Fundamentals/hilbert_space.md#hermitian-operators)** of the system.
