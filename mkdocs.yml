@@ -60,7 +60,11 @@ nav:
         - BB84: qcryptography/BB84.md
   - Quantum machine learning and optimization:
       - Optimization Algorithms:
-        - Quadratic Unconstrained Binary Optimization (QUBO): QuantumOpt/QUBO.md
+        - Quadratic Unconstrained Binary Optimization (QUBO): 
+          - QUBO Intro: QuantumOpt/QUBO.md
+          - QUBO Example: QuantumOpt/QUBO_1_start.ipynb
+          - QUBO Knapsack: QuantumOpt/QUBO_example_knapsack_qiskit.ipynb
+          - QUBO Max-Cut and TSP: QuantumOpt/QUBO_example_max_cut_and_tsp_qiskit.ipynb
         - Adiabatic Quantum Computing & Quantum Annealing (AQQA): 
           - AQQA Intro: QuantumOpt/AQQA.md
           - AQQA Example: QuantumOpt/AQQA_D-WAVE.ipynb
