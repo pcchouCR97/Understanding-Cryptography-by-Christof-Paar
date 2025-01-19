@@ -80,7 +80,15 @@ nav:
           - VQE Example: QuantumOpt/VQE_Qiskit_molecule.ipynb
       - Optimization Machine Learning:
         - Machine Learning Refresher: QuantumOpt/MachineLearningRefresher.md
-        
+        - Quantum Support Vector Machines: 
+          - QSVM Intro: QuantumOpt\QML\QSVM.md
+        - Quantum Neural Networks: 
+          - QNN Intro: QuantumOpt\QML\QNN.md
+        - Quantum Hybrid Architectures: 
+          - QHybrid Intro: QuantumOpt\QML\QHyb.md
+        - Quantum Generative Adversarial Networks: 
+          - QGANS Intro: QuantumOpt\QML\QGANS.md
+
   - Real-world projects:
       - Quantum Computing Tools: projects/QuantumComputingTools.md
       - Quantum Simulations: projects/quantum-simulations.md
@@ -90,6 +98,7 @@ nav:
 # Plugins
 plugins:
   - mkdocs-jupyter
+  - glightbox
 #  - mathjax
 #  - open-in-new-tab 
 

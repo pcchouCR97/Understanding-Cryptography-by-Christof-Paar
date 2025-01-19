@@ -15,6 +15,11 @@ Quantum annealers is a special type of quantum computer which is designed to fin
       - In practice, quantum annealing is used over AQC because adiabatic evolution can be too slow for practical applications.
       - The Hamiltonian of the quantum annealing can be written as $H(t) = -A(t)\sum_{j=0}^{n-1}X_{j}-B(t)\sum_{j,k}J_{jk}Z_{j}Z_{k}-B(t)\sum_{j}h_{j}Z_{j}$.
 
+## Example
+Please see followings for D-Wave implementation:
+
+1. [Working AQQA with D-wave](../QuantumOpt/AQQA_D-WAVE.ipynb)
+
 ## Adiabatic Quantum Computing
 
 When using quantum circuits, we apply operations through discrete, sequential steps. However, adiabatic quantum computing relies on the use of continuous transformations.

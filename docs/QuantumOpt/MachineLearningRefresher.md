@@ -11,3 +11,5 @@ There are three big categories in which most, if not all, machine learning techn
 ### Unsupervised learning
 
 ### Reinforcement learning
+
+## Quantum-classical models

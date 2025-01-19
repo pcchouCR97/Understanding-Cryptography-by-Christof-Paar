@@ -1,12 +1,18 @@
 # Quadratic unconstrained Binary Optimization Problems
 
-
 ## Key Takeaways
 1. A expectation value is defined as $\langle \psi| (\sum_{(j,k)\in E}Z_{j}Z_{k})|\psi \rangle = \sum_{(j,k)\in E}\langle \psi|Z_{j}Z_{k}|\psi\rangle$, formed by an orthonormal basis by real eigenvalues with their eigenvectors. The minimum state of one of these eigenvector are called **ground state**, this is also known as a **[variational principle](../QuantumOpt/VQEIntro.md)**.
 
 2. Finding a minimum state in a combinatorial optimization problem is try to find the ground state its **[Hamiltonian](../Math_Fundamentals/hilbert_space.md#hermitian-operators)** of the system.
 
 3. A general rule of the numbers of slack variables: given a constraint $Ax\leq b$, we solve $x_{j}$ for $2^{j}-1\leq b$.
+
+## Examples 
+Please see followings for Qiskit implementations:
+
+1. [Start QUBO with Qiskit](../QuantumOpt/QUBO_1_start.ipynb)
+2. [Knapsack problem with Qiskit](../QuantumOpt/QUBO_example_knapsack_qiskit.ipynb)
+3. [Max-Cut and Traveler Saleman Problem with Qiskit](../QuantumOpt/QUBO_example_max_cut_and_tsp_qiskit.ipynb)
 
 ## The Max-Cut problem and the Ising model
 
@@ -469,4 +475,5 @@ $$
 where penalty constants $B_1$ and $B_2$ is choosen so that any deviated results will generate large outcome in our cost function.
 
 # Reference 
-[1] By Miym - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=6002348
+[1]. Combarro, E. F., & González-Castillo, S. (2023). A practical guide to quantum machine learning and quantum optimisation: Hands-on approach to modern quantum algorithms. Packt Publishing.
+[2]. By Miym - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=6002348
