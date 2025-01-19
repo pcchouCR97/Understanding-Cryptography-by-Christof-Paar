@@ -76,7 +76,7 @@ There we can write our optimization problem as
 
 $$
 \begin{array}{ll}
-\text{Minimize} & ||w||\\
+\text{Minimize} & ||w||,\\
 \text{Subject to} & y_{i}(\overrightarrow{w} \cdot \overrightarrow{x_{j}} + b) \geq 1,
 \end{array}
 $$
@@ -85,7 +85,7 @@ where each $j$ defines an individual constraint. We can also write our problem a
 
 $$
 \begin{array}{ll}
-\text{Minimize} & \frac{1}{2}||w||^{2}\\
+\text{Minimize} & \frac{1}{2}||w||^{2},\\
 \text{Subject to} & y_{i}(\overrightarrow{w} \cdot \overrightarrow{x_{j}} + b) \geq 1,
 \end{array}
 $$
@@ -107,22 +107,67 @@ Since we would these $\xi_{j}$ to be as small as possible, we need to include th
 
 $$
 \begin{array}{ll}
-\text{Minimize} & \frac{1}{2}||w||^{2} + C\sum_{j} \xi_{j} \\
+\text{Minimize} & \frac{1}{2}||w||^{2} + C\sum_{j} \xi_{j}, \\
 \text{Subject to} & y_{i}(\overrightarrow{w} \cdot \overrightarrow{x_{j}} + b) \geq 1 - \xi_{j},\\
 & \xi_{j} \geq 0,
 \end{array}
 $$
 
-where $C>0$, a hyperparameter for a penalty term, is a hyperparameter that can be chosen by us. The larger the value of $C$ is, the less misclassification is allowed. Uf there is a hyperplane that can perfectly separate the data, setting $C$ to a huge value would be equivalent to doing hard-margin training.
+where $C>0$, a hyperparameter for a penalty term, is a hyperparameter that can be chosen by us. The larger the value of $C$ is, the less misclassification is allowed. Uf there is a hyperplane that can perfectly separate the data, setting $C$ to a huge value would be equivalent to doing hard-margin training. You may think to make $C$ as larger as possible, but this can make our model prone to overfitting.
 
-You may think to make $C$ as larger as possible, but this can make our model prone to overfitting.
+The soft-margin training problem can be equivalently written in terms of some optimizable parameters $\alpha_{j}$ as follows:
 
+$$
+\begin{array}{ll}
+\text{Maximize} & \sum_{j}\alpha_{j} - \frac{1}{2}\sum_{j,k}y_{i}y_{k}\alpha_{j}\alpha_{k}(\overrightarrow{x_{j}} \cdot \overrightarrow{x_{k}}),\\
+\text{Subject to} & 0 \leq \alpha_{j} \leq C,\\
+& \sum_{j}\alpha_{j}y_{j} = 0.
+\end{array}
+$$
 
+This formulation of the SVM soft-margin training problem is, most of the time, easier to solve in practice. Once we get the $\alpha_{j}$ values, it is also possible to go back to the original formulation. For instance, it holds that 
 
+$$
+\overrightarrow{w} = \sum_{j}\alpha_{j}y_{j}\overrightarrow{x_{j}}.
+$$
+
+Notice that $\overrightarrow{w}$ only depends on the training point $\overrightarrow{x_{j}}$, for which $\alpha_{j} \neq 0$. These vectors are call **support vectors**.
 
 ### The kernal trick
 
+Sometimes, it's hard to separat effectively a model by any SVM linearly. For example, the figure (a) shown below.
+
+<div style="text-align: center;">
+    <img src="/QuantumOpt/images_ML/QSVM_4.png" alt="QSVM_4" style="width: 800px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Figure. The original data cannot be separated by a hyperplane linearly. The separating hyperplane is represented by a dashed line in (b) after applying the kernal trick
+    </p>
+</div>
+
+Luckly, we can apply **kernel trick** technique, which maps the original space $R^{n}$ into a higher dimensional space $R^{N}$. This higher dimenstional space is also called **feature space** and we refer to the function $\phi : R^{n} \rightarrow R^{N}$ as a **feature map**.
+
+For example, figure above shows that a kernal trick is implemented to map 1-dimensional real line into a 2-dimensional plane with the function 
+
+$$
+F(x) = (x,x^{2})
+$$
+
+To use the kernal trick, the single and only computation that we need to perform in the feature space is 
+
+$$
+k(x,y) = \phi(\overrightarrow{x})\phi(\overrightarrow{y}).
+$$
+
+This is also know as a **kernal function**. The kernal functions are functions that can be represented as inner product in some space.
+
+!!! note
+    The kernel trick allows computations involving a high-dimensional feature space through inner products $(\phi(x),\phi(y))$ without explicitly transforming the data, enabling efficient classification.
+
 ## Going quantum
+
+### General idea behind quantum support vector machines
+
+### Feature maps
 
 ## Quantum support vector machines in PennyLane
 
