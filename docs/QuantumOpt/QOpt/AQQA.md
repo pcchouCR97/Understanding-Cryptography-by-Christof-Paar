@@ -18,7 +18,7 @@ Quantum annealers is a special type of quantum computer which is designed to fin
 ## Example
 Please see followings for D-Wave implementation:
 
-1. [Working AQQA with D-wave](../QuantumOpt/AQQA_D-WAVE.ipynb)
+1. [Working AQQA with D-wave](../jupyter_QOpt/AQQA_D-WAVE.ipynb)
 
 ## Adiabatic Quantum Computing
 
@@ -102,11 +102,16 @@ D-Wave, the first company commercialize a quantum device that implemented quantu
 
 Using D-wave is easier than you think. You need to install Ocean, which is D-Wave's quantum annealing Python library, and to create a free account on D-Wave Laep, a cloud service where you can get one minute per month of free computing time on D-Wave's quantum annealers. 
 
-Once you have everything set up, you can access quantum annealers to find an approximation of a solution to any combinatiorial optimiazation problem that you may have written as either an instance of finding the groud state of an Ising model or as a QUBO problem. Let's try with the MaxCut problem from [QUBO](../QuantumOpt/QUBO.md) first! 
+Once you have everything set up, you can access quantum annealers to find an approximation of a solution to any combinatiorial optimiazation problem that you may have written as either an instance of finding the groud state of an Ising model or as a QUBO problem. Let's try with the MaxCut problem from [QUBO](./QUBO.md) first! 
 
-![MaxCut0](../QuantumOpt/images/MaxCut0.png)
+<div style="text-align: center;">
+    <img src="/QuantumOpt/images_QOpt/MaxCut0.png" alt="A very simple Max-Cut model" style="width: 350px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        A very simple Max-Cut model
+    </p>
+</div>
 
-ok let's do some review first, for the Ising model from [QUBO](../QuantumOpt/QUBO.md), we have
+ok let's do some review first, for the Ising model from [QUBO](./QUBO.md), we have
 
 $$
 \begin{array}{ll}

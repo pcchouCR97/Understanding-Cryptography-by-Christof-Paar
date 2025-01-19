@@ -167,13 +167,13 @@ $$
 
 This unitary action is implemented by the circuit below, where we have only depicted qubits $j$ and $k$.
 
-![circuit_implementation_QAOA_1](../QuantumOpt/images/circuit_implementation_QAOA_1.png)
+![circuit_implementation_QAOA_1](../images_QOpt/circuit_implementation_QAOA_1.png)
 
 Figure. Circuit Implementation of $e^{-iaZ_{j}Z_{k}}$
 
 Imagine that the Ising Hamiltonian of your problem is $3Z_{0}Z_{2} - Z_{1}Z_{2} + 2Z_{0}$ Then, the circuit used by QAOA to prepare $\beta, \gamma$
 
-![circuit_implementation_QAOA_2](../QuantumOpt/images/circuit_implementation_QAOA_2.png)
+![circuit_implementation_QAOA_2](../images_QOpt/circuit_implementation_QAOA_2.png)
 
 Figure. QAOA circuit with $p=1$
 
@@ -232,7 +232,7 @@ The Higher Order Binary Optimization (HOBO) or Polynomial Unconstrained Binary O
 One way to solve HOBO problems is by transforming them into QUBO problems. For an example, you can substitute prodcuts $xy$ by a new binary variables $z$ as long as you introduce a penalty term $xy - 2xz - 2yz +3z$, which is $0$ if and only if $xy = z$. This kind of transformations can be access in D-Wave via `BinaryPolynomial` objects that you can reduce polynomials of degree $2$ with the `make_quadratic` function.
 
 ### Solving QUBO via QAOA
-We can consider a binary polynomial of any degree and transform it using the techniques we have covered in [QUBO section](../QuantumOpt/QUBO.md). We will end up having a Hamiltonian that is a sum of tensor products of $Z_{j}$ matrices. Luckly, we can now deal with more than just one or two $Z_{j}$ matrices.
+We can consider a binary polynomial of any degree and transform it using the techniques we have covered in [QUBO section](./QUBO.md). We will end up having a Hamiltonian that is a sum of tensor products of $Z_{j}$ matrices. Luckly, we can now deal with more than just one or two $Z_{j}$ matrices.
 
 In the same fashion, If $\lvert x \rangle$ is a basis state, we have 
 

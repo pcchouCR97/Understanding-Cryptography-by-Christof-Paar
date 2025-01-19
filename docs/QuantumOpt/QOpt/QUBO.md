@@ -1,30 +1,37 @@
 # Quadratic unconstrained Binary Optimization Problems
 
 ## Key Takeaways
-1. A expectation value is defined as $\langle \psi| (\sum_{(j,k)\in E}Z_{j}Z_{k})|\psi \rangle = \sum_{(j,k)\in E}\langle \psi|Z_{j}Z_{k}|\psi\rangle$, formed by an orthonormal basis by real eigenvalues with their eigenvectors. The minimum state of one of these eigenvector are called **ground state**, this is also known as a **[variational principle](../QuantumOpt/VQEIntro.md)**.
+1. A expectation value is defined as $\langle \psi| (\sum_{(j,k)\in E}Z_{j}Z_{k})|\psi \rangle = \sum_{(j,k)\in E}\langle \psi|Z_{j}Z_{k}|\psi\rangle$, formed by an orthonormal basis by real eigenvalues with their eigenvectors. The minimum state of one of these eigenvector are called **ground state**, this is also known as a **[variational principle](../QOpt/VQEIntro.md)**.
 
-2. Finding a minimum state in a combinatorial optimization problem is try to find the ground state its **[Hamiltonian](../Math_Fundamentals/hilbert_space.md#hermitian-operators)** of the system.
+2. Finding a minimum state in a combinatorial optimization problem is try to find the ground state its **[Hamiltonian](/docs/Math_Fundamentals/hilbert_space.md#hermitian-operators)** of the system.
 
 3. A general rule of the numbers of slack variables: given a constraint $Ax\leq b$, we solve $x_{j}$ for $2^{j}-1\leq b$.
 
 ## Examples 
 Please see followings for Qiskit implementations:
 
-1. [Start QUBO with Qiskit](../QuantumOpt/QUBO_1_start.ipynb)
-2. [Knapsack problem with Qiskit](../QuantumOpt/QUBO_example_knapsack_qiskit.ipynb)
-3. [Max-Cut and Traveler Saleman Problem with Qiskit](../QuantumOpt/QUBO_example_max_cut_and_tsp_qiskit.ipynb)
+1. [Start QUBO with Qiskit](../jupyter_QOpt/QUBO_1_start.ipynb)
+2. [Knapsack problem with Qiskit](../jupyter_QOpt/QUBO_example_knapsack_qiskit.ipynb)
+3. [Max-Cut and Traveler Saleman Problem with Qiskit](../jupyter_QOpt/QUBO_example_max_cut_and_tsp_qiskit.ipynb)
 
 ## The Max-Cut problem and the Ising model
 
 When you are given a graph, you are essentially given some elements, which we will refer to as vertices, and some connections between pairs of these vertices, which we will call edges.
 
-![MaxCut0](../QuantumOpt/images/Max-cut_0.png)
-
-Figure: Example of a graph
+<div style="text-align: center;">
+    <img src="/QuantumOpt/images_QOpt/Max-cut_0.png" alt="Example of a Max-Cut" style="width: 400px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Example of a Max-Cut
+    </p>
+</div>
 
 That is, it is a partition of the graph's vertices into two complementary sets S and T, such that the number of edges between S and T is as large as possible. Finding such a cut is known as the max-cut problem.
 
-![MaxCut](../QuantumOpt/images/MaxCut.png)
+<div style="text-align: center;">
+    <img src="/QuantumOpt/images_QOpt/MaxCut.png" alt="Example of a Max-Cut" style="width: 600px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+    </p>
+</div>
 
 ### Problem formulation
 
@@ -52,8 +59,12 @@ $$
 
 The cut $z_{1}=z_{4}=-1$, $z_{0}=z_{2}=z_{3}=1$, which achieves a optimal value of -4. The cut $z_{0}=z_{3}=-1$, $z_{1}=z_{2}=z_{4}=1$, on the other hand, has a value of $-2$, which we already know that its not optimal value.
 
-
-![MaxCut2](../QuantumOpt/images/MaxCut2.png)
+<div style="text-align: center;">
+    <img src="/QuantumOpt/images_QOpt/MaxCut2.png" alt="Another Max-Cut example" style="width: 500px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Another Max-Cut example
+    </p>
+</div>
 
 We can formulate the above graph as the follwoing:
 
@@ -67,7 +78,13 @@ $$
 
 ### The Ising model
 
-![Ising model](../QuantumOpt/images/Ising_model.png).
+<div style="text-align: center;">
+    <img src="/QuantumOpt/images_QOpt/Ising_model.png" alt="Example of an Ising model" style="width: 400px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Example of an Ising model
+    </p>
+</div>
+
 
 The total energy of the system is given by a quantity called the {==**Hamiltonian**==} function defined by
 
@@ -95,7 +112,12 @@ $$
 
 ## Formulating optimization problems the quantum way
 
-![MaxCut0](../QuantumOpt/images/MaxCut0.png)
+<div style="text-align: center;">
+    <img src="/QuantumOpt/images_QOpt/MaxCut0.png" alt="A very simple Max-Cut model" style="width: 350px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        A very simple Max-Cut model
+    </p>
+</div>
 
 Taking above very simple Max-Cut problem as an example. To transform a Max-Cut problem in to a quantum one, we have to use $Z$ matrix. Since we know that
 
@@ -406,7 +428,13 @@ which has values of $3,1,7,7$ and weight $2,1,5,4$ with the maximum weight of $8
 
 In the graph coloring problem, we are given a graph and we are asked to assign a color to each vertex in such a way that vertices that are connected by and edge (also called **adjacent**) receive different colors. We also are asked to do this using the minimum possible numebr of colors or using no mroe than a given number of different colors. If we can color a graph with $k$ colors, we say that it is $k$-**colorable.** The minimum number of colors needed to color a graph is called its **chromatic number**.
 
-![GraphColoring](../QuantumOpt/images/GraphColoring%20.png)
+<div style="text-align: center;">
+    <img src="/QuantumOpt/images_QOpt/GraphColoring%20.png" alt="Example of a GraphColoring" style="width: 450px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Example of a GraphColoring
+    </p>
+</div>
+
 
 Let's get start to formulate the graph coloring problem to a QUBO framework!
 
@@ -439,7 +467,12 @@ where $E$ is the set of edges of the graph. We added $-1$ term to ensure when th
 ### The Traveling Salesperson Problem
 The Traveling salesperon problem is one of the most famous problems in combinatorial optimization. The problem is wasy to state: you need to find a route that goes through each of the cities in a given set once and only once while minimizing some global quantity (distance traveled, time spent, total cost...). 
 
-![TSP](../QuantumOpt/images/TSP.png)
+<div style="text-align: center;">
+    <img src="/QuantumOpt/images_QOpt/TSP.png" alt="A TSP example" style="width: 300px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        A TSP example
+    </p>
+</div>
 
 *Figure. An example of the Traveling Salesperson Problem (TSP)*
 

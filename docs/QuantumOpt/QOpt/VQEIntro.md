@@ -38,7 +38,7 @@ $$
 \langle x | \psi \rangle = \langle | \sum_{y} a_{y} \lvert y \rangle = \sum_{y} a_{y} \langle y | \psi \rangle = \sum_{y} a_{y} \langle x | y \rangle = a_{x}.
 $$
 
-$\sum_{y} a_{y} \langle x | y \rangle = a_{x}$ is because the fact that $\langle x | y \rangle = 1$  if $x = y$ and 0 otherwise. (The computational basis is an [orthonormal basis](../Math_Fundamentals/matrices.md#orthonormal-basis)).
+$\sum_{y} a_{y} \langle x | y \rangle = a_{x}$ is because the fact that $\langle x | y \rangle = 1$  if $x = y$ and 0 otherwise. (The computational basis is an [orthonormal basis](/docs/Math_Fundamentals/matrices.md#orthonormal-basis)).
 
 Thus, the expectation value of $H_{f}$ in the state $\lvert \psi \rangle$ can be computed as 
 
@@ -56,7 +56,7 @@ We also know that $|a_x|^{2} = |\langle x | \psi \rangle|^{2}$ is the probabilit
 ### Observables
 In quantum mechanics, any physical magnitude that you can measure is represented by a Hermitian operator. These are linear operators $A$ that are equal to their adjoints (their [conjugate transposes](../Math_Fundamentals/matrices.md/#conjugate-transpose)) $A^{\dagger} = A$.
 
-The nice thing about Hermitian operators is that one can always {==find an [orthonormal basis](../Math_Fundamentals/matrices.md#orthonormal-basis) of eigenvectors with real eigenvalues==}. This means that there exist real numbers $\lambda_{j}$, $j = 1, \cdots, l,$ all of them different, and states $\lvert \lambda_{j}^{k} \rangle$, where $j = 1, \cdots, l,$ and $k = 1, \cdots, r_{j}$ such that the state $\{\lvert \lambda_{j}^{k}\rangle \}_{j,k}$ form an [orthonormal basis](../Math_Fundamentals/matrices.md#orthonormal-basis) and 
+The nice thing about Hermitian operators is that one can always {==find an [orthonormal basis](/docs/Math_Fundamentals/matrices.md#orthonormal-basis) of eigenvectors with real eigenvalues==}. This means that there exist real numbers $\lambda_{j}$, $j = 1, \cdots, l,$ all of them different, and states $\lvert \lambda_{j}^{k} \rangle$, where $j = 1, \cdots, l,$ and $k = 1, \cdots, r_{j}$ such that the state $\{\lvert \lambda_{j}^{k}\rangle \}_{j,k}$ form an [orthonormal basis](/docs/Math_Fundamentals/matrices.md#orthonormal-basis) and 
 
 $$
 A \lvert \lambda_{j}^{k} \rangle = \lambda_{j} \lvert \lambda_{j}^{k} \rangle,
@@ -69,7 +69,7 @@ Here,
 1. We are considering the possiblility of having several eigenvectors $\lvert \lambda_{j}^{k} \rangle$ associated with the same eigenvalue $\lambda_{j}$, hence the use of the superindices $k = 1, \cdots, r_{j}$, where $r_{j}$ is the number of eigenvectors associated with the $\lambda_{j}^{k}$ eigenvalue. 
 2. If all the eigenvalues are different, then we will have $r_{j} = 1$ for every $j$ and we can drop the $k$ superindices.
 
-Let's consider tan obervable represented by a Hermitian operator $A$, and also an [orthonormal basis](../Math_Fundamentals/matrices.md#orthonormal-basis) of eigenvectors $\{ \lvert \lambda_{j}^{k} \}_{j,k}$ such that $A \lvert \lambda_{j}^{k} \rangle = \lambda_{j} \lvert \lambda_{j}^{k} \rangle$. Plus, the possible outcomes of the measurement of the observable must be represented by the different eigenvalues $\lambda_{j}$. More, upon measurement, the probability that a state $\lvert \psi \rangle$ will yield $\lambda_{j}$ must be $\sum_{k}|\langle \lambda_{j}^{k}|\psi\rangle |^{2}$.
+Let's consider tan obervable represented by a Hermitian operator $A$, and also an [orthonormal basis](/docs/Math_Fundamentals/matrices.md#orthonormal-basis) of eigenvectors $\{ \lvert \lambda_{j}^{k} \}_{j,k}$ such that $A \lvert \lambda_{j}^{k} \rangle = \lambda_{j} \lvert \lambda_{j}^{k} \rangle$. Plus, the possible outcomes of the measurement of the observable must be represented by the different eigenvalues $\lambda_{j}$. More, upon measurement, the probability that a state $\lvert \psi \rangle$ will yield $\lambda_{j}$ must be $\sum_{k}|\langle \lambda_{j}^{k}|\psi\rangle |^{2}$.
 
 It is a fact that any physical observable can be represented by a Hermitian operator that those are requirements are met.
 
@@ -170,7 +170,7 @@ $$
 
 - The probabilities are expressed in terms of the inner products $\langle \psi | \lambda_{j}^{k} \rangle$ and $\langle \lambda_{j}^{k} | \psi \rangle$, showing explicitly how the state $|\psi\rangle$ interacts with the eigenbasis $|\lambda_{j}^{k}\rangle$.
 
-- The eigenstates $|\lambda_{j}^{k}\rangle$ form an [orthonormal basis](../Math_Fundamentals/matrices.md#orthonormal-basis), so the squared magnitude $\left| \langle \lambda_{j}^{k} | \psi \rangle \right|^2$ is equivalent to the product $\langle \psi | \lambda_{j}^{k} \rangle \langle \lambda_{j}^{k} | \psi \rangle$.
+- The eigenstates $|\lambda_{j}^{k}\rangle$ form an [orthonormal basis](/docs/Math_Fundamentals/matrices.md#orthonormal-basis), so the squared magnitude $\left| \langle \lambda_{j}^{k} | \psi \rangle \right|^2$ is equivalent to the product $\langle \psi | \lambda_{j}^{k} \rangle \langle \lambda_{j}^{k} | \psi \rangle$.
 
 The equation shows how the expectation value of a Hermitian operator (observable) is calculated by summing over all possible eigenvalues $\lambda_{j}$, weighted by the probability of measuring $\lambda_{j}$ when the system is in state $|\psi\rangle$. The expectation value $\langle A \rangle_{\psi}$ is the weighted average of the possible outcomes $\lambda_{j}$, with the probabilities $\left| \langle \lambda_{j}^{k} | \psi \rangle \right|^2$ serving as weights.
 
@@ -495,7 +495,7 @@ $$
 
 This is the probability of obtaining $|0\rangle$ as the outcome of measuring $V(\theta_{0})^{\dagger}V(\theta)|0\rangle$ in the computational basis! This is something that we can easily estimate because we can prepare $V(\theta_{0})^{\dagger}V(\theta)|0\rangle$ by first applying our ansatz $V$, using $\theta$ as the parameters, to $|0\rangle$, and then applying the inverse of our ansatz, with parameter $\theta_{0}$, to the resulting state. We will repeat this process several times, always measuring the resulting state $V(\theta_{0})^{\dagger}V(\theta)|0\rangle$ in the computational basis and computing the relative frequency of the outcome $|0\rangle$.
 
-![vqe_circuit_copmute](../QuantumOpt/images/vqe_circuit_copmute.png)
+![vqe_circuit_copmute](../images_QOpt/vqe_circuit_copmute.png)
 
 Figure. Circuit to copmute $\langle0|V(\theta_{0})^{\dagger}V(\theta)|0\rangle$.
 

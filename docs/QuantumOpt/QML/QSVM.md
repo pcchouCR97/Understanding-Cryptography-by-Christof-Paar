@@ -4,7 +4,7 @@
 A support vector machines takes inputs in an $n$-dimentional Euclidean space $(R^{n})$ and classifies them according to which side of a hyperplane they are on. This hyperplane fully defines the behavior of the SVM, which can be defined by adjustable parameteres $\overrightarrow{w}$ and the constant $b$.
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_ML/SVM_margin.png" alt="QSVM_1" style="width: 400px; height: 400px;">
+    <img src="/QuantumOpt/images_QML/SVM_margin.png" alt="QSVM_1" style="width: 400px; height: 400px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         SVM Margin
     </p>
@@ -18,7 +18,7 @@ Let the datapoints in our training dataset be $\overrightarrow{w} \in R^{n}$ and
 When we train a classifier, we are interested in getting a low generalization error. In our case, we acheve this by looking into a hyperplane that can maximize the distance from itself to the training datapoints. For example, if our separating hyperplane is too close to one of the training datapoints, we risk another datapoint of the same class crossing to the other side of the hyperplane and being misclassified.
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_ML/QSVM_1.png" alt="QSVM_1" style="width: 400px; height: 300px;">
+    <img src="/QuantumOpt/images_QML/QSVM_1.png" alt="QSVM_1" style="width: 400px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         Figure. Both hyperplanes separate the two categories, but the continuous line is closer to the datapoints than the dashed line.
     </p>
@@ -33,7 +33,7 @@ There are two ways that could help us achieve:
 2. Instead, we can associate to each data point a unique hyperplane that is parallel to $H$ and contains that datapoint. The parallel hyperplane that goes through the point that is closest to $H$ will itself be a separating hyperplane - and so will be its reflection over $H$.
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_ML/QSVM_2.png" alt="QSVM_2" style="width: 400px; height: 300px;">
+    <img src="/QuantumOpt/images_QML/QSVM_2.png" alt="QSVM_2" style="width: 400px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         Figure. The solid black line represents a separating hyperplane \( H \). The red dashed line is parallel hyperplane which goes through the closest point to \( H \), and it's reflection over \( H \) is the other dashed line.
     </p>
@@ -66,7 +66,7 @@ $$
 since we are considering $y_{j} = 1$ when the $j$-th example belongs to the positive class and $y_{j} = -1$ when it belongs to the negative one.
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_ML/QSVM_3.png" alt="QSVM_3" style="width: 400px; height: 300px;">
+    <img src="/QuantumOpt/images_QML/QSVM_3.png" alt="QSVM_3" style="width: 400px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         Figure. The hyperplane that could have been returned by an SVM is represented by a black solid line, and the lines in dashed lines are the equidistant parallel hyperplanes that are the furthest apart from each other while still separating the data. The margin is thus half of the thickness of the colored region
     </p>
@@ -138,7 +138,7 @@ Notice that $\overrightarrow{w}$ only depends on the training point $\overrighta
 Sometimes, it's hard to separat effectively a model by any SVM linearly. For example, the figure (a) shown below.
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_ML/QSVM_4.png" alt="QSVM_4" style="width: 800px; height: 300px;">
+    <img src="/QuantumOpt/images_QML/QSVM_4.png" alt="QSVM_4" style="width: 800px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         Figure. The original data cannot be separated by a hyperplane linearly. The separating hyperplane is represented by a dashed line in (b) after applying the kernal trick
     </p>

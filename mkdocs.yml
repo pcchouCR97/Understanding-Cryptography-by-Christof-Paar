@@ -42,8 +42,6 @@ nav:
         - No-hiding: quantum_mechanics/No-hiding.md
         - No-teleportation: quantum_mechanics/No-teleportation.md
   - Quantum Computing:
-      # - Quantum Mechanics
-      # - Pauli matrices
       - Basics: 
         - Basics: quantum/basics.md
         - Algorithms: quantum/algorithms.md
@@ -61,22 +59,22 @@ nav:
   - Quantum machine learning and optimization:
       - Optimization Algorithms:
         - Quadratic Unconstrained Binary Optimization (QUBO): 
-          - QUBO Intro: QuantumOpt/QUBO.md
-          - QUBO Example: QuantumOpt/QUBO_1_start.ipynb
-          - QUBO Knapsack: QuantumOpt/QUBO_example_knapsack_qiskit.ipynb
-          - QUBO Max-Cut and TSP: QuantumOpt/QUBO_example_max_cut_and_tsp_qiskit.ipynb
+          - QUBO Intro: QuantumOpt/QOpt/QUBO.md
+          - QUBO Example: QuantumOpt/jupyter_QOpt/QUBO_1_start.ipynb
+          - QUBO Knapsack: QuantumOpt/jupyter_QOpt/QUBO_example_knapsack_qiskit.ipynb
+          - QUBO Max-Cut and TSP: QuantumOpt/jupyter_QOpt/QUBO_example_max_cut_and_tsp_qiskit.ipynb
         - Adiabatic Quantum Computing & Quantum Annealing (AQQA): 
-          - AQQA Intro: QuantumOpt/AQQA.md
-          - AQQA Example: QuantumOpt/AQQA_D-WAVE.ipynb
+          - AQQA Intro: QuantumOpt/QOpt/AQQA.md
+          - AQQA Example: QuantumOpt/jupyter_QOpt/AQQA_D-WAVE.ipynb
         - Quantum Approximate Optimization Algorithm (QAOA): 
-          - QAOA Intro: QuantumOpt/QAOA.md
-          - QAOA D-Wave Example: QuantumOpt/QAOA_D-Wave.ipynb.ipynb
-          - QAOA PennyLane Example: QuantumOpt/QAOA_PennyLane.ipynb
+          - QAOA Intro: QuantumOpt/QOpt/QAOA.md
+          - QAOA D-Wave Example: QuantumOpt/jupyter_QOpt/QAOA_D-Wave.ipynb.ipynb
+          - QAOA PennyLane Example: QuantumOpt/jupyter_QOpt/QAOA_PennyLane.ipynb
         - Grover Adaptive Search (GAS): 
-          - GAS Intro: QuantumOpt/GAS.md
+          - GAS Intro: QuantumOpt/QOpt/GAS.md
           - GAS Example: QuantumOpt/GAS_Qiskit_molecule.ipynb
         - Variational Quantum Eignesolver (VQE): 
-          - VQE Intro: QuantumOpt/VQEIntro.md
+          - VQE Intro: QuantumOpt/QOpt/VQEIntro.md
           - VQE Example: QuantumOpt/VQE_Qiskit_molecule.ipynb
       - Optimization Machine Learning:
         - Machine Learning Refresher: QuantumOpt/MachineLearningRefresher.md

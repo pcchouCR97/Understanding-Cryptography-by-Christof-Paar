@@ -24,7 +24,7 @@ Usually, $O_{f}$ is said to be a quantum oracle for $f$ since we can consult it 
 
 For any $f$, it is always possible to construct $O_{f}$ by using just NOT and multi-controlled NOT gates. For example, if $f$ is a Boolean function on 3-bit strings such that $f$ takes value 1 just on 101 an 011, then we can use the circuit show below.
 
-![oracle_of_the_boolean_function](../QuantumOpt/images/oracle_of_the_boolean_function.png)
+![oracle_of_the_boolean_function](../images_QOpt/oracle_of_the_boolean_function.png)
 
 Figure. Oracle for the Boolean function $f$ that takes value 1 on 101 and 011, and value 0 on the rest of the 3-bit strings
 
@@ -36,7 +36,7 @@ In this example, we only used NOT gates before and after the multi-controlled ga
 ## Grover's circuits
 Now, let's say that we want to apply Grover's algorithm to a Boolean function $f$ which receives binary strings of leangth $n$. Besides the quantum oracle $O_f$ we mentioned above, we still need two more elements to complete our circuit.
 
-![circuit_of_grover_algorithm](../QuantumOpt/images/circuit_of_grover_algorithm.png)
+![circuit_of_grover_algorithm](../images_QOpt/circuit_of_grover_algorithm.png)
 
 Figure. Circuit for Grover’s algorithm in the case in which $f$ receives strings of length 3 as input. The oracle $O_f$ and Grover’s diffusion operator are repeated, in that order, a number of times before the final measurements
 
@@ -198,7 +198,7 @@ $$
 \end{pmatrix}
 $$
 
-![quantum_Fourier_transform_on_3_qubits](../QuantumOpt/images/quantum_Fourier_transform_on_3_qubits.png)
+![quantum_Fourier_transform_on_3_qubits](../images_QOpt/quantum_Fourier_transform_on_3_qubits.png)
 
 Figure: Circuit for the quantum Fourier transform on 3 qubits.
 
@@ -218,7 +218,7 @@ The circuit for the inverse QFT can be obtained from that of the QFT by reading 
 1. The inverse of $P(\theta)$ is $P(-\theta)$
 2. The inverse of H and SWAP are its own.
 
-![quantum_inverse_Fourier_transform_on_3_qubits](../QuantumOpt/images/quantum_inverse_Fourier_transform_on_3_qubits.png)
+![quantum_inverse_Fourier_transform_on_3_qubits](../images_QOpt/quantum_inverse_Fourier_transform_on_3_qubits.png)
 
 Figure. Circuit for the inverse quantum Fourier transform on 3 qubits.
 
@@ -258,7 +258,7 @@ which is the phase encoding of $0$.
 
 Suppose that we havea state that phase-encodes $j$ and we want to add $l$ to it. We first assum that $l$ is non-negative and deal with negative numbers later. To add $l$ in phase encoding, we just need to apply the gates shown below
 
-![phase_encoding_adding_l](../QuantumOpt/images/phase_encoding_adding_l.png)
+![phase_encoding_adding_l](../images_QOpt/phase_encoding_adding_l.png)
 
 Figure. Circuit for adding $l$ to a state in phase encoding when we have $m$ qubits.
 
@@ -276,11 +276,11 @@ $$
 e^{\frac{\pi i(2^{m}+l)}{2^h}} = e^{\frac{\pi il}{2^h}}e^{\frac{\pi i2^{m}}{2^h}} = e^{\frac{\pi il}{2^h}}e^{\pi i 2^{m-h}} = e^{\frac{\pi il}{2^h}}
 $$
 
-since $m-h > 0$, making $2^{m-h}$ even and implying $e^{\pi i 2^{m-h}} = 1$. This means that if we plug in $l$ or $2^{m}+l$ in the gates of [figure](../QuantumOpt/images/phase_encoding_adding_l.png) above, we obtain exactly the same circuit. Thus, we can work with the two's complement representation of $l$.
+since $m-h > 0$, making $2^{m-h}$ even and implying $e^{\pi i 2^{m-h}} = 1$. This means that if we plug in $l$ or $2^{m}+l$ in the gates of [figure](../images_QOpt/phase_encoding_adding_l.png) above, we obtain exactly the same circuit. Thus, we can work with the two's complement representation of $l$.
 
-![circuit_for_preparing_the_phase_rep_of_0](../QuantumOpt/images/circuit_for_preparing_the_phase_rep_of_0.png)
+![circuit_for_preparing_the_phase_rep_of_0](../images_QOpt/circuit_for_preparing_the_phase_rep_of_0.png)
 
-[Image](../QuantumOpt/images/circuit_for_preparing_the_phase_rep_of_0.png) presents a circuit that prepares the phase representation of 0, adds 3 to it and then subtracts 5. Of course, we can simplified the circuit such as $P(-5\frac{\pi}{2})P(3\frac{\pi}{2}) = P(\pi)$ and $P(3\pi) = P(\pi)$. Since the phase $\phi$ is a modulo $2\pi$ quantity becasue $e^{i(\pi +2\pi)}$. That is, adding $2\pi$ to the phase does not change the effect of the gate. 
+[Image](../images_QOpt/circuit_for_preparing_the_phase_rep_of_0.png) presents a circuit that prepares the phase representation of 0, adds 3 to it and then subtracts 5. Of course, we can simplified the circuit such as $P(-5\frac{\pi}{2})P(3\frac{\pi}{2}) = P(\pi)$ and $P(3\pi) = P(\pi)$. Since the phase $\phi$ is a modulo $2\pi$ quantity becasue $e^{i(\pi +2\pi)}$. That is, adding $2\pi$ to the phase does not change the effect of the gate. 
 
 $$
 3 \pi \ \text{mod} \ 2\pi = \pi.
@@ -290,11 +290,11 @@ $$
 
 Let's show the example of circuit that copmutes $3x_{0}x_{1} - 2x_{1}x_{2} + 1$. The first column of gates prepares the phase encoding of $0$. The second one adds the independent term of the polynomial. The next one adds 3, but only if $x_{0}=x_{1}=1$ (that is why all the gates are controlled by the $\lvert x \rangle$ and $\lvert x_{1} \rangle$ qubits). Similarly, the last column substracts 2, but only when$x_{1} = x_{2} = 1$. As you should remember, controlled gates execute a quantum operation (such as adding a phase) only when the control qubits are in a specific state, typically $\lvert 1 \rangle$. Or, we can say that $3x_{0}x_{1}$ is nonzero only when $x_{0}=x_{1}=1$. These condition ensure that the polynomial terms contribute to the computation only when they are logically valid. Controlled gates enforce these conditions by activating only when the control qubits match the required state.
 
-![circuit_computing_example_in_pahse_encoding](../QuantumOpt/images/circuit_computing_example_in_pahse_encoding.png)
+![circuit_computing_example_in_pahse_encoding](../images_QOpt/circuit_computing_example_in_pahse_encoding.png)
 
 Figure. Circuit for computing $3x_{0}x_{1} - 2x_{1}x_{2} + 1$ in phase encoding. 
 
-From the [figure](../QuantumOpt/images/circuit_computing_example_in_pahse_encoding.png), we have adopted the usual convention of setting all the one-qubit gates that are controlled by the same qubits in ta single column. This technique is also called as a **single multi-qubit gate**. Also, you may notice that these gates are multi-controlled, but you can always decompose them into a combination of one and two-qubit gates with Toffoli gates.
+From the [figure](../images_QOpt/circuit_computing_example_in_pahse_encoding.png), we have adopted the usual convention of setting all the one-qubit gates that are controlled by the same qubits in ta single column. This technique is also called as a **single multi-qubit gate**. Also, you may notice that these gates are multi-controlled, but you can always decompose them into a combination of one and two-qubit gates with Toffoli gates.
 
 There are two methods that we can use to deal with the real numbers in phase encoding.
 
@@ -311,7 +311,7 @@ There are two methods that we can use to deal with the real numbers in phase enc
 
 This diagram represents an **oracle** to determine whether $g(x) < g(y)$, utilizing quantum operations. Here’s a breakdown of its components and functionality:
 
-![oracle_to_determine_g](../QuantumOpt/images/oracle_to_determine_g.png)
+![oracle_to_determine_g](../images_QOpt/oracle_to_determine_g.png)
 
 ### Key elements in the Circuit:
 1. **Input Qubits:**
