@@ -429,7 +429,7 @@ which has values of $3,1,7,7$ and weight $2,1,5,4$ with the maximum weight of $8
 In the graph coloring problem, we are given a graph and we are asked to assign a color to each vertex in such a way that vertices that are connected by and edge (also called **adjacent**) receive different colors. We also are asked to do this using the minimum possible numebr of colors or using no mroe than a given number of different colors. If we can color a graph with $k$ colors, we say that it is $k$-**colorable.** The minimum number of colors needed to color a graph is called its **chromatic number**.
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_QOpt/GraphColoring%20.png" alt="Example of a GraphColoring" style="width: 450px; height: 300px;">
+    <img src="/QuantumOpt/images_QOpt/GraphColoring.png" alt="Example of a GraphColoring" style="width: 450px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         Example of a GraphColoring
     </p>

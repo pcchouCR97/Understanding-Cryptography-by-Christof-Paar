@@ -72,10 +72,10 @@ nav:
           - QAOA PennyLane Example: QuantumOpt/jupyter_QOpt/QAOA_PennyLane.ipynb
         - Grover Adaptive Search (GAS): 
           - GAS Intro: QuantumOpt/QOpt/GAS.md
-          - GAS Example: QuantumOpt/GAS_Qiskit_molecule.ipynb
+          - GAS Example: QuantumOpt/jupyter_QOpt/GAS_Qiskit_molecule.ipynb
         - Variational Quantum Eignesolver (VQE): 
           - VQE Intro: QuantumOpt/QOpt/VQEIntro.md
-          - VQE Example: QuantumOpt/VQE_Qiskit_molecule.ipynb
+          - VQE Example: QuantumOpt/jupyter_QOpt/VQE_Qiskit_molecule.ipynb
       - Optimization Machine Learning:
         - Machine Learning Refresher: QuantumOpt/MachineLearningRefresher.md
         - Quantum Support Vector Machines: 
