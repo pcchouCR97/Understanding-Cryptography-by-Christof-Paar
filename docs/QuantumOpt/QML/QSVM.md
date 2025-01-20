@@ -133,46 +133,46 @@ $$
 
 Notice that $\overrightarrow{w}$ only depends on the training point $\overrightarrow{x_{j}}$, for which $\alpha_{j} \neq 0$. These vectors are call **support vectors**.
 
-### The kernal trick
+### The kernel trick
 
 Sometimes, it's hard to separat effectively a model by any SVM linearly. For example, the figure (a) shown below.
 
 <div style="text-align: center;">
     <img src="/QuantumOpt/images_QML/QSVM_4.png" alt="QSVM_4" style="width: 800px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
-        Figure. The original data cannot be separated by a hyperplane linearly. The separating hyperplane is represented by a dashed line in (b) after applying the kernal trick
+        Figure. The original data cannot be separated by a hyperplane linearly. The separating hyperplane is represented by a dashed line in (b) after applying the kernel trick
     </p>
 </div>
 
 Luckly, we can apply **kernel trick** technique, which maps the original space $R^{n}$ into a higher dimensional space $R^{N}$. This higher dimenstional space is also called **feature space** and we refer to the function $\phi : R^{n} \rightarrow R^{N}$ as a **feature map**.
 
-For example, figure above shows that a kernal trick is implemented to map 1-dimensional real line into a 2-dimensional plane with the function 
+For example, figure above shows that a kernel trick is implemented to map 1-dimensional real line into a 2-dimensional plane with the function 
 
 $$
 F(x) = (x,x^{2})
 $$
 
-To use the kernal trick, the single and only computation that we need to perform in the feature space is 
+To use the kernel trick, the single and only computation that we need to perform in the feature space is 
 
 $$
 k(x,y) = \phi(\overrightarrow{x})\phi(\overrightarrow{y}).
 $$
 
-This is also know as a **kernal function**. The kernal functions are functions that can be represented as inner product in some space.
+This is also know as a **kernel function**. The kernel functions are functions that can be represented as inner product in some space.
 
 !!! note
     The kernel trick allows computations involving a high-dimensional feature space through inner products $(\phi(x),\phi(y))$ without explicitly transforming the data, enabling efficient classification.
 
 ## Going quantum
 
-A Quantum Support Vector machines is a special case of SVMs which rely on the [**kernel trick**](./QSVM.md#the-kernal-trick).
+A Quantum Support Vector machines is a special case of SVMs which rely on the [**kernel trick**](./QSVM.md#the-kernel-trick).
 
 ### General idea behind quantum support vector machines
 
 In quantum support vector machiens, we only need to use our quantum algorithm for the kernel function. This function will have to rely on a quantum computer to d othe following:
 
 1. Take as input two vectors in the original space of data.
-2. Map each of tehm to a quantum state through a [**feature map**](./QSVM.md#the-kernal-trick).
+2. Map each of tehm to a quantum state through a [**feature map**](./QSVM.md#the-kernel-trick).
 3. Compute the inner product of the quantum states and return it.
 
 Let's say we ahve a feature map $\phi$ such that for each $\overrightarrow{x}$, we will have a circuit $\Phi(\overrightarrow{x})$ wuch that the output of the feature map will be quantum state $\phi(\overrightarrow{x}) = \Phi{\overrightarrow{x}}|0\rangle$. With a feature map ready, we can then take our kernel function to be
@@ -192,7 +192,7 @@ Let's review how to implement a quantum kernel function.
 3. Return the **probability** of measuring zero on all the qubits.
 
 !!! Excercise 
-    One of the conditions for a function $k$ to be a kernal is that it be symmetric. Prove that, for any quantum kernel, is symmetric. ($k(\overrightarrow{a},\overrightarrow{b}) = k(\overrightarrow{b},\overrightarrow{a}))$ for any inputs.)
+    One of the conditions for a function $k$ to be a kernel is that it be symmetric. Prove that, for any quantum kernel, is symmetric. ($k(\overrightarrow{a},\overrightarrow{b}) = k(\overrightarrow{b},\overrightarrow{a}))$ for any inputs.)
 
 ### Feature maps
 
@@ -246,7 +246,7 @@ Normally, we don't use all the $2^{n}$ parameters that amplititude encoding prov
 To guarantee a healthy balance between separating the extrema of the dataset and using as big a region a possible in the feature space, the variables could be normalized to [0,1].
 
 ## Quantum support vector machines in PennyLane
-
+    
 ## Quantum support vector machines in Qiskit
 
 # Reference 
