@@ -25,6 +25,8 @@ When you are given a graph, you are essentially given some elements, which we wi
     </p>
 </div>
 
+![1](../images_QOpt/Max-cut_0.png)
+
 That is, it is a partition of the graph's vertices into two complementary sets S and T, such that the number of edges between S and T is as large as possible. Finding such a cut is known as the max-cut problem.
 
 <div style="text-align: center;">
