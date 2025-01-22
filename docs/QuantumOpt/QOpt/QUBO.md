@@ -29,7 +29,7 @@ When you are given a graph, you are essentially given some elements, which we wi
 That is, it is a partition of the graph's vertices into two complementary sets S and T, such that the number of edges between S and T is as large as possible. Finding such a cut is known as the max-cut problem.
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_QOpt/MaxCut.png" alt="Example of a Max-Cut" style="width: 600px; height: 300px;">
+    <img src="../../images_QOpt/MaxCut.png" alt="Example of a Max-Cut" style="width: 600px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
     </p>
 </div>
@@ -61,7 +61,7 @@ $$
 The cut $z_{1}=z_{4}=-1$, $z_{0}=z_{2}=z_{3}=1$, which achieves a optimal value of -4. The cut $z_{0}=z_{3}=-1$, $z_{1}=z_{2}=z_{4}=1$, on the other hand, has a value of $-2$, which we already know that its not optimal value.
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_QOpt/MaxCut2.png" alt="Another Max-Cut example" style="width: 500px; height: 300px;">
+    <img src="../../images_QOpt/MaxCut2.png" alt="Another Max-Cut example" style="width: 500px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         Another Max-Cut example
     </p>
@@ -80,7 +80,7 @@ $$
 ### The Ising model
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_QOpt/Ising_model.png" alt="Example of an Ising model" style="width: 400px; height: 300px;">
+    <img src="../../images_QOpt/Ising_model.png" alt="Example of an Ising model" style="width: 400px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         Example of an Ising model
     </p>
@@ -114,7 +114,7 @@ $$
 ## Formulating optimization problems the quantum way
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_QOpt/MaxCut0.png" alt="A very simple Max-Cut model" style="width: 350px; height: 300px;">
+    <img src="../../images_QOpt/MaxCut0.png" alt="A very simple Max-Cut model" style="width: 350px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         A very simple Max-Cut model
     </p>
@@ -430,7 +430,7 @@ which has values of $3,1,7,7$ and weight $2,1,5,4$ with the maximum weight of $8
 In the graph coloring problem, we are given a graph and we are asked to assign a color to each vertex in such a way that vertices that are connected by and edge (also called **adjacent**) receive different colors. We also are asked to do this using the minimum possible numebr of colors or using no mroe than a given number of different colors. If we can color a graph with $k$ colors, we say that it is $k$-**colorable.** The minimum number of colors needed to color a graph is called its **chromatic number**.
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_QOpt/GraphColoring.png" alt="Example of a GraphColoring" style="width: 450px; height: 300px;">
+    <img src="../../images_QOpt/GraphColoring.png" alt="Example of a GraphColoring" style="width: 450px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         Example of a GraphColoring
     </p>
@@ -469,7 +469,7 @@ where $E$ is the set of edges of the graph. We added $-1$ term to ensure when th
 The Traveling salesperon problem is one of the most famous problems in combinatorial optimization. The problem is wasy to state: you need to find a route that goes through each of the cities in a given set once and only once while minimizing some global quantity (distance traveled, time spent, total cost...). 
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_QOpt/TSP.png" alt="A TSP example" style="width: 300px; height: 300px;">
+    <img src="../../images_QOpt/TSP.png" alt="A TSP example" style="width: 300px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         A TSP example
     </p>
