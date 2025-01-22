@@ -19,7 +19,7 @@ Please see followings for Qiskit implementations:
 When you are given a graph, you are essentially given some elements, which we will refer to as vertices, and some connections between pairs of these vertices, which we will call edges.
 
 <div style="text-align: center;">
-    <img src="/docs/QuantumOpt/images_QOpt/Max-cut_0.png" alt="Example of a Max-Cut" style="width: 400px; height: 300px;">
+    <img src="/QuantumOpt/images_QOpt/Max-cut_0.png" alt="Example of a Max-Cut" style="width: 400px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         Example of a Max-Cut
     </p>

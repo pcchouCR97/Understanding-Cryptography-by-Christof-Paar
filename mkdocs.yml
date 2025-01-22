@@ -21,10 +21,6 @@ theme:
   #logo: assets/logo.png  # Optional: Add a custom logo
   favicon: assets/favicon.ico  # Optional: Add a favicon
 
-site_url: https://pcchoucr97.github.io/Understanding-Cryptography/
-docs_dir: docs
-site_dir: site
-
 # Navigation structure
 nav:
   - Home: index.md
