@@ -105,7 +105,7 @@ Using D-wave is easier than you think. You need to install Ocean, which is D-Wav
 Once you have everything set up, you can access quantum annealers to find an approximation of a solution to any combinatiorial optimiazation problem that you may have written as either an instance of finding the groud state of an Ising model or as a QUBO problem. Let's try with the MaxCut problem from [QUBO](./QUBO.md) first! 
 
 <div style="text-align: center;">
-    <img src="/QuantumOpt/images_QOpt/MaxCut0.png" alt="A very simple Max-Cut model" style="width: 350px; height: 300px;">
+    <img src="../../images_QOpt/MaxCut0.png" alt="A very simple Max-Cut model" style="width: 350px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         A very simple Max-Cut model
     </p>

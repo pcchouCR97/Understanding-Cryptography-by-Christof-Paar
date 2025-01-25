@@ -167,13 +167,23 @@ $$
 
 This unitary action is implemented by the circuit below, where we have only depicted qubits $j$ and $k$.
 
-![circuit_implementation_QAOA_1](../images_QOpt/circuit_implementation_QAOA_1.png)
+<div style="text-align: center;">
+    <img src="../../images_QOpt/circuit_implementation_QAOA_1.png" alt="circuit_implementation_QAOA_1" style="width: 500px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Circuit implementation QAOA 1
+    </p>
+</div>
 
 Figure. Circuit Implementation of $e^{-iaZ_{j}Z_{k}}$
 
 Imagine that the Ising Hamiltonian of your problem is $3Z_{0}Z_{2} - Z_{1}Z_{2} + 2Z_{0}$ Then, the circuit used by QAOA to prepare $\beta, \gamma$
 
-![circuit_implementation_QAOA_2](../images_QOpt/circuit_implementation_QAOA_2.png)
+<div style="text-align: center;">
+    <img src="../../images_QOpt/circuit_implementation_QAOA_2.png" alt="circuit_implementation_QAOA_2" style="width: 850px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Circuit implementation QAOA 2
+    </p>
+</div>
 
 Figure. QAOA circuit with $p=1$
 

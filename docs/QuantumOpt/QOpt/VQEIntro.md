@@ -404,9 +404,9 @@ The general structure of VQE is very similar to that of QAOA.
 
 ``` mermaid
 flowchart TD
-    A[Parepare a parameterized quantum state. ***Done by quantum computer***] --> B[Measurement. ***Done by quantum computer***];
-    B --> C[Energy estimation. ***Handle by classical computer***];
-    C --> F[Minimization. ***Handle by classical computer***];
+    A[Parepare a parameterized quantum state. Done by quantum computer] --> B[Measurement. Done by quantum computer];
+    B --> C[Energy estimation. Handle by classical computer];
+    C --> F[Minimization. Handle by classical computer];
     F --> E{Minimum energy state reached?}
     E --> |No| D[Change parameters];
     D --> A;
@@ -495,9 +495,12 @@ $$
 
 This is the probability of obtaining $|0\rangle$ as the outcome of measuring $V(\theta_{0})^{\dagger}V(\theta)|0\rangle$ in the computational basis! This is something that we can easily estimate because we can prepare $V(\theta_{0})^{\dagger}V(\theta)|0\rangle$ by first applying our ansatz $V$, using $\theta$ as the parameters, to $|0\rangle$, and then applying the inverse of our ansatz, with parameter $\theta_{0}$, to the resulting state. We will repeat this process several times, always measuring the resulting state $V(\theta_{0})^{\dagger}V(\theta)|0\rangle$ in the computational basis and computing the relative frequency of the outcome $|0\rangle$.
 
-![vqe_circuit_copmute](../images_QOpt/vqe_circuit_copmute.png)
-
-Figure. Circuit to copmute $\langle0|V(\theta_{0})^{\dagger}V(\theta)|0\rangle$.
+<div style="text-align: center;">
+    <img src="../../images_QOpt/vqe_circuit_copmute.png" alt="vqe_circuit_copmute" style="width: 600px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Figure. Circuit to copmute \(\langle0|V(\theta_{0})^{\dagger}V(\theta)|0\rangle \).
+    </p>
+</div>
 
 Then we have to deal with preparing the circuit for $V(\theta_{0})^{\dagger}$. All you need to remember that every unitary gate is reversible. Thus, you can take the circuit for $V(\theta)$ and read the gates from right to left, reversing each one of them. For example, if $\theta_{0} = (a,b)$ and $V(\theta_{0}) = XR_{Z}(a)R_{X}(b)S$, then $V(\theta_{0})^{\dagger} = S^{\dagger}R_{x}(-b)R_{z}(-a)X^{\dagger} = S^{\dagger}R_{x}(-b)R_{z}(-a)X$.
 
