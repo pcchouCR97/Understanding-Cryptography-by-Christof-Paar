@@ -506,5 +506,4 @@ Then we have to deal with preparing the circuit for $V(\theta_{0})^{\dagger}$. A
 
 ## Using VQE with Qiskit
 
-
 ## USing VQE with PennyLane
