@@ -301,19 +301,22 @@ When designing a quantum oracle to minimize a function $g$, our goal will be to 
 
 ### Takeaways
 1.  Steps for Using QFT in QUBO/HOBO Optimization:
-    -   **Define the Problem**: Represent the function $g(x)$ as a polynomial for QUBO or HOBO, e.g., $g(x) = \sum a_i x_i + \sum b_{ij} x_i x_j$, with $x_i \in \{0, 1\}$.
+    The **calculation** between the QFT and the inverse QFT typically involves manipulating the **phases** encoded by the QFT to perform operations like comparisons, arithmetic, or optimizations. Here's the breakdown:
 
-    -   **Encode the Function Values**: Use the QFT to map $g(x)$ values into the phases of quantum states as $e^{i g(x)}$.
+    -   **Basis $\lvert j \rangle$ to $\lvert k \rangle$ via QFT**:
+        -   QFT maps $\lvert j \rangle$ to a superposition of $\lvert k \rangle$ states with phases $e^{2\pi i jk / 2^m}$.
+        -   The phases encode the computational input $j$.
 
-    -   **Construct a Quantum Oracle**: Create an oracle that compares function values, e.g., outputs 1 if $g(x) < g(y)$, enabling Grover’s algorithm to search for minima.
+    -   **Calculation (Phase Manipulation)**:
+        -   Perform operations on the encoded phases to solve the problem:
+            -   **Arithmetic**: For QUBO/HOBO, encode polynomial $g(x)$ values into the phases $e^{i g(x)}$.
+            -   **Comparison**: Use controlled operations to compare values (e.g., $g(x) < g(y)$).
+            -   **Optimization**: Apply Grover's algorithm or similar methods to amplify desirable states (e.g., states with lower $g(x)$).
 
-    -   **Perform QFT**: Apply the QFT circuit with Hadamard, controlled phase gates $P(\theta)$, and SWAP gates to encode superpositions.
+    -   **Inverse QFT (Recover Results)**:
+        -   After the calculation, the inverse QFT decodes the manipulated phases back into the original basis $\lvert j \rangle$, revealing the result of the computation.
 
-    -   **Apply Grover’s Algorithm**: Use amplitude amplification to boost the probability of measuring states with lower $g(x)$ values.
 
-    -   **Recover Results with $\text{QFT}^\dagger$**: Apply the inverse QFT to decode $g(x)$ values from the quantum states.
-
-    -   **Iterate for Minima**: Repeat the process, updating the oracle for refined searches, until the global minimum of $g(x)$ is found. 
 
 2. Advangates:
     -   **Efficient Encoding and Representation**: QFT maps polynomial function values into quantum phases, enabling compact and efficient representation of large and complex optimization problems.
@@ -330,12 +333,39 @@ When designing a quantum oracle to minimize a function $g$, our goal will be to 
 
 ## Encoding and adding integer numbers
 
-When we deal with the integer numbers, use their **two's complement** representation is the most convenient way. We encode numbers from $-2^{m-1}$ to $2^{m-1}-1$ by using $m$-bit strings. positive numbers are represented in the usual way for binary numbers, but a negative number $x$ is represented by $2^{m}-x$. For example, if $m =$ 4, we represent 3 by 0011, and $-5$ by 1011. (binary representation of 11 = 16 - 5). This can keep positive numbers always start with 0 and negative numbers start with 1. 
+When working with integer numbers, the **two's complement** representation is the most convenient method. Using $m$-bit strings, this representation encodes numbers in the range $-2^{m-1}$ to $2^{m-1} - 1$. 
 
-Also this can be very helpful when we do addition involving both positive and negative numbers by simply do regular binary addition and discarding the last carry-out. For example, if we add 0011 (3) and 1101 (-5), we obtain 1110 (-2) ( the result is 11110, which is 5 bits. However, in a 4-bit system, only the lower 4 bits are kept). Same thing with adding 0110 (6) and 1100 (-4) you obtain 0010 (The result is 10010, but in a 4-bit system, only the lower 4 bits are retained).
+-   **Positive numbers** are represented as standard binary numbers.
+-   **Negative numbers** $x$ are represented as $2^m - |x|$. For example, with $m = 4$:
+    -   $3$ is represented as $0011$,
+    -   $-5$ is represented as $1011$ (since $2^4 - 5 = 11$, and the binary representation of $11$ is $1011$).
+
+This system ensures that positive numbers always start with $0$, and negative numbers start with $1$.
+
+Two's complement simplifies addition involving both positive and negative numbers by allowing standard binary addition, followed by discarding the final carry-out. Examples:
+
+1.  Adding $0011$ ($3$) and $1101$ ($-5$):
+   
+    $$
+    0011 + 1101 = 11110 \quad \text{(5 bits, discard the carry-out to get $1110$)}.
+    $$
+
+    Result: $1110$, which is $-2$ in two's complement.
+
+2.  Adding $0110$ ($6$) and $1100$ ($-4$):
+   
+    $$
+    0110 + 1100 = 10010 \quad \text{(5 bits, retain the lower 4 bits: $0010$)}.
+    $$
+
+    Result: $0010$, which is $2$.
 
 !!! exercise 
     Using two’s complement with 5 qubits, represent 10 and −7 and perform their addition.
+??? Answer
+    1.  First we write $10$: $01010$ and $-7$: $11001$ ($2^5 - 7 = 25$).
+    2.  then we perform the addition $01010 + 11001 = 100011 \quad \text{(6 bits)}$.
+    3. Then we keep the lower 5 bits: $00011$. The final result is $00011$ = $3$.
 
 
 When computing $g(x)$ with an oracle, we are intersted in obtaining the state
@@ -344,23 +374,23 @@ $$
 \frac{1}{\sqrt{2^{m}}} \sum_{k=0}^{2^{m}-1} e^{\frac{2\pi i g(x) k}{2^{m}}} \vert k \rangle,
 $$
 
-so that we can apply the inverse QFT to get $\lvert g(x) \rangle$. Notice that $g(x)$ is always a sum of products of integer values. 
+so that we can apply the [**inverse QFT**](../QOpt/GAS.md#the-quantum-fourier-transform) to get $\lvert g(x) \rangle$. Notice that $g(x)$ is always a sum of products of integer values. 
 
-The state 
+The **phase encoding of $j$** represents the transformation of a state into a quantum superposition with specific phase factors.
 
 $$
 \frac{1}{\sqrt{2^{m}}}\sum_{k=0}^{2^{m}-1} e^{\frac{2 \pi i j k}{2^{m}}} \lvert k \rangle
 $$
 
-is called the **phase endoing** of $j$. Let's start with phase encoding of 0. To achieve this, we just apply the Hadamard gate to each and every qubit that we are using to represent the integer values. In this way, we will obtain the state
+Let's start with phase encoding of $\color\red{0}$. To achieve this, we just apply the Hadamard gate to each and every qubit that we are using to represent the integer values. In this way, we will obtain the state
 
 $$
-\frac{1}{\sqrt{2^{m}}}\sum_{k=0}^{2^{m}-1}\lvert k \rangle = \frac{1}{\sqrt{2^{m}}}\sum_{k=0}^{2^{m}-1} e^{\frac{2 \pi i 0 k}{2^{m}}} \lvert k \rangle
+\frac{1}{\sqrt{2^{m}}}\sum_{k=0}^{2^{m}-1}\lvert k \rangle = \frac{1}{\sqrt{2^{m}}}\sum_{k=0}^{2^{m}-1} e^{\frac{2 \pi i \color\red{0} k}{2^{m}}} \lvert k \rangle
 $$
 
-which is the phase encoding of $0$.
+which is the phase encoding of $\color\red{0}$.
 
-Suppose that we havea state that phase-encodes $j$ and we want to add $l$ to it. We first assum that $l$ is non-negative and deal with negative numbers later. To add $l$ in phase encoding, we just need to apply the gates shown below
+Suppose that we have a state that phase-encodes $j$ and we want to add $l$ to it. We first assume that $l$ is non-negative and deal with negative numbers later. To add $l$ in phase encoding, we just need to apply the gates shown below
 
 <div style="text-align: center;">
     <img src="../../images_QOpt/phase_encoding_adding_l.png" alt="phase_encoding_adding_l" style="width: 200px; height: 300px;">
@@ -400,7 +430,12 @@ $$
 
 ## Computing the whole polynomial
 
-Let's show the example of circuit that copmutes $3x_{0}x_{1} - 2x_{1}x_{2} + 1$. The first column of gates prepares the phase encoding of $0$. The second one adds the independent term of the polynomial. The next one adds 3, but only if $x_{0}=x_{1}=1$ (that is why all the gates are controlled by the $\lvert x \rangle$ and $\lvert x_{1} \rangle$ qubits). Similarly, the last column substracts 2, but only when$x_{1} = x_{2} = 1$. As you should remember, controlled gates execute a quantum operation (such as adding a phase) only when the control qubits are in a specific state, typically $\lvert 1 \rangle$. Or, we can say that $3x_{0}x_{1}$ is nonzero only when $x_{0}=x_{1}=1$. These condition ensure that the polynomial terms contribute to the computation only when they are logically valid. Controlled gates enforce these conditions by activating only when the control qubits match the required state.
+Here is an example of a quantum circuit that computes the polynomial $3x_0x_1 - 2x_1x_2 + 1$:
+
+1.  **First Column**: The first column of gates prepares the **phase encoding of 0**, creating a uniform superposition state as the initial step.
+2.  **Second Column**: The next set of gates adds the constant term $+1$ to the phase encoding.
+3.  **Third Column**: This column adds $+3$, but only if $x_0 = x_1 = 1$. To achieve this, all gates in this column are **controlled by the qubits $\lvert x_0 \rangle$ and $\lvert x_1 \rangle$**. The operation ensures that the term $3x_0x_1$ contributes only when $x_0$ and $x_1$ are both 1.
+4.  **Fourth Column**: The final column subtracts $2$, but only when $x_1 = x_2 = 1$. This is implemented using controlled gates activated by $\lvert x_1 \rangle$ and $\lvert x_2 \rangle$.
 
 <div style="text-align: center;">
     <img src="../../images_QOpt/circuit_computing_example_in_pahse_encoding.png" alt="circuit_computing_example_in_pahse_encoding" style="width: 400px; height: 300px;">
@@ -409,52 +444,63 @@ Let's show the example of circuit that copmutes $3x_{0}x_{1} - 2x_{1}x_{2} + 1$.
     </p>
 </div>
 
-From the [figure](../images_QOpt/circuit_computing_example_in_pahse_encoding.png), we have adopted the usual convention of setting all the one-qubit gates that are controlled by the same qubits in ta single column. This technique is also called as a **single multi-qubit gate**. Also, you may notice that these gates are multi-controlled, but you can always decompose them into a combination of one and two-qubit gates with Toffoli gates.
+!!! Note
+
+    Controlled gates execute their quantum operation (e.g., adding or subtracting a phase) only when the control qubits are in a specific state, typically $\lvert 1 \rangle$. For example:
+
+    -   $3x_0x_1$ contributes only when $x_0 = x_1 = 1$, as enforced by the controlled gates.
+    -   $-2x_1x_2$ contributes only when $x_1 = x_2 = 1$.
+
+    These conditions ensure that each term in the polynomial is included in the computation only when logically valid. Controlled gates enforce these conditions, activating their operations only when the control qubits satisfy the required state.
+
+From the [figure](../images_QOpt/circuit_computing_example_in_pahse_encoding.png), we have adopted the usual convention of setting all the one-qubit gates that are controlled by the same qubits in a single column. This technique is also called as a **single multi-qubit gate**. Also, you may notice that these gates are multi-controlled, but you can always decompose them into a combination of one and two-qubit gates with Toffoli gates.
 
 There are two methods that we can use to deal with the real numbers in phase encoding.
 
 1. **Approximation Using Fractions:**
-    - Represent real coefficients as fractions (e.g., $0.25 = 25/100$, $-1.17 = -117/100$).
-    - Multiply the polynomial by the denominator ($100$) to convert coefficients to integers while preserving structure.
-    - Example: $0.25x_0 - 1.17x_1 \to 25x_0 - 117x_1$.
+    -   Represent real coefficients as fractions (e.g., $0.25 = 25/100$, $-1.17 = -117/100$).
+    -   Multiply the polynomial by the denominator ($100$) to convert coefficients to integers while preserving structure.
+    -   Example: $0.25x_0 - 1.17x_1 \to 25x_0 - 117x_1$.
 
 2. **Direct Encoding:**
-    - Encode real coefficients directly by creating a **superposition of approximations** with the largest amplitude for the best approximation.
-    - Example: Coefficient $0.73$ encoded as a superposition of $0.7, 0.73, 0.75$.
+    -   Encode real coefficients directly by creating a **superposition of approximations** with the largest amplitude for the best approximation.
+    -   Example: Coefficient $0.73$ encoded as a superposition of $0.7, 0.73, 0.75$.
 
 ## Constructing the oracle
 
 This diagram represents an **oracle** to determine whether $g(x) < g(y)$, utilizing quantum operations. Here’s a breakdown of its components and functionality:
 
 <div style="text-align: center;">
-    <img src="../../images_QOpt/oracle_to_determine_g.png" alt="oracle_to_determine_g" style="width: 400px; height: 300px;">
+    <img src="../../images_QOpt/oracle_to_determine_g.png" alt="oracle_to_determine_g" style="width: 700px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
-        Figure of a oracle to determine $g$.
+        Figure of a oracle to determine \(g(x) < g(y)\).
     </p>
 </div>
 
-### Key elements in the Circuit:
-1. **Input Qubits:**
-    - $\lvert x\rangle$ and $\lvert y\rangle$:https://www.youtube.com/ Encodes the inputs $x$ and $y$ as $n$-qubit registers.
-    - $\lvert 0^m\rangle$: A work register initialized to $\lvert 0\rangle$ with $m$ qubits, used for intermediate computations (store all the intermediate results).
+If $g(x) < g(y)$, then $g(x) - g(y) < 0$, and the most significant bit (MSB) of $g(x) - g(y)$ will be $1$. Using a CNOT gate, we set the bottom qubit ($z$) to $\lvert 1 \rangle$ if $g(x) < g(y)$ and $\lvert 0 \rangle$ otherwise.
 
-2. **Phase Encoding of Differences:**
-    - The circuit calculates the differences $g(x) - g(y)$ and $g(y) - g(x)$ using phase encoding. These are crucial for comparing the functions' values.
+However, after obtaining $z$, we must reset the $m$ auxiliary qubits to $\lvert 0 \rangle$ for correct subsequent operations, such as Grover's algorithm, and to disentangle them from the circuit. If left entangled, these qubits could disrupt the computation.
 
-3. **Quantum Fourier Transform (QFT):**
-    - A **Quantum Fourier Transform (QFT)** and its inverse ($\text{QFT}^\dagger$) are applied to the work register ($\lvert 0^m\rangle$) to prepare and analyze the relative phases. These operations help determine the magnitude of the difference between $g(x)$ and $g(y)$.
-    
-4. **Controlled Comparison:**
-    - A controlled operation (centered between the $\text{QFT}^\dagger$ and $\text{QFT}$) flips a target qubit if $g(x) < g(y)$. This comparison is achieved through interference effects from the encoded differences.
+This reset process is called **uncomputation**. It involves reversing the operations used to compute $g(x) - g(y)$. By applying the inverse QFT, the subtraction is undone, and the qubits return to their initial phase encoding of $0$. Applying Hadamard gates then ensures the auxiliary qubits are reset to $\lvert 0 \rangle$, preserving the circuit's integrity for further computations.
 
-5. **Uncomputation:**
-    - After the comparison, the circuit reverses the transformations applied earlier (like QFT and the $g(x) - g(y)$ and $g(y) - g(x)$ encodings), returning all ancillary qubits to their initial state.
-    - We need to set the $m$ auxiliary qubits back to $\lvert 0 \rangle$ to disentangle them from the rest of the qubits in the circuit. If they remain entangled, they may prevent the rest of the circuit from working correctly.
+### How to Read the Circuit
+1.  **Input Qubits**:
+    -    $\lvert x \rangle$ and $\lvert y \rangle$: Represent binary strings for $x$ and $y$.
+    -    $\lvert 0^m \rangle$: Auxiliary qubits initialized to $\lvert 0 \rangle$.
+    -    $\lvert 0 \rangle$: A single qubit to store the result ($z$).
 
-6. **Output:**
-    - The bottom qubit will store the result of checking whether $g(x) < g(y)$.
-    - The target qubit $\lvert z\rangle$ will be flipped ($\lvert 1\rangle$) if $g(x) < g(y)$, otherwise, it remains $\lvert 0\rangle$.
-    - We have already computed the result that we needed: $z$ will be 1 if $g(x) < g(y)$ and it will be 0 otherwise.
+2.  **Steps**:
+
+    -    **Hadamard Gates**: Prepare the auxiliary qubits in a superposition.
+    -    **Compute $g(x) - g(y)$**: Apply arithmetic gates to encode $g(x) - g(y)$ in the auxiliary qubits.
+    -    **Apply Inverse QFT ($\text{QFT}^\dagger$)**: Decode the phase encoding into a computational basis state for comparison.
+    -    **CNOT Gate**: Compare $g(x) - g(y)$. If $g(x) < g(y)$, the MSB is $1$, flipping the $\lvert z \rangle$ qubit.
+    -    **Uncompute**:
+        -   Apply the QFT and reverse $g(x) - g(y)$ (now $g(y) - g(x)$).
+        -   Reset auxiliary qubits to $\lvert 0 \rangle$ using Hadamard gates.
+
+### Why Inverse QFT Comes First
+The **Inverse QFT** ($\text{QFT}^\dagger$) is applied after computing $g(x) - g(y)$ because it converts the phase-encoded result into a basis state, allowing the MSB to be read and compared using the CNOT gate. Without the inverse QFT, the phase-encoded information could not be directly accessed or interpreted.
 
 More, we can also create oracles to check whether polynomial constraints are met or not, like $3x_{0} - 2x_{0}x_{1} < 3$. This allows constraints to be incorporated into the optimization process without transforming the problem entirely into a QUBO form. This approach can sometimes be more convenient than using penalty terms for constraints.
 
