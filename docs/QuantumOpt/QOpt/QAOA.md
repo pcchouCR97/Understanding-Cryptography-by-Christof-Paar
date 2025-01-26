@@ -147,7 +147,7 @@ $$
 e^{i \beta_{k}H_{0}} = e^{-i \beta_{k} \sum_{j=0}^{n-1}X_{j}} = \prod_{j=0}^{n-1} e^{-i \beta_{k}X_{j}}
 $$
 
-{==But $e^{i \beta X_{j}}$ is the expression for the rotation gate $R_{X}(2\beta)$, so this means that we just need to apply this gate to each of the qubits in our circuit.==}
+{==Since $e^{i \beta X_{j}}$ is the expression for the rotation gate $R_{X}(2\beta)$, we just need to apply this gate to each of the qubits in our circuit.==}
 
 Next, we will take care of the $e^{i \gamma_{l}H_{1}}$ for any real coefficient $\gamma_{l}$. We know that $H_{1}$ is a sum of terms of the form $J_{jk}Z_{j}Z_{k}$ and $h_{j}Z_{j}$. Since these matrices [**commute**](https://en.wikipedia.org/wiki/Commuting_matrices) with each other, we get
 
@@ -155,7 +155,7 @@ $$
 e^{i \gamma_{l}H_{1}} = e^{i\gamma_{l}(\sum_{j,k} J_{jk}Z_{j}Z_{k} + \sum_{j}h_{j}Z_{j})} = \prod_{j,k}e^{-i\gamma_{l}J_{jk}Z_{j}Z_{k}} \prod_{j}e^{-i \gamma_{l} h_{j} Z_{j}}
 $$
 
-Same, the operations of the form $e^{-i\gamma_{l}h_{j}Z_{j}}$ can be carried out with rotation gate $R_{Z}$. Thus, we only need to figure out how to represent $e^{-i \gamma_{l} h_{j} Z_{j}}$ using quantum gates. 
+{==Same, the operations of the form $e^{-i\gamma_{l}h_{j}Z_{j}}$ can be carried out with rotation gate $R_{Z}$==}. Thus, we only need to figure out how to represent $e^{-i \gamma_{l} h_{j} Z_{j}}$ using quantum gates. 
 
 1. First, let's denote the real number $\gamma_{l}J_{jk}$ by $a$. 
 2. Notice that $e^{iaZ_{j}Z_{k}}$ is the exponential of a diagonal matrix, since $Z_{j}Z_{k}$ is the tensor product of diagonal matrices.
@@ -180,7 +180,7 @@ This unitary action is implemented by the circuit below, where we have only depi
 Imagine that the Ising Hamiltonian of your problem is $3Z_{0}Z_{2} - Z_{1}Z_{2} + 2Z_{0}$ Then, the circuit used by QAOA to prepare $\beta, \gamma$
 
 <div style="text-align: center;">
-    <img src="../../images_QOpt/circuit_implementation_QAOA_2.png" alt="circuit_implementation_QAOA_2" style="width: 1400px; height: 300px;">
+    <img src="../../images_QOpt/circuit_implementation_QAOA_2.png" alt="circuit_implementation_QAOA_2" style="width: 1600px; height: 260px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
         Figure. QAOA circuit with \(p=1\)
     </p>
@@ -201,9 +201,9 @@ If we increase the number of **layers** $p$, the circuit would grow by repeating
 ## Estimating the energy
 After knowing how to construct a quantum circuit, let's see how to estimate the energy for the state $\lvert \beta, \gamma \rangle$.
 
-Here, we are more interested in the energy of the $\lvert \beta, \gamma \rangle$ since this is the quantity that we want to minimize. That's beeing say, we need to evaluate $\langle \beta, \gamma \lvert H_{1} \lvert \beta, \gamma \rangle$. Of course, we don't have to access to the state vector since we re preparing the state with a quantum computer.
+Here, we are more interested in the energy of the $\lvert \beta, \gamma \rangle$ since this is the quantity that we want to minimize. That's beeing say, we need to evaluate $\langle \beta, \gamma \lvert H_{1} \lvert \beta, \gamma \rangle$. Of course, we don't have to access to the state vector since we are preparing the state with a quantum computer.
 
-Since we already know how to evaluate efficiently $\langle x\lvert H_{1} \lvert x \rangle$ for any basis state $\lvert x \rangle$/. In fact, $\langle x\lvert H_{1} \lvert x \rangle$ is the value of $x$ in the cost function of our combinatorial optimization problem, because we derived $H_{1}$ from it. We only need to notice that $\langle x\lvert Z_{j} \lvert x \rangle = 1$ if the $j$-th bit of $x$ is 0 and that $\langle x\lvert Z_{j} \lvert x \rangle = -1$ otherwise. In the same fashion, $\langle x\lvert Z_{j}Z_{k} \lvert x \rangle = 1$ if $j$-th and $k$=th buts of x are equal and $\langle x\lvert Z_{j}Z_{k} \lvert x \rangle = -1$ if they are different.
+Since we already know how to evaluate efficiently $\langle x\lvert H_{1} \lvert x \rangle$ for any basis state $\lvert x \rangle$. {==In fact, $\langle x\lvert H_{1} \lvert x \rangle$ is the value of $x$ in the cost function of our combinatorial optimization problem==}, because we derived $H_{1}$ from it. We only need to notice that $\langle x\lvert Z_{j} \lvert x \rangle = 1$ if the $j$-th bit of $x$ is 0 and that $\langle x\lvert Z_{j} \lvert x \rangle = -1$ otherwise. In the same fashion, $\langle x\lvert Z_{j}Z_{k} \lvert x \rangle = 1$ if $j$-th and $k$-th bits of x are equal and $\langle x\lvert Z_{j}Z_{k} \lvert x \rangle = -1$ if they are different.
 
 Let's look into this problem, for instance, try to evaluate $\langle x \lvert H_{1} \lvert x \rangle$ if $H_{1} = 3Z_{0}Z_{2}-Z_{1}Z_{2}+2Z_{0}$, 
 
@@ -211,8 +211,13 @@ $$
 \langle 101 \lvert H_{1} \lvert 101\rangle = 3\langle 101 \lvert Z_{0}Z_{2} \lvert 101\rangle - \langle 101 \lvert Z_{1}Z_{2} \lvert 101\rangle + 2\langle 101 \lvert Z_{0} \lvert 101\rangle = 3 + 1 - 2 = 4
 $$
 
-!!! note 
+Since state $101$ gives that $j=0,2$-th bits. Therefore, $Z_{j}Z_{k}$ = 1 if $Z_{0}Z_{2} = -1$ otherwise. In the same fashion, $1$-th bits is 0, therefore, only $\langle 101|Z_{1}|101\rangle =1$.
+
+!!! Example "Practice"
     Try to evaluate $\langle 100 \lvert H_{1} \lvert 100\rangle$ with $H_{1} = 3Z_{0}Z_{2}-Z_{1}Z_{2}+2Z_{0}$ = ?
+
+??? Answer
+    $H_{1} = 3Z_{0}Z_{2}-Z_{1}Z_{2}+2Z_{0} = 3 \times (-1) - 1 + 2 \times (-1) = -6$.
 
 We also know that the can always write $\lvert \beta, \gamma \rangle$ as a linear combination of basis state,
 
@@ -247,7 +252,7 @@ One way to solve HOBO problems is by transforming them into QUBO problems. For a
 ### Solving QUBO via QAOA
 We can consider a binary polynomial of any degree and transform it using the techniques we have covered in [QUBO section](./QUBO.md). We will end up having a Hamiltonian that is a sum of tensor products of $Z_{j}$ matrices. Luckly, we can now deal with more than just one or two $Z_{j}$ matrices.
 
-In the same fashion, If $\lvert x \rangle$ is a basis state, we have 
+In the same fashion, if $\lvert x \rangle$ is a basis state, we have 
 
 $$
 e^{-iaZ_{j1}Z_{j2}\cdots Z_{jm}} \lvert x \rangle = e^{-ia} \lvert x \rangle
@@ -260,8 +265,14 @@ e^{-iaZ_{j1}Z_{j2}\cdots Z_{jm}} \lvert x \rangle = e^{ia} \lvert x \rangle
 $$
 if the sum is odd.
 
-This unitary action can be implemented by using consecutive CNOT gates with control qubits in $j_{1}, j_{1}, \cdots, j_{m-1}$ and targets in $j_{m}$ then a $R_Z$ gate with parameter $2a$ on qubit $j_{m}$ and again, consecutive CNOT gates with control qubits $j_{m-1}, j_{m-2}, \cdots, j_{1}$ and targets in $j_{m}. You can see the implementation in the image down below for case $e^{-iaZ_{0}Z_{1}Z_{3}}$.
+This unitary action can be implemented by using consecutive CNOT gates with control qubits in $j_{1}, j_{1}, \cdots, j_{m-1}$ and targets in $j_{m}$ then a $R_Z$ gate with parameter $2a$ on qubit $j_{m}$ and again, consecutive CNOT gates with control qubits $j_{m-1}, j_{m-2}, \cdots, j_{1}$ and targets in $j_{m}$. You can see the implementation in the image down below for case $e^{-iaZ_{0}Z_{1}Z_{3}}$.
 
+<div style="text-align: center;">
+    <img src="../../images_QOpt/QAOA_eZ0Z1Z3_implementation.png" alt="QAOA_eZ0Z1Z3_implementation" style="width: 500px; height: 250px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Figure. Implementation of \( e^{-iaZ_{0}Z_{1}Z_{3}}\).
+    </p>
+</div>
 
 We can also expand the same concept to help us evaluate the Hamiltonian $H_{1}$ that includes tensor products of $Z$ matrices. We have 
 
@@ -278,16 +289,54 @@ $$
 if the sum of the bits of $x$ positions $j_{1}, j_{1}, \cdots, j_{m}$ is {==**odd**==}.
 
 !!! example
-    Please evaluate $\langle 100| H_{1} |100 \rangle$ with $H_{1} = Z_{0}Z_{1}Z_{2} + 3Z_{0}Z_{1}Z_{2} - Z_{1}Z_{2} + 2Z_{0}$    
+    Please evaluate $\langle 100| H_{1} |100 \rangle$ with $H_{1} = Z_{0}Z_{1}Z_{2} + 3Z_{0}Z_{2} - Z_{1}Z_{2} + 2Z_{0}$    
+??? Answer
+    Notice that the convention for labelling qubits in a state vector like $|x\rangle = |x_{n}x_{n-1}\cdots x_{0}\rangle$ follows the big-endian convention, where:
 
-    ---
-    Answer: = $1 + 3 \times (-1) - 1 + 2 \times 2 = 0$
+    - The leftmost bit corresponds to the most significant qubit ($x_{n}$), which has the highest index.
+    - The rightmost bit corresponds to the most significant qubit ($x_{0}$), which has the lowest index.
+
+    This convention is used by IBM Qiskit and Google Cirq.
+
+    (a) \( Z_0 Z_1 Z_2 \)
+
+    - Positions involved: \( j_0 = 0, j_1 = 1, j_2 = 2 \)
+    - Sum of bits: \( x_0 + x_1 + x_2 = 0 + 0 + 1 = 1 \) (**odd**)
+    - Result: \( \langle 100 | Z_0 Z_1 Z_2 | 100 \rangle = -1 \)
+
+    (b) \( 3 Z_0 Z_2 \)
+
+    - Positions involved: \( j_0 = 0, j_2 = 2 \)
+    - Sum of bits: \( x_0 + x_2 = 0 + 1 = 1 \) (**odd**)
+    - Result: \( \langle 100 | Z_0 Z_2 | 100 \rangle = -1 \)
+    - Coefficient: \( 3 \)
+    - Contribution: \( 3 \times (-1) = -3 \)
+
+    (c) \( - Z_1 Z_2 \)
+
+    - Positions involved: \( j_1 = 1, j_2 = 2 \)
+    - Sum of bits: \( x_1 + x_2 = 0 + 1 = 1 \) (**odd**)
+    - Result: \( \langle 100 | Z_1 Z_2 | 100 \rangle = -1 \)
+    - Coefficient: \( -1 \)
+    - Contribution: \( -1 \times (-1) = 1 \)
+
+    (d) \( 2 Z_0 \)
+
+    - Position involved: \( j_0 = 0 \)
+    - Sum of bits: \( x_0 = 0 \) (**even**)
+    - Result: \( \langle 100 | Z_0 | 100 \rangle = 1 \)
+    - Coefficient: \( 2 \)
+    - Contribution: \( 2 \times 1 = 2 \)
+
+    Now, sum up the results from all terms $\langle 100 | H_1 | 100 \rangle = (-1)+ (-3) + 1 + 2 = -1$
+
 
 ---
 
-# Using QAOA with Qiskit
+## Using QAOA with Qiskit
+See [Solving QUBO problems with QAOA in Qiskit](../jupyter_QOpt/QAOA_D-Wave.ipynb.ipynb)
+## Using QAOA with PennyLane
+See [Using QAOA with PennyLane](../jupyter_QOpt/QAOA_PennyLane.ipynb)
 
-# Using QAOA with PennyLane
-
-# Summary
+## Summary
 In this chapter, you've learn the most popular quantum algorithms used to solve optimization problmes with gate-based quantum computers. You also learned that QAOA is a "discretization version" of a quantum annealing and it is implemented in hybrid way such that we run the classical optimization tool to update parameters such as $\beta$ and $\gamma$ and then use the powerful qunatum computer to prepare its energy state. And you surely know how to use these circuits to estimate expectation values in an efficient way.
