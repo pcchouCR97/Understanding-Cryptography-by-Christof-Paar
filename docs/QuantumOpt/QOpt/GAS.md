@@ -1,16 +1,24 @@
 # GAS: Grover Adpative Search
 
-Grover's algorithm is used for searching elements that satisfy certain conditions. more formally, the algorithm assumes that we have a collection of elements indexed by strings of $n$ bits, and a Boolean function $f$ that takes those binary strings and returns "true" (or 1) if the element indexed by the string satisfies the condition and "false" (or 0) otherwise. For example, we have 8 different elements and the function return $f(x) = 1$ is and only if $010$ or $100$, and $f(x)= 0$ otherwise. 
+Grover's algorithm is a quantum search algorithm used to find elements satisfying a specific condition. Given a collection indexed by $n$-bit strings and a Boolean function $f(x)$, the function returns 1 if the condition is satisfied and 0 otherwise. For example, with 8 elements, $f(x) = 1$ for $x = 010$ or $x = 100$, and $f(x) = 0$ otherwise.
 
-It is worth to notice that we have no access to the inner working of $f$, which means, its a black box. The only thing we have access to is to call function $f$ on input and observe the outpurs. since we do not have any information about the indices of the elements that satisfy the condition, we cannot favour any position over any other. That's being said, if we are using a classical algorithm, and we are searching among $N$ elements and only one of them satisfies the condition we are interested in, we will need to call $f$ about $N/2$ times on average to find it. Since the one element could be anywhere, in the worst case, we have to call $N-1$ times to find it.
+We treat $f$ as a black box, meaning we can only call it with inputs and observe outputs, without knowing its inner workings. Since we lack information about which indices satisfy the condition, no position can be favored over another. In classical algorithms, searching among $N$ elements with one satisfying the condition requires about $N/2$ calls to $f$ on average, and up to $N-1$ in the worst case. 
 
-However, in Grover's algorithm, it is possible to find the hidden element with high probability by calling f around $\sqrt{N}$ times! Let's say, we need to call only 1000 times on a problem with 1,000,000 elements instead of 500,000 times with a classical algorithm. To understand how this works, we need to know what **quantum oracle** are and how they can be used.
+Grover's algorithm, however, can locate the desired element with high probability using only about $\sqrt{N}$ calls. For instance, solving a problem with 1,000,000 elements requires just 1,000 calls instead of 500,000 in the classical case. To understand this, we need to explore **quantum oracles** and their applications.
+
+---
+
+## Takeaways
+1.  Quantum orcale is a unitary and reversible quantum operator. See [Quantum oracles](../QOpt/GAS.md#quantum-oracles).
+2.  Construction of a quantum orcale can be accomplished by using NOT gates and multi-CNOT gate. See [Quantum oracles](../QOpt/GAS.md#quantum-oracles).
+
+---
 
 ## Quantum oracles
 
-In the classical case, we had $n$ inputs and just one output. In contrast, in quantum world, $n$-inputs with one output cannot work since we need unitary operation to be **reversible**. As you must recall, every quantum gate has the same number of inputs and outputs!
+In the classical case, we have $n$ inputs and a single output. In the quantum world, this setup doesn't work because quantum operations must be **unitary** and therefore **reversible**. As a result, every quantum gate must have the same number of inputs and outputs!
 
-The Quantum oracles, $O_{f}$, is an quantum gate (operation) of $f$ that take any input of $\lvert x\rangle \lvert y \rangle$, where $x$ is an $n$-bit string nd $y$ is a single bit, and the output of the $O_{f}$ gate will be 
+The Quantum oracles, $O_{f}$, is an quantum gate (operation) of $f$ that take any input of $\lvert x\rangle \lvert y \rangle$, where $x$ is an $n$-bit string and $y$ is a single bit, and the output of the $O_{f}$ gate will be 
 
 $$
 O_{f} = \lvert x \rangle \lvert y \oplus f(x) \rangle
@@ -18,11 +26,19 @@ $$
 
 where $\oplus$ denotes addition modulo 2. 
 
-It may be intuitive to think about the form of the output to be something like $\lvert x\rangle \lvert f(x)\rangle$. However, this could let the operation become irreversible since we would obtain the same output over the inputs $\lvert x\rangle \lvert1\rangle$. In fact, if we apply our choice of $O_{f}$, which is a reversiable operation , twice, we can obtain $\lvert x \rangle \lvert y \oplus f(x) \oplus f(x) \rangle$, which is equal to $\lvert x \rangle \lvert y \rangle$ because $f(x)\oplus f(x) = 0$ for addition modulo 2.
+It might seem intuitive to think of the output as $\lvert x \rangle \lvert f(x) \rangle$. However, this could make the operation irreversible because different inputs $\lvert x \rangle$ that satisfy $f(x) = 1$ would produce the same output $\lvert x \rangle \lvert 1 \rangle$. Instead, we use a **reversible operation** $O_f$, which ensures reversibility by applying the transformation $\lvert x \rangle \lvert y \rangle \mapsto \lvert x \rangle \lvert y \oplus f(x) \rangle$. 
 
-Usually, $O_{f}$ is said to be a quantum oracle for $f$ since we can consult it to get the value of $f$ on any input $x$ without having to worry about its internal workings. 
+If $O_f$ is applied twice, the result is:
 
-For any $f$, it is always possible to construct $O_{f}$ by using just NOT and multi-controlled NOT gates. For example, if $f$ is a Boolean function on 3-bit strings such that $f$ takes value 1 just on 101 an 011, then we can use the circuit show below.
+$$
+\lvert x \rangle \lvert y \oplus f(x) \oplus f(x) \rangle = \lvert x \rangle \lvert y \rangle,
+$$
+
+since $f(x) \oplus f(x) = 0$ (modulo 2 addition). This ensures the operation remains reversible.
+
+The operation $O_f$ is commonly referred to as a **quantum oracle** for $f$, as it allows us to evaluate $f(x)$ for any input $x$ without needing to understand its internal implementation.
+
+For any Boolean function $f$, $O_f$ can always be constructed using only **NOT gates** and **multi-controlled NOT gates**. For instance, consider a Boolean function $f$ defined on 3-bit strings where $f(x) = 1$ only for $x = 101$ and $x = 011$. In this case, we can design a quantum circuit using multi-controlled NOT gates that target these specific inputs, flipping an ancillary qubit to encode $f(x)$. This circuit effectively implements the transformation $\lvert x \rangle \lvert y \rangle \mapsto \lvert x \rangle \lvert y \oplus f(x) \rangle$.
 
 <div style="text-align: center;">
     <img src="../../images_QOpt/oracle_of_the_boolean_function.png" alt="oracle_of_the_boolean_function" style="width: 600px; height: 300px;">
@@ -37,6 +53,8 @@ In this example, we only used NOT gates before and after the multi-controlled ga
 !!! excercise
     Construct a circuit for $O_f$ where $f$ is a 4-bit Boolean function that takes value 1 on 0111, 1110, and 0101, and value 0 on any other input.
 
+---
+
 ## Grover's circuits
 Now, let's say that we want to apply Grover's algorithm to a Boolean function $f$ which receives binary strings of leangth $n$. Besides the quantum oracle $O_f$ we mentioned above, we still need two more elements to complete our circuit.
 
@@ -47,74 +65,82 @@ Now, let's say that we want to apply Grover's algorithm to a Boolean function $f
     </p>
 </div>
 
-Figure. Circuit for Grover’s algorithm in the case in which $f$ receives strings of length 3 as input. The oracle $O_f$ and Grover’s diffusion operator are repeated, in that order, a number of times before the final measurements
-
-1. **Phase kickback**:
+### **Phase kickback**:
     
-    The first block is composed of one-qubit gates that are applied to the initial state $\lvert0 \cdots 0\rangle \lvert 0 \rangle$, where the first integer is of length $n$ and the second one if of length 1. Thus the state before applying the oracle is 
+The first block is composed of one-qubit gates that are applied to the initial state $\lvert0 \cdots 0\rangle \lvert 0 \rangle$, where the first integer is of length $n$ and the second one if of length 1. Thus the state before applying the oracle is 
 
-    $$
-    \begin{array}{lll}
-    H^{\otimes n+1} \lvert 0 \rangle ^{\otimes n}\lvert 1 \rangle 1 & = & \lvert + \rangle^{\otimes n} \lvert - \rangle \\
-    & = & \frac{1}{\sqrt{2^{n}}} \ ((\lvert 0 \rangle + \lvert 1 \rangle) \cdots (\lvert 0 \rangle + \lvert 1 \rangle)) \ \lvert + \rangle \\
-    & = & \frac{1}{\sqrt{2^{n}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle \lvert - \rangle
-    \end{array}
-    $$
+$$
+\begin{array}{lll}
+H^{\otimes n+1} \lvert 0 \rangle ^{\otimes n}\lvert 1 \rangle 1 & = & \lvert + \rangle^{\otimes n} \lvert - \rangle \\
+& = & \frac{1}{\sqrt{2^{n}}} \ ((\lvert 0 \rangle + \lvert 1 \rangle) \cdots (\lvert 0 \rangle + \lvert 1 \rangle)) \ \lvert + \rangle \\
+& = & \frac{1}{\sqrt{2^{n}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle \lvert - \rangle
+\end{array}
+$$
 
-    because we apply yhe first $X$ gate to $\lvert 0 \rangle$ to obtain $\lvert 1 \rangle$.
+because we apply the first $X$ gate to $\lvert 0 \rangle$ to obtain $\lvert 1 \rangle$.
 
-    The first register of this state is a **superposition** of all basis state $\lvert x \rangle$. This is exacatly what we will to evaluate $f$ "in superposition" with our application of the $O_{f}$ oracle.
+The first register of this state is a **superposition** of all basis state $\lvert x \rangle$. This is exacatly what we will to evaluate $f$ "in superposition" with our application of the $O_{f}$ oracle.
 
-    To apply the quantum oracle, we have
+To apply the quantum oracle, we have
 
-    $$
-    \begin{array}{lll}
-    O_f \bigg(\frac{1}{\sqrt{2^{n}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle \lvert - \rangle \bigg) & = & O_f \bigg(\frac{1}{\sqrt{2^{n+1}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle (\lvert 0 \rangle - \lvert 1 \rangle)\bigg) \\ 
-    & = & O_f \frac{1}{\sqrt{2^{n+1}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle (\lvert 0 \rangle - \lvert 1 \rangle) \\
-    & = & \frac{1}{\sqrt{2^{n+1}}}\sum_{x=0}^{2^{n}-1}O_{f}\lvert x \rangle (\lvert 0 \rangle - \lvert 1 \rangle) \\
-    & = & \frac{1}{\sqrt{2^{n+1}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle (\lvert 0 \oplus f(x) \rangle - \lvert 1 \oplus f(x) \rangle) 
-    \end{array}
-    $$
+$$
+\begin{array}{lll}
+O_f \bigg(\frac{1}{\sqrt{2^{n}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle \color{red}{\lvert - \rangle} \bigg) & = & O_f \bigg(\frac{1}{\sqrt{2^{n+\color{red}{1}}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle \color{red}{(\lvert 0 \rangle - \lvert 1 \rangle)}\bigg) \\ 
+& = & O_f \frac{1}{\sqrt{2^{n+1}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle (\lvert 0 \rangle - \lvert 1 \rangle) \\
+& = & \frac{1}{\sqrt{2^{n+1}}}\sum_{x=0}^{2^{n}-1}O_{f}\lvert x \rangle (\lvert 0 \rangle - \lvert 1 \rangle) \\
+& = & \frac{1}{\sqrt{2^{n+1}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle (\lvert 0 \oplus f(x) \rangle - \lvert 1 \oplus f(x) \rangle) 
+\end{array}
+$$
 
-    Let's focus on $\lvert 0 \oplus f(x) \rangle - \lvert 1 \oplus f(x) \rangle$.
+Let's focus on $\lvert 0 \oplus f(x) \rangle - \lvert 1 \oplus f(x) \rangle$. We can interpret it as a XOR operator such that:
 
-    $$
-    \begin{array}{llll}
-    \lvert 0 \oplus f(x) \rangle - \lvert 1 \oplus f(x) \rangle & = & \lvert 0 \rangle - \lvert 1 \rangle, & \text{if} \ f(x) = 0 \\
-    \lvert 0 \oplus f(x) \rangle - \lvert 1 \oplus f(x) \rangle & = & -(\lvert 0 \rangle - \lvert 1 \rangle), & \text{if} \ f(x) = 1
-    \end{array}
-    $$
+$$
+\begin{array}{llll}
+\lvert 0 \oplus f(x) \rangle - \lvert 1 \oplus f(x) \rangle & = & \lvert 0 \rangle - \lvert 1 \rangle, & \text{if} \ f(x) = 0 \\
+\lvert 0 \oplus f(x) \rangle - \lvert 1 \oplus f(x) \rangle & = & -(\lvert 0 \rangle - \lvert 1 \rangle), & \text{if} \ f(x) = 1
+\end{array}
+$$
 
-    Thus, we can write it in a generalized form,
+Thus, we can write it in a generalized form,
 
-    $$
-    \lvert 0 \oplus f(x) \rangle - \lvert 1 \oplus f(x) \rangle = (-1)^{f(x)}(\lvert 0 \rangle - \lvert 1 \rangle)
-    $$
+$$
+\lvert 0 \oplus f(x) \rangle - \lvert 1 \oplus f(x) \rangle = (-1)^{f(x)}(\lvert 0 \rangle - \lvert 1 \rangle)
+$$
 
-    As you may observe, there is information about the value $f(x)$ coded in the amplitude of the state now. Now let's put everything together!
+As you may observe, there is information about the value $f(x)$ coded in the amplitude of the state now. Now let's put everything together!
 
-    $$
-    \begin{array}{lll}
-    O_f \bigg(\frac{1}{\sqrt{2^{n}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle \lvert - \rangle \bigg) & = & \frac{1}{\sqrt{2^{n+1}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle (-1)^{f(x)}(\lvert 0 \rangle - \lvert 1 \rangle) \\
-     & = & \frac{1}{\sqrt{2^{n}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle (-1)^{f(x)}\frac{1}{\sqrt{2}}(\lvert 0 \rangle - \lvert 1 \rangle)\\
-     & = & \frac{1}{\sqrt{2^{n}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle (-1)^{f(x)}\lvert - \rangle
-    \end{array}
-    $$
+$$
+\begin{array}{lll}
+O_f \bigg(\frac{1}{\sqrt{2^{n}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle \lvert - \rangle \bigg) & = & \frac{1}{\sqrt{2^{n+1}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle (-1)^{f(x)}(\lvert 0 \rangle - \lvert 1 \rangle) \\
+    & = & \frac{1}{\sqrt{2^{n}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle (-1)^{f(x)}\color{red}{\frac{1}{\sqrt{2}}(\lvert 0 \rangle - \lvert 1 \rangle)} \\
+    & = & \frac{1}{\sqrt{2^{n}}}\sum_{x=0}^{2^{n}-1}\lvert x \rangle \color{blue}{(-1)^{f(x)}}\color{red}{\lvert - \rangle}
+\end{array}
+$$
 
-    Notice how the application of $O_{f}$ has introduced a *relative phase* in some of the states $\lvert x \rangle$ of the superposition. This technique is called **phase kickback**, because we have only used the register in state $\lvert - \rangle$ to create the phase but it ends up affecting the whole state.
+The application of $O_f$ introduces a **relative phase** ($\color{blue}{(-1)^{f(x)}}$) to some of the states $\lvert x \rangle$ in the superposition. This process is known as **phase kickback**, where the ancillary qubit in the $\lvert - \rangle$ state creates the phase, but it ends up influencing the entire quantum state. 
 
-    As you can see, the phase that goes with the basis state $\lvert x \rangle$ depends on only $f(x)$ and it is 1 if $f(x) = 1$ and -1 if $f(x) = 1$. in this waym we say that we have **marked** those elements that we are interested in, that is, $f(x) = 1$.
+The phase associated with each basis state $\lvert x \rangle$ depends solely on $f(x)$: it is $1$ if $f(x) = 0$ and $-1$ if $f(x) = 1$. In this way, we say that the elements satisfying $f(x) = 1$ are **marked**. This phase shift doesn't change the probability of measuring any particular $\lvert x \rangle$ state (since probabilities depend on the magnitude, not the phase).
 
-    However, although we can seperate elements $x$ that satisfy $f(x) = 1$ from the list, we do not seems to be closer to find one of them. In fact, we will get the same probability before and after applying $O_{f}$. So we need a second block to help us identify these elements that match the criteria.
+However, while this marks the desired elements, it doesn't directly help us find one of them. The probabilities of measuring each state remain unchanged before and after applying $O_f$. To identify the marked elements, we need a second step to amplify their probability, bringing them closer to detection.
 
-2. **Grover's diffusion operator**:
+### **Grover's diffusion operator**
 
-    The Grover's diffusion operator are used to increase the probability of measuring the marked states. The Grover's diffusion operator implements and opeartion called **inversion about the mean**. First, the average value $m$ of all the amplitudes of the states is computed. Second, every amplitude $a$ is replaced with $2m-a$. Then, the positive amplitudes will be a bit smaller, but the negative ones will be a little bit bigger. This is also called **amplitude amplification**. In short, the amplitudes of the elements that we are insterested in will be a little bit larger. However, this will still not big enough to guarantee a high probaility of measuring on of them. Thus, in gernal, we need to apply quantum oracle $O_{f}$ with Grover's difussion operator several times until the probability ofmeasuring one of the state we are looking for is high enough (close to 1), then we can perform a measurement. 
+The Grover diffusion operator is used to increase the probability of measuring the marked states by performing an operation called **inversion about the mean**. Here’s how it works:
 
-You may ask, so how many times should we apply $O_{f}$ with Grover's diffusiont operator? Let's see the following sebsection.
+1. The average amplitude $m$ of all the quantum states is calculated.
+2. Each amplitude $a$ is then replaced with $2m - a$. 
+
+This transformation reduces positive amplitudes slightly while increasing negative ones, a process also known as **amplitude amplification**. As a result, the amplitudes of the marked states (those we are interested in) become slightly larger.
+
+However, a single application of this process is not enough to ensure a high probability of measuring a marked state. **To achieve this, the quantum oracle $O_f$ and the Grover diffusion operator are applied repeatedly.** This iterative process amplifies the amplitudes of the marked states with each step, until their probability of being measured is high (close to 1). At that point, a measurement can be performed to successfully identify one of the marked states.
+
+!!! Question
+    You may ask, so how many times should we apply $O_{f}$ with Grover's diffusiont operator?
+
+---
 
 ## Probability of finding a marked element
-There's oen very important obervation about the $O_{f}$ and the Grover's diffusion is that the combination of these two acts just like a rotation in a two-dimensional space. Let's say if we have $n$-but strings and there is only one marked element $x_{1}$, it can be proved (skip here) that the state that we reach after $m$ times of combination of $O_{f}$ and the Grover's diffusion is 
+There's one very important obervation about the $O_{f}$ and the Grover's diffusion is that the combination of these two acts just like a **rotation in a two-dimensional space**. Let’s assume we have $n$-bit strings and only one marked element, $x_1$. It can be shown that after $m$ iterations of applying $O_f$ and the Grover diffusion operator, the quantum state becomes:
 
 $$
 \cos(2m+1)\theta \lvert x_{0} \rangle + \sin(2m+1)\theta \lvert x_{1} \rangle,
@@ -126,7 +152,7 @@ $$
 \lvert x_{0} \rangle = \sum_{x \in \{ 0, 1 \}^{n}, \ x \neq x_{1}}\sqrt{\frac{1}{2^{n}-1}}\lvert x \rangle
 $$
 
-and $\theta \in (0, \pi/2)$ is such that 
+is the superposition of all unmarked states and $\theta \in (0, \pi/2)$ is such that 
 
 $$
 \begin{array}{ll}
@@ -158,47 +184,81 @@ $$
 m = \frac{\pi}{4}\sqrt{2^{n}}.
 $$
 
-that is, the biggest integer that is less than or equal to $(\pi/4)\sqrt{2^{n}}$
+that is, **the biggest integer that is less than or equal to $(\pi/4)\sqrt{2^{n}}$**
 
-Notice that there are exactly $2^{n}$ elements but only one of them satisfies the conditions we are interested in. for the classical algorithm, we need $2^{n}/2$ calls to $f$ on average to find $x$. However, Graver's algorithm only needs about $\sqrt{2^{n}}$.
+In this scenario, there are $2^n$ elements, but only one satisfies the condition we are searching for. A classical algorithm would require about $2^n / 2$ calls to $f$, on average, to find the solution. In contrast, Grover's algorithm significantly reduces this to approximately $\sqrt{2^n}$ calls.
 
-There's one thing that worth ot notice is that the classical algorithm increases the probability of find the solution as we use $f$ more times. In contrast, if $m$ is not selected wisely, we can overshoot results and decrease the probability of getting it.
+However, there's an important distinction: while classical algorithms steadily increase the probability of finding the solution as $f$ is used more, Grover's algorithm requires careful selection of the number of iterations $m$. If $m$ is not chosen wisely, the algorithm can overshoot and reduce the probability of finding the solution. 
 
-Don't forget, the probability of measuring $x_{1}$ is $(\sin (2m+1))^{2}$, which is a periodic function! After visiting values close to 1, the function goes back down to 0.
+The probability of measuring the correct result $x_1$ is given by $(\sin((2m+1)\theta))^2$, a periodic function. After reaching values close to 1, the probability decreases back to 0, meaning the success rate oscillates.
 
-What if there is more than one marked element? If there are $k$ marked elements, we can repeat our previous reasoning and show that a good value for $m$ is 
+If there are $k$ marked elements instead of just one, the same reasoning applies. A good choice for $m$ in this case is:
 
 $$
-m = \frac{\pi}{4}\sqrt{\frac{2^{n}}{k}},
+m = \frac{\pi}{4} \sqrt{\frac{2^n}{k}},
 $$
 
-where $k$ is samll compared to $2^{n}$.
+where $k$ is small compared to $2^n$. This ensures the probability of measuring one of the marked elements is maximized.
 
+Let's see the following example:
 
-## Finding minima with Grover's algorithm
-As you can imagine, finding a minima is some action that find a value with a special property. Suppose we want to find a minimum of a function $g$ that is computed over binary strings of length $n$. We select one such string $x_0$ at random and we compute $g(x_0)$. Now we apply Grover's algorithm with an oracle that, on input $x$, returns 1 if $g(x) < g(x_{0})$ and 0 otherwise. If the element $x_1$ that we measure after applying Grover's search is lower than $g(x_0)$, we replace $x_0$ with it and repeat the process but now with an oracle that checks the condition $g(x) < g(x_1)$. If not, we keep using $x_0$. We repeat this process several times until find the lowest value.
+<div style="text-align: center;">
+    <img src="../../images_QOpt/GAS_iter_0_to_20.png" alt="GAS_iter_0_to_20" style="width: 400px; height: 300px;">
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Figure: Probability of finding one marked element among 16 when using Grover’s algorithm with a number of iterations that varies from 0 to 20
+    </p>
+</div>
 
+In this example, we consider the case where $n = 4$ and analyze how the probability of finding exactly one marked element varies with the number of Grover iterations $m$, ranging from 0 to 20. 
+
+In this scenario, $\lfloor (\pi/4) \sqrt{2^n} \rfloor$ is 3. As shown, the success probability when $m = 3$ is close to 1. However, with $m = 5$, the probability drops significantly, and by $m = 6$, it is nearly 0.
+
+---
+
+## Finding Minima with Grover's Algorithm
+
+Finding a minimum involves identifying a value that satisfies a specific property. Suppose we want to find the minimum of a function $g$ defined over binary strings of length $n$. Here’s how we can use Grover's algorithm for this task:
+
+1. **Initialization**: Select an initial binary string $x_0$ at random and compute $g(x_0)$.
+
+2. **Oracle Setup**: Construct an oracle that, on input $x$, returns 1 if $g(x) < g(x_0)$ and 0 otherwise.
+
+3. **Grover's Search**: Apply Grover's algorithm using the constructed oracle to search for an $x_1$ such that $g(x_1) < g(x_0)$.
+
+4. **Update**: 
+    - If $g(x_1) < g(x_0)$, replace $x_0$ with $x_1$ and update the oracle to check the condition $g(x) < g(x_1)$.
+    - If $g(x_1) \geq g(x_0)$, keep $x_0$ as it is and continue.
+
+5. **Iteration**: Repeat this process multiple times, progressively narrowing down the search, until the minimum value is found.
+
+---
 
 ## Quantum oracles for combinatorial optimization
 
-After knowing the basic knowedge of the Dürr-Høyer algorithm, the next will be how to find a quantum oracle, which uses $x$ and $y$ to check if $g(x) < g(y)$, for us to use in order to find the minimum of function $g$.
+To further explore the Dürr-Høyer algorithm and its application in finding minima, the next step involves constructing a **quantum oracle** capable of comparing two inputs $x$ and $y$ to determine whether $g(x) < g(y)$. This oracle serves as a fundamental component for implementing the algorithm to identify the minimum of a given function $g$.
 
-We will start our jounery by considering the QUBO and HOBO cases with the coefficients of the polynomial are integer numbers and, then, we will extend our study to the most general when the coefficients are real numbers. However, before that, we need to understand one of the most important subroutines in all of quantumn computing: the **quantum Fourier transform**.
+We will initiate this investigation by addressing specific cases, namely **QUBO** (Quadratic Unconstrained Binary Optimization) and **HOBO** (Higher-order Binary Optimization), where the coefficients of the polynomials are integer-valued. Building on this foundation, we will extend the discussion to more general cases, accommodating scenarios where the coefficients are real numbers.
+
+Before advancing to these topics, it is imperative to examine one of the most critical subroutines in quantum computing: the **quantum Fourier transform (QFT)**. A thorough understanding of the QFT is essential for constructing and leveraging the quantum oracle effectively. Let us begin by exploring this fundamental tool.
+
+---
 
 ## The quantum Fourier transform
-The quantum Fourier transform (QFT) is one of the most important and useful tool in quantum computing. It is an essential part of Shor's algorith for integer factorization and other algorithm such as HHL.
+The **quantum Fourier transform (QFT)** is a fundamental and highly versatile tool in quantum computing. It plays a critical role in various quantum algorithms, such as Shor's algorithm for integer factorization and the HHL algorithm for solving linear systems of equations.
 
-We will use the QFT to help us implement the arithmetical operations that we need to compute the values of the polynomial function of our QUBO and HOBO problems. The QFT on $m$ qubits is defined as the unitary transformation that takes the basis states $\lvert j \rangle$ to 
+In our context, the QFT will be utilized to facilitate the arithmetic operations required to compute the values of polynomial functions in **QUBO** (Quadratic Unconstrained Binary Optimization) and **HOBO** (Higher-order Binary Optimization) problems.
+
+The QFT on $m$-qubits is defined as a unitary transformation that maps the computational basis state $\lvert j \rangle$ to:
 
 $$
-\frac{1}{\sqrt{2^{m}}} \sum_{k=0}^{2^{m}-1} e^{\frac{2\pi ijk}{2^{m}}} \vert k \rangle,
+\frac{1}{\sqrt{2^m}} \sum_{k=0}^{2^m-1} e^{\frac{2\pi i j k}{2^m}} \lvert k \rangle,
 $$
 
-where $i$ is the imaginary unit.
+where $i$ represents the imaginary unit. This transformation uses the principles of quantum superposition and interference, making it a powerful component for efficiently implementing arithmetic and optimization processes in quantum algorithms.
 
 The QFT can be implemented with a number of one- and two- qubit gates that is quadratic in $m$.
 
-For instance, the circuit for the QFT on three qubits is shown below. As you can see, the rightmost gate, which acts on the top and bottom qibits, is the SWAP gate. Moreover, this QFT circuit uses the **phase gate**, denote by $P(\theta)$. This is a parameterized gate that depends on an angle $\theta$ and whose coordinate matrix is 
+For instance, the circuit for the QFT on three qubits is shown below. As you can see, the rightmost gate, which acts on the top and bottom qibits, is the **SWAP gate**. Moreover, this QFT circuit uses the **phase gate**, denote by $P(\theta)$. This is a parameterized gate that depends on an angle $\theta$ and whose coordinate matrix is 
 
 $$
 \begin{pmatrix}
@@ -210,14 +270,14 @@ $$
 <div style="text-align: center;">
     <img src="../../images_QOpt/quantum_Fourier_transform_on_3_qubits.png" alt="quantum_Fourier_transform_on_3_qubits" style="width: 800px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
-        Figure: Circuit for the quantum Fourier transform on 3 qubits.
+        Figure: A circuit example for the quantum Fourier transform on 3 qubits.
     </p>
 </div>
 
 !!! note 
-    The phase gate is very similar to the $R_z$ gate. 
+    The phase gate is closely related to the $R_Z$ gate introduced earlier. Specifically, when applied to a single qubit, the phase gate $P(\theta)$ is equivalent to $R_Z(\theta)$, differing only by an insignificant global phase. However, in the context of the QFT circuit, a **controlled version** of the phase gate is used. In this case, the global phase becomes a **relative phase**, which is highly significant and cannot be ignored.
 
-The QFT acts by introducing phases of the form $e^{2\pi ijk/2^{m}}$ when it is applied on basis state $\lvert j \rangle$ and we insterested in recovering the values $j$ from those phases. Therefore, as you can imagine, we need to perform the **inverse quantum Fourier transform** ($\text{QFT}^\dagger$) 
+The QFT acts by introducing phases of the form $e^{2\pi ijk/2^{m}}$ when it is applied on basis state $\lvert j \rangle$ and we are insterested in recovering the values $j$ from those phases. Therefore, as you can imagine, we need to perform the **inverse quantum Fourier transform** ($\text{QFT}^\dagger$) 
 
 $$
 \frac{1}{\sqrt{2^{m}}}\sum_{k=0}^{2^{m}-1} e^{\frac{2\pi ijk}{2^m}}\lvert k \rangle
@@ -238,6 +298,35 @@ The circuit for the inverse QFT can be obtained from that of the QFT by reading 
 </div>
 
 When designing a quantum oracle to minimize a function $g$, our goal will be to perform the computation in such a way that the $g(x)$ values appear as exponents in the amplitudes of our states so that we can later recover them by means of the inverse QFT.
+
+### Takeaways
+1.  Steps for Using QFT in QUBO/HOBO Optimization:
+    -   **Define the Problem**: Represent the function $g(x)$ as a polynomial for QUBO or HOBO, e.g., $g(x) = \sum a_i x_i + \sum b_{ij} x_i x_j$, with $x_i \in \{0, 1\}$.
+
+    -   **Encode the Function Values**: Use the QFT to map $g(x)$ values into the phases of quantum states as $e^{i g(x)}$.
+
+    -   **Construct a Quantum Oracle**: Create an oracle that compares function values, e.g., outputs 1 if $g(x) < g(y)$, enabling Grover’s algorithm to search for minima.
+
+    -   **Perform QFT**: Apply the QFT circuit with Hadamard, controlled phase gates $P(\theta)$, and SWAP gates to encode superpositions.
+
+    -   **Apply Grover’s Algorithm**: Use amplitude amplification to boost the probability of measuring states with lower $g(x)$ values.
+
+    -   **Recover Results with $\text{QFT}^\dagger$**: Apply the inverse QFT to decode $g(x)$ values from the quantum states.
+
+    -   **Iterate for Minima**: Repeat the process, updating the oracle for refined searches, until the global minimum of $g(x)$ is found. 
+
+2. Advangates:
+    -   **Efficient Encoding and Representation**: QFT maps polynomial function values into quantum phases, enabling compact and efficient representation of large and complex optimization problems.
+
+    -   **Parallelism via Superposition**: Allows simultaneous evaluation of $g(x)$ for multiple inputs, drastically reducing computation time compared to classical methods.
+
+    -   **Facilitates Grover’s Algorithm**: Seamlessly integrates with Grover’s search to amplify the probability of finding optimal solutions, leveraging quantum speedup for minimization tasks.
+
+    -   **Precision for Complex Problems**: Ensures high accuracy in encoding and manipulating polynomial coefficients, critical for handling intricate interactions in HOBO and QUBO.
+
+    -   **Scalability**: Efficient gate usage ($O(m^2)$) makes QFT scalable to larger problem sizes, making it practical for real-world applications.           
+
+---
 
 ## Encoding and adding integer numbers
 
@@ -307,6 +396,8 @@ $$
 3 \pi \ \text{mod} \ 2\pi = \pi.
 $$
 
+---
+
 ## Computing the whole polynomial
 
 Let's show the example of circuit that copmutes $3x_{0}x_{1} - 2x_{1}x_{2} + 1$. The first column of gates prepares the phase encoding of $0$. The second one adds the independent term of the polynomial. The next one adds 3, but only if $x_{0}=x_{1}=1$ (that is why all the gates are controlled by the $\lvert x \rangle$ and $\lvert x_{1} \rangle$ qubits). Similarly, the last column substracts 2, but only when$x_{1} = x_{2} = 1$. As you should remember, controlled gates execute a quantum operation (such as adding a phase) only when the control qubits are in a specific state, typically $\lvert 1 \rangle$. Or, we can say that $3x_{0}x_{1}$ is nonzero only when $x_{0}=x_{1}=1$. These condition ensure that the polynomial terms contribute to the computation only when they are logically valid. Controlled gates enforce these conditions by activating only when the control qubits match the required state.
@@ -338,7 +429,7 @@ This diagram represents an **oracle** to determine whether $g(x) < g(y)$, utiliz
 <div style="text-align: center;">
     <img src="../../images_QOpt/oracle_to_determine_g.png" alt="oracle_to_determine_g" style="width: 400px; height: 300px;">
     <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
-        Figure of a oracle to determine \( g \).
+        Figure of a oracle to determine $g$.
     </p>
 </div>
 
@@ -367,4 +458,7 @@ This diagram represents an **oracle** to determine whether $g(x) < g(y)$, utiliz
 
 More, we can also create oracles to check whether polynomial constraints are met or not, like $3x_{0} - 2x_{0}x_{1} < 3$. This allows constraints to be incorporated into the optimization process without transforming the problem entirely into a QUBO form. This approach can sometimes be more convenient than using penalty terms for constraints.
 
-# Using GAS with Qiskit
+---
+
+## Using GAS with Qiskit
+Please see [GAS Qiskit Molecule](../jupyter_QOpt/GAS_Qiskit_molecule.ipynb)
