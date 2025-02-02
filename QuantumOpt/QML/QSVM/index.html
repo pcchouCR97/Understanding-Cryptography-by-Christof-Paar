@@ -1,0 +1,3188 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A collection of my learnings and projects on Quantum Computing and Cryptography.">
+      
+      
+        <meta name="author" content="Your Name">
+      
+      
+      
+        <link rel="prev" href="../../MachineLearningRefresher/">
+      
+      
+        <link rel="next" href="../QNN/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.1">
+    
+    
+      
+        <title>QSVM Intro - Quantum & Cryptography Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quantum-vector-support-machine" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Quantum &amp; Cryptography Docs" class="md-header__button md-logo" aria-label="Quantum & Cryptography Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quantum & Cryptography Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              QSVM Intro
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Math_Fundamentals/modular_arithmetic/" class="md-tabs__link">
+          
+  
+  Math Fundamentals
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../quantum_mechanics/Qubit/" class="md-tabs__link">
+          
+  
+  Quantum Mechanics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../quantum/basics/" class="md-tabs__link">
+          
+  
+  Quantum Computing
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cryptography/fundamentals/" class="md-tabs__link">
+          
+  
+  Cryptography
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../qcryptography/fundamentals/" class="md-tabs__link">
+          
+  
+  Quantum Cryptography
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../QOpt/QUBO/" class="md-tabs__link">
+          
+  
+  Quantum machine learning and optimization
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../projects/QuantumComputingTools/" class="md-tabs__link">
+          
+  
+  Real-world projects
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About Me
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quantum &amp; Cryptography Docs" class="md-nav__button md-logo" aria-label="Quantum & Cryptography Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Quantum & Cryptography Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Math Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Math Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math_Fundamentals/modular_arithmetic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modular Arithmetic
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math_Fundamentals/logic_gates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logic Gates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Linear Algebra
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Linear Algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math_Fundamentals/linear_algebr_tensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tensor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math_Fundamentals/matrices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math_Fundamentals/hilbert_space/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hilbert Space
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quantum Mechanics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Quantum Mechanics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Basics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Basics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quantum_mechanics/Qubit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Qubit(s)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quantum_mechanics/Quantum_logic_gates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quantum gates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quantum_mechanics/TheBlochSphereAndRotation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Bloch sphere and rotations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Theorems
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Theorems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quantum_mechanics/No-cloing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    No-cloning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quantum_mechanics/No-deleting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    No-deleting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quantum_mechanics/No-hiding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    No-hiding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quantum_mechanics/No-teleportation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    No-teleportation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quantum Computing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Quantum Computing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Basics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Basics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quantum/basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quantum/algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Algorithms
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quantum/computation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quantum Computation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quantum/applications/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Applications
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Cryptography
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Cryptography
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cryptography/fundamentals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fundamentals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cryptography/symmetric/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Symmetric Cryptography
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cryptography/asymmetric/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Asymmetric Cryptography
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cryptography/quantum/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quantum Cryptography
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quantum Cryptography
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Quantum Cryptography
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../qcryptography/fundamentals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fundamentals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    QKD
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            QKD
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../qcryptography/BB84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BB84
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Quantum machine learning and optimization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Quantum machine learning and optimization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Optimization Algorithms
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            Optimization Algorithms
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1_1" id="__nav_7_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quadratic Unconstrained Binary Optimization (QUBO)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Quadratic Unconstrained Binary Optimization (QUBO)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QOpt/QUBO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QUBO Intro
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jupyter_QOpt/QUBO_1_start/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Start QUBO with Qiskit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jupyter_QOpt/QUBO_example_knapsack_qiskit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Knapsack problem with Qiskit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jupyter_QOpt/QUBO_example_max_cut_and_tsp_qiskit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Max-Cut and Traveler Saleman Problem with Qiskit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1_2" id="__nav_7_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Adiabatic Quantum Computing & Quantum Annealing (AQQA)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Adiabatic Quantum Computing & Quantum Annealing (AQQA)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QOpt/AQQA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AQQA Intro
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jupyter_QOpt/AQQA_D-WAVE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Working AQQA with D-wave
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1_3" id="__nav_7_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quantum Approximate Optimization Algorithm (QAOA)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            Quantum Approximate Optimization Algorithm (QAOA)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QOpt/QAOA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QAOA Intro
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jupyter_QOpt/QAOA_D-Wave.ipynb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Solving QUBO problems with QAOA in Qiskit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jupyter_QOpt/QAOA_PennyLane/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using QAOA with PennyLane
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1_4" id="__nav_7_1_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Grover Adaptive Search (GAS)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Grover Adaptive Search (GAS)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QOpt/GAS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GAS Intro
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jupyter_QOpt/GAS_Qiskit_molecule/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using GAS with Qiskit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1_5" id="__nav_7_1_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Variational Quantum Eignesolver (VQE)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            Variational Quantum Eignesolver (VQE)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QOpt/VQEIntro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VQE Intro
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jupyter_QOpt/VQE_Qiskit_molecule/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using VQE with Qiskit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Optimization Machine Learning
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            Optimization Machine Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MachineLearningRefresher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Learning Refresher
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7_2_2" id="__nav_7_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quantum Support Vector Machines
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Quantum Support Vector Machines
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    QSVM Intro
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    QSVM Intro
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#support-vector-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support vector machine
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Support vector machine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#training-support-vector-mahcines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Training support vector mahcines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soft-margin-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soft-margin training
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-kernel-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      The kernel trick
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#going-quantum" class="md-nav__link">
+    <span class="md-ellipsis">
+      Going quantum
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Going quantum">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-idea-behind-quantum-support-vector-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      General idea behind quantum support vector machines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature maps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature maps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#angle-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Angle encoding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amplitude-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amplitude encoding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zz-feature-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      ZZ feature map
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quantum-support-vector-machines-in-pennylane" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quantum support vector machines in PennyLane
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quantum-support-vector-machines-in-qiskit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quantum support vector machines in Qiskit
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2_3" id="__nav_7_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quantum Neural Networks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Quantum Neural Networks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QNN/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QNN Intro
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2_4" id="__nav_7_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quantum Hybrid Architectures
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Quantum Hybrid Architectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QHyb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QHybrid Intro
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2_5" id="__nav_7_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quantum Generative Adversarial Networks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Quantum Generative Adversarial Networks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QGANS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QGANS Intro
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Real-world projects
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Real-world projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../projects/QuantumComputingTools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quantum Computing Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../projects/quantum-simulations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quantum Simulations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../projects/crypto-implementations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cryptography Implementations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About Me
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#support-vector-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support vector machine
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Support vector machine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#training-support-vector-mahcines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Training support vector mahcines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soft-margin-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soft-margin training
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-kernel-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      The kernel trick
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#going-quantum" class="md-nav__link">
+    <span class="md-ellipsis">
+      Going quantum
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Going quantum">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-idea-behind-quantum-support-vector-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      General idea behind quantum support vector machines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature maps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature maps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#angle-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Angle encoding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amplitude-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amplitude encoding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zz-feature-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      ZZ feature map
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quantum-support-vector-machines-in-pennylane" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quantum support vector machines in PennyLane
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quantum-support-vector-machines-in-qiskit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quantum support vector machines in Qiskit
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="quantum-vector-support-machine">Quantum Vector Support Machine</h1>
+<h2 id="support-vector-machine">Support vector machine</h2>
+<p>A support vector machines takes inputs in an <span class="arithmatex"><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-dimentional Euclidean space <span class="arithmatex"><span class="MathJax_Preview">(R^{n})</span><script type="math/tex">(R^{n})</script></span> and classifies them according to which side of a hyperplane they are on. This hyperplane fully defines the behavior of the SVM, which can be defined by adjustable parameteres <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{w}</span><script type="math/tex">\overrightarrow{w}</script></span> and the constant <span class="arithmatex"><span class="MathJax_Preview">b</span><script type="math/tex">b</script></span>.</p>
+<div style="text-align: center;">
+    <a class="glightbox" href="/QuantumOpt/images_QML/SVM_margin.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="/QuantumOpt/images_QML/SVM_margin.png" alt="QSVM_1" style="width: 400px; height: 400px;"></a>
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        SVM Margin
+    </p>
+</div>
+
+<h3 id="training-support-vector-mahcines">Training support vector mahcines</h3>
+<p>Let's say that we have a binary classification problem, and we are given some training data consisting of datapoints in <span class="arithmatex"><span class="MathJax_Preview">R^{n}</span><script type="math/tex">R^{n}</script></span> together with their corresponding lables. In SVM, we want to look for the hyperplane that best seperates the two categories in the training dataset.</p>
+<p>Let the datapoints in our training dataset be <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{w} \in R^{n}</span><script type="math/tex">\overrightarrow{w} \in R^{n}</script></span> and their expected label by <span class="arithmatex"><span class="MathJax_Preview">y_{j} = 1, -1</span><script type="math/tex">y_{j} = 1, -1</script></span>. Also, we assume these datapoints cam be perfectly separated by a hyperplane.</p>
+<p>When we train a classifier, we are interested in getting a low generalization error. In our case, we acheve this by looking into a hyperplane that can maximize the distance from itself to the training datapoints. For example, if our separating hyperplane is too close to one of the training datapoints, we risk another datapoint of the same class crossing to the other side of the hyperplane and being misclassified.</p>
+<div style="text-align: center;">
+    <a class="glightbox" href="/QuantumOpt/images_QML/QSVM_1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="/QuantumOpt/images_QML/QSVM_1.png" alt="QSVM_1" style="width: 400px; height: 300px;"></a>
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Figure. Both hyperplanes separate the two categories, but the continuous line is closer to the datapoints than the dashed line.
+    </p>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We seek to find not just any separating hyperplanem, but the one that is far away from the training points as possible.</p>
+</div>
+<p>There are two ways that could help us achieve:</p>
+<ol>
+<li>We can consider the distance from a separating hyperplane <span class="arithmatex"><span class="MathJax_Preview">H</span><script type="math/tex">H</script></span> to all the points in the training dataset, and then try to find a way to tweak <span class="arithmatex"><span class="MathJax_Preview">H</span><script type="math/tex">H</script></span> to maximize that distance while making sure that <span class="arithmatex"><span class="MathJax_Preview">H</span><script type="math/tex">H</script></span> still separates the data properly.</li>
+<li>Instead, we can associate to each data point a unique hyperplane that is parallel to <span class="arithmatex"><span class="MathJax_Preview">H</span><script type="math/tex">H</script></span> and contains that datapoint. The parallel hyperplane that goes through the point that is closest to <span class="arithmatex"><span class="MathJax_Preview">H</span><script type="math/tex">H</script></span> will itself be a separating hyperplane - and so will be its reflection over <span class="arithmatex"><span class="MathJax_Preview">H</span><script type="math/tex">H</script></span>.</li>
+</ol>
+<div style="text-align: center;">
+    <a class="glightbox" href="/QuantumOpt/images_QML/QSVM_2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="/QuantumOpt/images_QML/QSVM_2.png" alt="QSVM_2" style="width: 400px; height: 300px;"></a>
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Figure. The solid black line represents a separating hyperplane \( H \). The red dashed line is parallel hyperplane which goes through the closest point to \( H \), and it's reflection over \( H \) is the other dashed line.
+    </p>
+</div>
+
+<p>This pair of hyperplanes — the parallel plane that goes through the closest point and its reflection — will be the two equidistant parallel hyperplanes, which are the furthest apart from each other while still separating the data. The distance between them is also know as the <strong>margin</strong> and it is what we aim to maximize.</p>
+<p>Since any separating hyperplane <span class="arithmatex"><span class="MathJax_Preview">H</span><script type="math/tex">H</script></span> can be written as <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{w} \cdot \overrightarrow{x} + b = 0</span><script type="math/tex">\overrightarrow{w} \cdot \overrightarrow{x} + b = 0</script></span>. And any hyperplane that is parallel to <span class="arithmatex"><span class="MathJax_Preview">H</span><script type="math/tex">H</script></span> can be described as <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{w} \cdot \overrightarrow{x} + b = C</span><script type="math/tex">\overrightarrow{w} \cdot \overrightarrow{x} + b = C</script></span> for some constant <span class="arithmatex"><span class="MathJax_Preview">C</span><script type="math/tex">C</script></span>. And the reflection of this plane is <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{w} \cdot \overrightarrow{x} + b = -C</span><script type="math/tex">\overrightarrow{w} \cdot \overrightarrow{x} + b = -C</script></span>. That is, for some constant <span class="arithmatex"><span class="MathJax_Preview">C</span><script type="math/tex">C</script></span>, the hyperplane and its reflection can be characterized as </p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\overrightarrow{w} \cdot \overrightarrow{x} + b = \pm C.
+</div>
+<script type="math/tex; mode=display">
+\overrightarrow{w} \cdot \overrightarrow{x} + b = \pm C.
+</script>
+</div>
+<p>If we set <span class="arithmatex"><span class="MathJax_Preview">\tilde{w} = \overrightarrow{w}/C</span><script type="math/tex">\tilde{w} = \overrightarrow{w}/C</script></span> and <span class="arithmatex"><span class="MathJax_Preview">\tilde{b} = b/C</span><script type="math/tex">\tilde{b} = b/C</script></span>, the equation can be rewritten as </p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\tilde{w} \cdot \overrightarrow{x} + \tilde{b} = \pm 1,
+</div>
+<script type="math/tex; mode=display">
+\tilde{w} \cdot \overrightarrow{x} + \tilde{b} = \pm 1,
+</script>
+</div>
+<p>for some values of <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{w}</span><script type="math/tex">\overrightarrow{w}</script></span> and <span class="arithmatex"><span class="MathJax_Preview">b</span><script type="math/tex">b</script></span>. Also, we know that the distance between these two hyperplanes is <span class="arithmatex"><span class="MathJax_Preview">2/||w||</span><script type="math/tex">2/||w||</script></span>. Therefore, we can describe our problem as maximizing <span class="arithmatex"><span class="MathJax_Preview">2/||w||</span><script type="math/tex">2/||w||</script></span> while subjecting to the constraint of <span class="arithmatex"><span class="MathJax_Preview">\tilde{w} \cdot \overrightarrow{x} + \tilde{b} = \pm 1</span><script type="math/tex">\tilde{w} \cdot \overrightarrow{x} + \tilde{b} = \pm 1</script></span>.</p>
+<p>Let's consider an arbitrary element <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{p} \in R^{N}</span><script type="math/tex">\overrightarrow{p} \in R^{N}</script></span> and a hyperplane <span class="arithmatex"><span class="MathJax_Preview">H</span><script type="math/tex">H</script></span> characterized by <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{w} \cdot \overrightarrow{x} + b = 0</span><script type="math/tex">\overrightarrow{w} \cdot \overrightarrow{x} + b = 0</script></span>. We know that <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{p}</span><script type="math/tex">\overrightarrow{p}</script></span> is in the hyperplane when <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{w} \cdot \overrightarrow{p} + b = 0</span><script type="math/tex">\overrightarrow{w} \cdot \overrightarrow{p} + b = 0</script></span>. As the result increases, point <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{p}</span><script type="math/tex">\overrightarrow{p}</script></span> gets further away from the hyperplane. The point is in this latter hyperplane when this value reaches 1. And this point moves beyond both hyperplanes as the value is greater than 1.</p>
+<p>Since we assume that there are no points inside the margin, the hyperplane <span class="arithmatex"><span class="MathJax_Preview">\tilde{w} \cdot \overrightarrow{x} + \tilde{b} = 0</span><script type="math/tex">\tilde{w} \cdot \overrightarrow{x} + \tilde{b} = 0</script></span> will properly separate the data if, for all the positive entries, <span class="arithmatex"><span class="MathJax_Preview">\tilde{w} \cdot \overrightarrow{x} + \tilde{b} = \geq 1</span><script type="math/tex">\tilde{w} \cdot \overrightarrow{x} + \tilde{b} = \geq 1</script></span>, while all the negative ones will satisfy <span class="arithmatex"><span class="MathJax_Preview">\tilde{w} \cdot \overrightarrow{x} + \tilde{b} = \leq -1</span><script type="math/tex">\tilde{w} \cdot \overrightarrow{x} + \tilde{b} = \leq -1</script></span>. We conclude this as </p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+y_{i}(\overrightarrow{w} \cdot \overrightarrow{x_{j}}) \leq 1,
+</div>
+<script type="math/tex; mode=display">
+y_{i}(\overrightarrow{w} \cdot \overrightarrow{x_{j}}) \leq 1,
+</script>
+</div>
+<p>since we are considering <span class="arithmatex"><span class="MathJax_Preview">y_{j} = 1</span><script type="math/tex">y_{j} = 1</script></span> when the <span class="arithmatex"><span class="MathJax_Preview">j</span><script type="math/tex">j</script></span>-th example belongs to the positive class and <span class="arithmatex"><span class="MathJax_Preview">y_{j} = -1</span><script type="math/tex">y_{j} = -1</script></span> when it belongs to the negative one.</p>
+<div style="text-align: center;">
+    <a class="glightbox" href="/QuantumOpt/images_QML/QSVM_3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="/QuantumOpt/images_QML/QSVM_3.png" alt="QSVM_3" style="width: 400px; height: 300px;"></a>
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Figure. The hyperplane that could have been returned by an SVM is represented by a black solid line, and the lines in dashed lines are the equidistant parallel hyperplanes that are the furthest apart from each other while still separating the data. The margin is thus half of the thickness of the colored region
+    </p>
+</div>
+
+<p>There we can write our optimization problem as </p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\begin{array}{ll}
+\text{Minimize} &amp; ||w||,\\
+\text{Subject to} &amp; y_{i}(\overrightarrow{w} \cdot \overrightarrow{x_{j}} + b) \geq 1,
+\end{array}
+</div>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+\text{Minimize} & ||w||,\\
+\text{Subject to} & y_{i}(\overrightarrow{w} \cdot \overrightarrow{x_{j}} + b) \geq 1,
+\end{array}
+</script>
+</div>
+<p>where each <span class="arithmatex"><span class="MathJax_Preview">j</span><script type="math/tex">j</script></span> defines an individual constraint. We can also write our problem as </p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\begin{array}{ll}
+\text{Minimize} &amp; \frac{1}{2}||w||^{2},\\
+\text{Subject to} &amp; y_{i}(\overrightarrow{w} \cdot \overrightarrow{x_{j}} + b) \geq 1,
+\end{array}
+</div>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+\text{Minimize} & \frac{1}{2}||w||^{2},\\
+\text{Subject to} & y_{i}(\overrightarrow{w} \cdot \overrightarrow{x_{j}} + b) \geq 1,
+\end{array}
+</script>
+</div>
+<p>this is also called as <strong>hard-margin training</strong> since we are allowing no elements in the training dataset to be misclassified or even to be inside the margin. This expression can save us from troubles due to Euclidean norm in most of the optimization algorithms.</p>
+<p>With hard-margin training, we need our training data to be perfectly separable by a hyperplane because, otherwise, we will not find any feasible solutions to the optimization problem that we have just defined. Alternatively, we can use the technique called <strong>soft-margin training</strong></p>
+<h3 id="soft-margin-training">Soft-margin training</h3>
+<p>In contrast to the <strong>hard-margin training</strong>, which does not allow any points being misclassified, <strong>Soft-margin</strong> classification is more flexible, allowing for some misclassification through the use of slack variables (<span class="arithmatex"><span class="MathJax_Preview">\xi</span><script type="math/tex">\xi</script></span>). we will use </p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+y_{i}({w} \cdot {x_{j}} + b) \geq 1 - \xi_{j}.
+</div>
+<script type="math/tex; mode=display">
+y_{i}({w} \cdot {x_{j}} + b) \geq 1 - \xi_{j}.
+</script>
+</div>
+<p>When <span class="arithmatex"><span class="MathJax_Preview">\xi_{j} &gt; 0</span><script type="math/tex">\xi_{j} > 0</script></span>, we will allow <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{x_{j}}</span><script type="math/tex">\overrightarrow{x_{j}}</script></span> to be close to the hyperplane or even on the wrong side of the space. The larger the value of <span class="arithmatex"><span class="MathJax_Preview">\xi_{j}</span><script type="math/tex">\xi_{j}</script></span> is, the further into the wrong side <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{x_{j}}</span><script type="math/tex">\overrightarrow{x_{j}}</script></span> will be.</p>
+<p>Since we would these <span class="arithmatex"><span class="MathJax_Preview">\xi_{j}</span><script type="math/tex">\xi_{j}</script></span> to be as small as possible, we need to include them into the cost function. Thus,</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\begin{array}{ll}
+\text{Minimize} &amp; \frac{1}{2}||w||^{2} + C\sum_{j} \xi_{j}, \\
+\text{Subject to} &amp; y_{i}(\overrightarrow{w} \cdot \overrightarrow{x_{j}} + b) \geq 1 - \xi_{j},\\
+&amp; \xi_{j} \geq 0,
+\end{array}
+</div>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+\text{Minimize} & \frac{1}{2}||w||^{2} + C\sum_{j} \xi_{j}, \\
+\text{Subject to} & y_{i}(\overrightarrow{w} \cdot \overrightarrow{x_{j}} + b) \geq 1 - \xi_{j},\\
+& \xi_{j} \geq 0,
+\end{array}
+</script>
+</div>
+<p>where <span class="arithmatex"><span class="MathJax_Preview">C&gt;0</span><script type="math/tex">C>0</script></span>, a hyperparameter for a penalty term, is a hyperparameter that can be chosen by us. The larger the value of <span class="arithmatex"><span class="MathJax_Preview">C</span><script type="math/tex">C</script></span> is, the less misclassification is allowed. Uf there is a hyperplane that can perfectly separate the data, setting <span class="arithmatex"><span class="MathJax_Preview">C</span><script type="math/tex">C</script></span> to a huge value would be equivalent to doing hard-margin training. You may think to make <span class="arithmatex"><span class="MathJax_Preview">C</span><script type="math/tex">C</script></span> as larger as possible, but this can make our model prone to overfitting.</p>
+<p>The soft-margin training problem can be equivalently written in terms of some optimizable parameters <span class="arithmatex"><span class="MathJax_Preview">\alpha_{j}</span><script type="math/tex">\alpha_{j}</script></span> as follows:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\begin{array}{ll}
+\text{Maximize} &amp; \sum_{j}\alpha_{j} - \frac{1}{2}\sum_{j,k}y_{i}y_{k}\alpha_{j}\alpha_{k}(\overrightarrow{x_{j}} \cdot \overrightarrow{x_{k}}),\\
+\text{Subject to} &amp; 0 \leq \alpha_{j} \leq C,\\
+&amp; \sum_{j}\alpha_{j}y_{j} = 0.
+\end{array}
+</div>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+\text{Maximize} & \sum_{j}\alpha_{j} - \frac{1}{2}\sum_{j,k}y_{i}y_{k}\alpha_{j}\alpha_{k}(\overrightarrow{x_{j}} \cdot \overrightarrow{x_{k}}),\\
+\text{Subject to} & 0 \leq \alpha_{j} \leq C,\\
+& \sum_{j}\alpha_{j}y_{j} = 0.
+\end{array}
+</script>
+</div>
+<p>This formulation of the SVM soft-margin training problem is, most of the time, easier to solve in practice. Once we get the <span class="arithmatex"><span class="MathJax_Preview">\alpha_{j}</span><script type="math/tex">\alpha_{j}</script></span> values, it is also possible to go back to the original formulation. For instance, it holds that </p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\overrightarrow{w} = \sum_{j}\alpha_{j}y_{j}\overrightarrow{x_{j}}.
+</div>
+<script type="math/tex; mode=display">
+\overrightarrow{w} = \sum_{j}\alpha_{j}y_{j}\overrightarrow{x_{j}}.
+</script>
+</div>
+<p>Notice that <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{w}</span><script type="math/tex">\overrightarrow{w}</script></span> only depends on the training point <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{x_{j}}</span><script type="math/tex">\overrightarrow{x_{j}}</script></span>, for which <span class="arithmatex"><span class="MathJax_Preview">\alpha_{j} \neq 0</span><script type="math/tex">\alpha_{j} \neq 0</script></span>. These vectors are call <strong>support vectors</strong>.</p>
+<h3 id="the-kernel-trick">The kernel trick</h3>
+<p>Sometimes, it's hard to separat effectively a model by any SVM linearly. For example, the figure (a) shown below.</p>
+<div style="text-align: center;">
+    <a class="glightbox" href="/QuantumOpt/images_QML/QSVM_4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="/QuantumOpt/images_QML/QSVM_4.png" alt="QSVM_4" style="width: 800px; height: 300px;"></a>
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Figure. The original data cannot be separated by a hyperplane linearly. The separating hyperplane is represented by a dashed line in (b) after applying the kernel trick
+    </p>
+</div>
+
+<p>Luckly, we can apply <strong>kernel trick</strong> technique, which maps the original space <span class="arithmatex"><span class="MathJax_Preview">R^{n}</span><script type="math/tex">R^{n}</script></span> into a higher dimensional space <span class="arithmatex"><span class="MathJax_Preview">R^{N}</span><script type="math/tex">R^{N}</script></span>. This higher dimenstional space is also called <strong>feature space</strong> and we refer to the function <span class="arithmatex"><span class="MathJax_Preview">\phi : R^{n} \rightarrow R^{N}</span><script type="math/tex">\phi : R^{n} \rightarrow R^{N}</script></span> as a <strong>feature map</strong>.</p>
+<p>For example, figure above shows that a kernel trick is implemented to map 1-dimensional real line into a 2-dimensional plane with the function </p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+F(x) = (x,x^{2})
+</div>
+<script type="math/tex; mode=display">
+F(x) = (x,x^{2})
+</script>
+</div>
+<p>To use the kernel trick, the single and only computation that we need to perform in the feature space is </p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+k(x,y) = \phi(\overrightarrow{x})\phi(\overrightarrow{y}).
+</div>
+<script type="math/tex; mode=display">
+k(x,y) = \phi(\overrightarrow{x})\phi(\overrightarrow{y}).
+</script>
+</div>
+<p>This is also know as a <strong>kernel function</strong>. The kernel functions are functions that can be represented as inner product in some space.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The kernel trick allows computations involving a high-dimensional feature space through inner products <span class="arithmatex"><span class="MathJax_Preview">(\phi(x),\phi(y))</span><script type="math/tex">(\phi(x),\phi(y))</script></span> without explicitly transforming the data, enabling efficient classification.</p>
+</div>
+<h2 id="going-quantum">Going quantum</h2>
+<p>A Quantum Support Vector machines is a special case of SVMs which rely on the <a href="./#the-kernel-trick"><strong>kernel trick</strong></a>.</p>
+<h3 id="general-idea-behind-quantum-support-vector-machines">General idea behind quantum support vector machines</h3>
+<p>In quantum support vector machiens, we only need to use our quantum algorithm for the kernel function. This function will have to rely on a quantum computer to d othe following:</p>
+<ol>
+<li>Take as input two vectors in the original space of data.</li>
+<li>Map each of tehm to a quantum state through a <a href="./#the-kernel-trick"><strong>feature map</strong></a>.</li>
+<li>Compute the inner product of the quantum states and return it.</li>
+</ol>
+<p>Let's say we ahve a feature map <span class="arithmatex"><span class="MathJax_Preview">\phi</span><script type="math/tex">\phi</script></span> such that for each <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{x}</span><script type="math/tex">\overrightarrow{x}</script></span>, we will have a circuit <span class="arithmatex"><span class="MathJax_Preview">\Phi(\overrightarrow{x})</span><script type="math/tex">\Phi(\overrightarrow{x})</script></span> wuch that the output of the feature map will be quantum state <span class="arithmatex"><span class="MathJax_Preview">\phi(\overrightarrow{x}) = \Phi{\overrightarrow{x}}|0\rangle</span><script type="math/tex">\phi(\overrightarrow{x}) = \Phi{\overrightarrow{x}}|0\rangle</script></span>. With a feature map ready, we can then take our kernel function to be</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+k(\overrightarrow{a},\overrightarrow{b}) = |\langle\phi(a)|\phi\rangle(c)|^{2} = |\langle 0|\Phi^{\dagger}(a)\Phi(b)|0\rangle|^{2}.
+</div>
+<script type="math/tex; mode=display">
+k(\overrightarrow{a},\overrightarrow{b}) = |\langle\phi(a)|\phi\rangle(c)|^{2} = |\langle 0|\Phi^{\dagger}(a)\Phi(b)|0\rangle|^{2}.
+</script>
+</div>
+<p>This is nothing then the <strong>probability</strong> of measuring all zeros after preparing the state <span class="arithmatex"><span class="MathJax_Preview">\Phi^{\dagger}(a)\Phi(b)</span><script type="math/tex">\Phi^{\dagger}(a)\Phi(b)</script></span>. This follows from the fact that the computational basis is <a href="/docs/Math_Fundamentals/matrices.md#orthonormal-basis"><strong>orthonormal</strong></a>.</p>
+<p>Since quantum circuits are always represented by unitary operations, <span class="arithmatex"><span class="MathJax_Preview">\Phi^{\dagger}</span><script type="math/tex">\Phi^{\dagger}</script></span> is just a inverse of <span class="arithmatex"><span class="MathJax_Preview">\Phi</span><script type="math/tex">\Phi</script></span>. But <span class="arithmatex"><span class="MathJax_Preview">\Phi</span><script type="math/tex">\Phi</script></span> will be given by a series of quantum gates. Therefore, all you have to do to calculate <span class="arithmatex"><span class="MathJax_Preview">\Phi^{\dagger}</span><script type="math/tex">\Phi^{\dagger}</script></span> is to apply these gate inversely then and <span class="arithmatex"><span class="MathJax_Preview">\Phi</span><script type="math/tex">\Phi</script></span>.</p>
+<p>Let's review how to implement a quantum kernel function.</p>
+<ol>
+<li>Take a feature map that will return a circuit <span class="arithmatex"><span class="MathJax_Preview">\Phi(\overrightarrow{x})</span><script type="math/tex">\Phi(\overrightarrow{x})</script></span> for any input <span class="arithmatex"><span class="MathJax_Preview">\overrightarrow{x}</span><script type="math/tex">\overrightarrow{x}</script></span>.</li>
+<li>You prepare the state <span class="arithmatex"><span class="MathJax_Preview">\Phi^{\dagger}(a)\Phi(b)</span><script type="math/tex">\Phi^{\dagger}(a)\Phi(b)</script></span> for the pair of vectors on which you want to compute the kernel.</li>
+<li>Return the <strong>probability</strong> of measuring zero on all the qubits.</li>
+</ol>
+<div class="admonition excercise">
+<p class="admonition-title">Excercise</p>
+<p>One of the conditions for a function <span class="arithmatex"><span class="MathJax_Preview">k</span><script type="math/tex">k</script></span> to be a kernel is that it be symmetric. Prove that, for any quantum kernel, is symmetric. (<span class="arithmatex"><span class="MathJax_Preview">k(\overrightarrow{a},\overrightarrow{b}) = k(\overrightarrow{b},\overrightarrow{a}))</span><script type="math/tex">k(\overrightarrow{a},\overrightarrow{b}) = k(\overrightarrow{b},\overrightarrow{a}))</script></span> for any inputs.)</p>
+</div>
+<h3 id="feature-maps">Feature maps</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A feature map is a parameterized circuit <span class="arithmatex"><span class="MathJax_Preview">\Phi(\overrightarrow{x})</span><script type="math/tex">\Phi(\overrightarrow{x})</script></span> that depends on the original data and thus can be used to prepare a state depends on it.</p>
+</div>
+<h4 id="angle-encoding">Angle encoding</h4>
+<p>The Angle encoding consists in the application of rotation gate on each qubit <span class="arithmatex"><span class="MathJax_Preview">j</span><script type="math/tex">j</script></span> parameterized by the value <span class="arithmatex"><span class="MathJax_Preview">x_{j}</span><script type="math/tex">x_{j}</script></span>. In angle encoding, we are using the <span class="arithmatex"><span class="MathJax_Preview">x_{j}</span><script type="math/tex">x_{j}</script></span> values as angles in the rotations hence the name of the encoding.</p>
+<p>We are free to use any rotation gate of our choice. However, if we use <span class="arithmatex"><span class="MathJax_Preview">R_{Z}</span><script type="math/tex">R_{Z}</script></span> gates and take <span class="arithmatex"><span class="MathJax_Preview">|0\rangle</span><script type="math/tex">|0\rangle</script></span> to be our initial state. <strong>The action of our feature map will have no effects</strong>, as a result, we have to apply Hadamard gates on each qubit.</p>
+<div style="text-align: center;">
+    <a class="glightbox" href="/QuantumOpt/images_QML/QSVM_5_angle_encoding.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="/QuantumOpt/images_QML/QSVM_5_angle_encoding.png" alt="QSVM_5_angle_encoding" style="width: 800px; height: 300px;"></a>
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Figure. Angle encoding of an input \( (x_{1}, \cdots, x_{n}) \) using different rotation gates.
+    </p>
+</div>
+
+<p>These parameters should be properly normaliezd within a certian interval before feeding into angle encoding. For example, if they are normalized between <span class="arithmatex"><span class="MathJax_Preview">0</span><script type="math/tex">0</script></span> and <span class="arithmatex"><span class="MathJax_Preview">4\pi</span><script type="math/tex">4\pi</script></span>, then the data will be mapped to a wider region of the feature space then if they were normalized with in <span class="arithmatex"><span class="MathJax_Preview">0</span><script type="math/tex">0</script></span> to <span class="arithmatex"><span class="MathJax_Preview">1</span><script type="math/tex">1</script></span> interval.</p>
+<h4 id="amplitude-encoding">Amplitude encoding</h4>
+<p>Alghouth the Angle encoding can take <span class="arithmatex"><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> inputs on <span class="arithmatex"><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> qubits, the Amplitude encoding can take <span class="arithmatex"><span class="MathJax_Preview">2^{x}</span><script type="math/tex">2^{x}</script></span> inputs when implemnted on an <span class="arithmatex"><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-qubit circuit. If the amplitude encoding feature map is given an input <span class="arithmatex"><span class="MathJax_Preview">x_{0}, \cdots, x_{2^{n}-1}</span><script type="math/tex">x_{0}, \cdots, x_{2^{n}-1}</script></span>, it simply prepares the state</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+| \phi(\overrightarrow{a}\rangle) = \frac{1}{\sqrt{\sum_{k}x_{k}^{2}}}\sum_{k=0}^{2^{n}-1}x_{k} |k\rangle.
+</div>
+<script type="math/tex; mode=display">
+| \phi(\overrightarrow{a}\rangle) = \frac{1}{\sqrt{\sum_{k}x_{k}^{2}}}\sum_{k=0}^{2^{n}-1}x_{k} |k\rangle.
+</script>
+</div>
+<p>As we were told in the basic quantum state, all quantum states need to be normalized vectors. And that's what we have done for this equation to make sure the output is, obviously, a quantum state. Also, we can tell from the formula, the amplititude encoding works for any inputs except for the zero vector since nothing can be divided by <span class="arithmatex"><span class="MathJax_Preview">0</span><script type="math/tex">0</script></span>.</p>
+<p>Normally, we don't use all the <span class="arithmatex"><span class="MathJax_Preview">2^{n}</span><script type="math/tex">2^{n}</script></span> parameters that amplititude encoding provides. Instead, we use some of them and fill the rest with zeros. If you want to use all <span class="arithmatex"><span class="MathJax_Preview">2^{n}</span><script type="math/tex">2^{n}</script></span> inputs for <span class="arithmatex"><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-qubits, you have to make sure that <span class="arithmatex"><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> is big enough to avoid loss information in <span class="arithmatex"><span class="MathJax_Preview">2^{n}-1</span><script type="math/tex">2^{n}-1</script></span> degree of freedom.</p>
+<h4 id="zz-feature-map">ZZ feature map</h4>
+<p><strong>ZZ feature map</strong> can take <span class="arithmatex"><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> inputs <span class="arithmatex"><span class="MathJax_Preview">a_{1}, \cdots, a_{n}</span><script type="math/tex">a_{1}, \cdots, a_{n}</script></span> on <span class="arithmatex"><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> qubits, just like angle embedding. Its parameterized circuit is constructed following these steps:</p>
+<ol>
+<li>Apply a Hadamard gate on each qubit.</li>
+<li>Apply a rotation <span class="arithmatex"><span class="MathJax_Preview">R_{Z}</span><script type="math/tex">R_{Z}</script></span> on each qubit <span class="arithmatex"><span class="MathJax_Preview">j</span><script type="math/tex">j</script></span>.</li>
+<li>For each pair of elements <span class="arithmatex"><span class="MathJax_Preview">\{j,k\}\subseteq\{1,\cdots,n\}</span><script type="math/tex">\{j,k\}\subseteq\{1,\cdots,n\}</script></span> with <span class="arithmatex"><span class="MathJax_Preview">j &lt; k</span><script type="math/tex">j < k</script></span>, do<ul>
+<li>Apply a CNOT gate targeting qubit <span class="arithmatex"><span class="MathJax_Preview">k</span><script type="math/tex">k</script></span> and controlled by qubit <span class="arithmatex"><span class="MathJax_Preview">j</span><script type="math/tex">j</script></span>. </li>
+<li>Apply a rotation <span class="arithmatex"><span class="MathJax_Preview">R_{Z} (2(\pi - x_{j})(\pi - x_{k}))</span><script type="math/tex">R_{Z} (2(\pi - x_{j})(\pi - x_{k}))</script></span> on each qubit.</li>
+<li>Apply a CNOT gate targeting qubit <span class="arithmatex"><span class="MathJax_Preview">k</span><script type="math/tex">k</script></span> and controlled by qubit <span class="arithmatex"><span class="MathJax_Preview">j</span><script type="math/tex">j</script></span>. </li>
+</ul>
+</li>
+</ol>
+<div style="text-align: center;">
+    <a class="glightbox" href="/QuantumOpt/images_QML/QSVM_6_ZZ_feature.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="/QuantumOpt/images_QML/QSVM_6_ZZ_feature.png" alt="QSVM_6_ZZ_feature" style="width: 800px; height: 300px;"></a>
+    <p style="font-size: 16px; font-style: italic; color: gray; margin-top: 5px;">
+        Figure. \( ZZ \) feature map three qubits with inputs \(x_{1}, x_{2}, x_{3} \).
+    </p>
+</div>
+
+<p>To guarantee a healthy balance between separating the extrema of the dataset and using as big a region a possible in the feature space, the variables could be normalized to [0,1].</p>
+<h2 id="quantum-support-vector-machines-in-pennylane">Quantum support vector machines in PennyLane</h2>
+<h2 id="quantum-support-vector-machines-in-qiskit">Quantum support vector machines in Qiskit</h2>
+<h1 id="reference">Reference</h1>
+<p>[1]. Combarro, E. F., &amp; González-Castillo, S. (2023). A practical guide to quantum machine learning and quantum optimisation: Hands-on approach to modern quantum algorithms. Packt Publishing.</p>
+<p>[2]. What are support vector machines (SVMs)? https://www.ibm.com/think/topics/support-vector-machine.</p>
+<p>[3]. <a href="https://en.wikipedia.org/wiki/Support_vector_machine">Support vector machine</a>By <a href="//commons.wikimedia.org/w/index.php?title=User:Larhmam&amp;action=edit&amp;redlink=1" class="new" title="User:Larhmam (page does not exist)">Larhmam</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=73710028">Link</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024-2025 <a href="https://github.com/pcchouCR97"  target="_blank" rel="noopener">Po-Chih Chou</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/pcchouCR97/mkdocs-material-tutorial" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/po-chih-chou-0638941ab/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.top", "search.highlight", "search.share", "math"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5090c770.min.js"></script>
+      
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.4/mermaid.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
